@@ -11,7 +11,7 @@ namespace ClassManager.Models
     /// </summary>
     public class Person
     {
-        public string Id { get; set; }                  // 数据库主键
+        public int Id { get; set; }                     // 数据库主键
         public string StudentNumber { get; set; }       // 学号
         public string Name { get; set; }                // 姓名
         public string Pinyin { get; set; }              // 拼音
