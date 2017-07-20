@@ -64,7 +64,7 @@ namespace ClassManager.Networks
         /// 发送 POST 请求，并以 String 形式获取返回数据
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="body">请求表单</param>
+        /// <param name="data">请求表单</param>
         /// <returns>响应数据</returns>
         public async static Task<String> SendPostRequest(string url, string body)
         {

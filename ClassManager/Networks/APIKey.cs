@@ -14,8 +14,11 @@ namespace ClassManager.Networks
         public static string Count = "count";
         public static string Results = "result";
 
+        public static string Status = "status";
+        
         public static class Person
         {
+            public static string Root = "person";
             public static string Id = "id";
             public static string Name = "name";
             public static string StudentNumber = "student_number";
@@ -31,6 +34,7 @@ namespace ClassManager.Networks
 
         public static class Activity
         {
+            public static string Root = "activity";
             public static string Id = "id";
             public static string Name = "name";
             public static string Content = "content";
@@ -41,5 +45,11 @@ namespace ClassManager.Networks
             public static string Participation = "participation";
             public static string Images = "images";
         }
+    }
+
+    public static class APIValue
+    {
+        public static string Success = "success";
+        public static string Fail = "fail";
     }
 }
