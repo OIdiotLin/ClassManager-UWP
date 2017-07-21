@@ -30,7 +30,7 @@ namespace ClassManager.Models
         {
             try
             {
-                JObject subjson = new JObject
+                JObject json = new JObject
                 {
                     { APIKey.Person.Id, this.Id },
                     { APIKey.Person.Name, this.Name },
@@ -43,11 +43,6 @@ namespace ClassManager.Models
                     { APIKey.Person.Birthday, this.Birthday },
                     { APIKey.Person.Position, this.Position },
                     { APIKey.Person.Participation, this.Participation }
-                };
-
-                JObject json = new JObject
-                {
-                    { APIKey.Person.Root, subjson }
                 };
 
                 return json;
