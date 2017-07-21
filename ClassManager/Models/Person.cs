@@ -26,7 +26,7 @@ namespace ClassManager.Models
         public string Position { get; set; }            // 职务
         public int Participation { get; set; }          // 活动参与分
 
-        public string ToJson()
+        public JObject ToJObject()
         {
             try
             {
@@ -50,12 +50,25 @@ namespace ClassManager.Models
                     { APIKey.Person.Root, subjson }
                 };
 
-                return json.ToString();
+                return json;
             }
             catch
             {
                 return null;
             }
+        }
+
+        public Person(JsonObject obj)
+        {
+            Id = (int)obj[APIKey.Person.Id].GetNumber();
+            StudentNumber = obj[APIKey.Person.StudentNumber].GetString();
+            Name = obj[APIKey.Person.Name].GetString();
+            Pinyin = obj[APIKey.Person.Pinyin].GetString();
+            Gender = obj[APIKey.Person.Gender].GetString();
+            NativeProvince = obj[APIKey.Person.NativeProvince].GetString();
+            Birthday = obj[APIKey.Person.Birthday].GetString();
+            Dormitory = obj[APIKey.Person.Dormitory].GetString();
+            Participation = (int)obj[APIKey.Person.Participation].GetNumber();
         }
     }
 }

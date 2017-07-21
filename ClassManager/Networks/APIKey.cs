@@ -19,6 +19,7 @@ namespace ClassManager.Networks
         public static class Person
         {
             public static string Root = "person";
+            public static string Target = "target_student_number";
             public static string Id = "id";
             public static string Name = "name";
             public static string StudentNumber = "student_number";
@@ -35,6 +36,7 @@ namespace ClassManager.Networks
         public static class Activity
         {
             public static string Root = "activity";
+            public static string Target = "target_id";
             public static string Id = "id";
             public static string Name = "name";
             public static string Content = "content";
