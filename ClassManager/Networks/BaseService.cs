@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
+using System.Security.Cryptography;
+
 namespace ClassManager.Networks
 {
     /// <summary>
@@ -75,6 +77,15 @@ namespace ClassManager.Networks
                 request.Content = new HttpStringContent(
                     body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json; charset=utf-8"
                 );
+
+                string token = "";
+                string buffer = body + Sensitive.token_key;
+                byte[] buffer_bytes = Encoding.UTF8.GetBytes(buffer);
+                byte[] md5buffer = MD5.Create().ComputeHash(buffer_bytes);
+                for (int i = 0; i < md5buffer.Length; i++)
+                    token += md5buffer[i].ToString("x2");
+
+                request.Headers.Add("token", token);
 
                 HttpClient client = new HttpClient();
 
