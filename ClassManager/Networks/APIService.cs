@@ -12,7 +12,7 @@ using Windows.Data.Json;
 namespace ClassManager.Networks
 {
     /// <summary>
-    /// api service. cast application/json to models
+    /// API
     /// </summary>
     public class APIService : APIBaseService
     {
@@ -21,10 +21,10 @@ namespace ClassManager.Networks
         /// <summary>
         /// 以管理员身份登录
         /// </summary>
-        /// <param name="pswd"></param>
-        /// <param name="rand"></param>
-        /// <returns>校验码 </returns>
-        public async Task<string> Login(string pswd, string rand)
+        /// <param name="pswd">密码</param>
+        /// <param name="rand">随机补位码</param>
+        /// <returns>登录是否成功</returns>
+        public async Task<bool> Login(string pswd, string rand)
         {
             try
             {
@@ -42,21 +42,21 @@ namespace ClassManager.Networks
                 {
                     if (json.ContainsKey(APIKey.Permission.CheckCode))
                     {
-                        return json[APIKey.Permission.CheckCode].GetString();
+                        return json[APIKey.Permission.CheckCode].GetString() == Crypto.MD5(obj.ToString());
                     }
                     else
                     {
-                        return null;
+                        return false;
                     }
                 }
                 else
                 {
-                    return null;
+                    return false;
                 }
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
