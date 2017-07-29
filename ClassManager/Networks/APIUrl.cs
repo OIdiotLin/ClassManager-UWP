@@ -53,5 +53,11 @@ namespace ClassManager.Networks
             public static string GetUploadToken = prefix + "get_upload_token/";
         }
 
+        public static class Permission
+        {
+            // GET - 登录认证
+            public static string Login = prefix + "login/";
+        }
+
     }
 }

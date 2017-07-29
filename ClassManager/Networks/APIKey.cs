@@ -47,6 +47,13 @@ namespace ClassManager.Networks
             public static string Participation = "participation";
             public static string Images = "images";
         }
+
+        public static class Permission
+        {
+            public static string RandCode = "rand_code";
+            public static string Password = "password";
+            public static string CheckCode = "check_code";
+        }
     }
 
     public static class APIValue

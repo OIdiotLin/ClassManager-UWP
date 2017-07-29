@@ -1,4 +1,5 @@
 ﻿using ClassManager.Models;
+using ClassManager.Utils;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -16,6 +17,48 @@ namespace ClassManager.Networks
     public class APIService : APIBaseService
     {
         private string localPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+
+        /// <summary>
+        /// 以管理员身份登录
+        /// </summary>
+        /// <param name="pswd"></param>
+        /// <param name="rand"></param>
+        /// <returns>校验码 </returns>
+        public async Task<string> Login(string pswd, string rand)
+        {
+            try
+            {
+                string url = APIUrl.Permission.Login;
+                JObject obj = new JObject
+                {
+                    { APIKey.Permission.Password, pswd },
+                    { APIKey.Permission.RandCode, rand }
+                };
+                string body = Crypto.MD5(obj.ToString(), Sensitive.token_key);
+
+                JsonObject json = await GetJsonByPost(url, body);
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Permission.CheckCode))
+                    {
+                        return json[APIKey.Permission.CheckCode].GetString();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 获取满足过滤器的 Person 列表
