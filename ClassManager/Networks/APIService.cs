@@ -34,15 +34,15 @@ namespace ClassManager.Networks
                     { APIKey.Permission.Password, pswd },
                     { APIKey.Permission.RandCode, rand }
                 };
-                string body = Crypto.MD5(obj.ToString(), Sensitive.token_key);
 
-                JsonObject json = await GetJsonByPost(url, body);
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
 
                 if (json != null)
                 {
-                    if (json.ContainsKey(APIKey.Permission.CheckCode))
+                    if (json.ContainsKey(APIKey.Permission.Token))
                     {
-                        return json[APIKey.Permission.CheckCode].GetString() == Crypto.MD5(obj.ToString());
+                        App.token = json[APIKey.Permission.Token].GetString();
+                        return true;
                     }
                     else
                     {

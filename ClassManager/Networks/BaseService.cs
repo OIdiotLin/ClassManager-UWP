@@ -79,7 +79,7 @@ namespace ClassManager.Networks
                     body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json; charset=utf-8"
                 );
 
-                string token = Crypto.MD5(body, Sensitive.token_key);
+                string token = Crypto.MD5(body, App.token);
 
                 request.Headers.Add("token", token);
 

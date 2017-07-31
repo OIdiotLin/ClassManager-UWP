@@ -52,7 +52,7 @@ namespace ClassManager.Networks
         {
             public static string RandCode = "rand_code";
             public static string Password = "password";
-            public static string CheckCode = "check_code";
+            public static string Token = "check_code";
         }
     }
 
