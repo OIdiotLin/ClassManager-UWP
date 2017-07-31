@@ -50,8 +50,8 @@ namespace ClassManager.Views
             float centerX = (float)Window.Current.Bounds.Width / 2;
             float centerY = (float)Window.Current.Bounds.Width / 2;
 
-            await Background.Scale(scaleX: 1.5f, scaleY: 1.5f, centerX: centerX, centerY: centerY, duration: 0).StartAsync();
-            var animBG = Background.Scale(scaleX: 1f, scaleY: 1f, centerX: centerX, centerY: centerY)
+            await BackgroundPic.Scale(scaleX: 1.5f, scaleY: 1.5f, centerX: centerX, centerY: centerY, duration: 0).StartAsync();
+            var animBG = BackgroundPic.Scale(scaleX: 1f, scaleY: 1f, centerX: centerX, centerY: centerY)
                                  .Blur(value: 15);
             animBG.SetDurationForAll(10000);
             animBG.Start();

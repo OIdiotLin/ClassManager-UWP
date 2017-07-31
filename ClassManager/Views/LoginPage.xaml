@@ -14,7 +14,7 @@
 
     <RelativePanel x:Name="BackgroundPanel"
                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Image x:Name="Background"
+        <Image x:Name="BackgroundPic"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Stretch="UniformToFill"
