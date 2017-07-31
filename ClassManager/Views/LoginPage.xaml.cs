@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using ClassManager.ViewModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,11 +25,26 @@ namespace ClassManager.Views
     /// </summary>
     public sealed partial class LoginPage : Page
     {
+        /// <summary>
+        /// ViewModel
+        /// </summary>
+        private LoginViewModel vm;
+
         public LoginPage()
         {
             this.InitializeComponent();
+
+            vm = new LoginViewModel();
+
+            LoginAsVisitorEnterButton.FontSize = 20;
+            LoginAsAdminEnterButton.FontSize = 20;
         }
 
+        /// <summary>
+        /// 载入页面时的动画效果，渐变下沉
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             float centerX = (float)Window.Current.Bounds.Width / 2;
@@ -44,23 +61,67 @@ namespace ClassManager.Views
             await LoginAsAdminPanel.Fade(value: 0, duration: 0).StartAsync();
 
             var animLogo = Logo.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(1500);
-            var animVisitorPanel = LoginAsVisitorPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(3500);
-            var animAdminPanel = LoginAsAdminPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(4000);
+            var animAdminPanel = LoginAsAdminPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(2500);
+            var animVisitorPanel = LoginAsVisitorPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(3000);
 
             animLogo.Start();
             animVisitorPanel.Start();
             animAdminPanel.Start();
+
+            PasswordTextBox.Focus(FocusState.Pointer);
         }
 
-        private void LoginAsVisitorButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 跳转到主页面
+        /// </summary>
+        private void NavigateToMainPage()
         {
-
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(MainPage));
+        }
+                
+        private void LoginAsAdminEnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Login();
         }
 
-        private async void LoginAsAdminButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 登录
+        /// </summary>
+        private void Login()
         {
-            Background.Blur(value: 15, duration: 10000).Start();
-            await Background.Scale(scaleX: 1, scaleY: 1, centerX: 350, centerY: 236, duration: 10000).StartAsync();
+            LoginAsAdminProgressRing.IsActive = true;
+            vm.Login(PasswordTextBox.Password);
+            if (vm.IsLoginSuccess)
+            {
+                NavigateToMainPage();
+            }
+            else
+            {
+                LoginAsAdminProgressRing.IsActive = false;
+                DisplayLoginAsAdminFailDialog();
+                PasswordTextBox.Password = string.Empty;
+                PasswordTextBox.Focus(FocusState.Pointer);
+            }
+        }
+
+        /// <summary>
+        /// 管理员登录失败时弹出对话框
+        /// </summary>
+        private async void DisplayLoginAsAdminFailDialog()
+        {
+            var dialog = new ContentDialog()
+            {
+                Content = App.reswLoader.GetString("LoginFailDialog_Content"),
+                Title = App.reswLoader.GetString("LoginFailDialog_Title"),
+                PrimaryButtonText = App.reswLoader.GetString("LoginFailDialog_ButtonText")
+            };
+            await dialog.ShowAsync();
+        }
+
+        private void LoginAsVisitorEnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigateToMainPage();
         }
     }
 }

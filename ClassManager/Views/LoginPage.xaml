@@ -24,58 +24,91 @@
         <Image x:Name="Logo"
                Source="/Assets/logo/logo.png"
                Height="160" Width="160"
-               RelativePanel.Above="LoginAsVisitorPanel"
+               RelativePanel.Above="LoginAsAdminPanel"
                Stretch="UniformToFill"
                Margin="0,0,0,30"
                RelativePanel.AlignHorizontalCenterWithPanel="True" />
 
-        <StackPanel x:Name="LoginAsVisitorPanel"
-                    Orientation="Horizontal"
-                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+
+        <StackPanel x:Name="LoginAsAdminPanel"
+                    Orientation="Vertical"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Width="Auto" Height="Auto"
-                    Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    Width="260" Height="Auto"
+                    Background="{ThemeResource SystemControlForegroundListMediumBrush}"
                     Opacity="0.5"
                     CornerRadius="15"
                     Padding="15"
                     Margin="0,0,0,10">
-            <!-- Login as visitor -->
-            <TextBlock x:Name="LoginAsVisitorTextBlock"
-                       x:Uid="MDL2"
-                       Text="&#xE1A6;"
-                       Margin="0,0,20,0" />
-            <Button x:Name="LoginAsVisitorButton"
-                    x:Uid="LoginAsVisitor"
-                    Height="Auto" Width="Auto"
-                    Background="Transparent"
-                    FontSize="24"
-                    Click="LoginAsVisitorButton_Click">
-            </Button>
+            <!-- Login as administrator -->
+            <StackPanel x:Name="LoginAsAdminButtonPanel"
+                        Orientation="Horizontal">
+                <TextBlock x:Name="LoginAsAdminTextBlock"
+                           x:Uid="MDL2"
+                           Foreground="White"
+                           Text="&#xE1A7;" 
+                           Margin="0,0,12,0" />
+                <Button x:Name="LoginAsAdminButton"
+                        x:Uid="LoginAsAdmin"
+                        Height="Auto" Width="Auto"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="24"
+                        VerticalContentAlignment="Center"/>
+                <ProgressRing x:Name="LoginAsAdminProgressRing"/>
+            </StackPanel>
+            <StackPanel x:Name="PasswordPanel" Orientation="Horizontal"
+                        Margin="0,10,0,0">
+                <TextBlock x:Name="PasswordTextBlock"
+                           x:Uid="MDL2"
+                           Foreground="White"
+                           Text="&#xE8D7;" 
+                           Margin="0,0,12,0" />
+                <PasswordBox x:Name="PasswordTextBox"
+                             x:Uid="Password"
+                             BorderThickness="1"
+                             VerticalContentAlignment="Center"
+                             Height="20" Width="130" />
+                <Button x:Name="LoginAsAdminEnterButton"
+                        x:Uid="MDL2"
+                        Foreground="White"
+                        Content="&#xE0AB;"
+                        Click="LoginAsAdminEnterButton_Click"/>
+            </StackPanel>
         </StackPanel>
 
 
-        <StackPanel x:Name="LoginAsAdminPanel"
+        <StackPanel x:Name="LoginAsVisitorPanel"
                     Orientation="Horizontal"
-                    RelativePanel.Below="LoginAsVisitorPanel"
                     RelativePanel.AlignHorizontalCenterWithPanel="True"
-                    Width="Auto" Height="Auto"
+                    RelativePanel.Below="LoginAsAdminPanel"
+                    Width="260" Height="Auto"
                     Background="{ThemeResource SystemControlForegroundListMediumBrush}"
                     Opacity="0.5"
                     CornerRadius="15"
                     Padding="15">
-            <!-- Login as administrator -->
-            <TextBlock x:Name="LoginAsAdminTextBlock"
+            <!-- Login as visitor -->
+            <TextBlock x:Name="LoginAsVisitorTextBlock"
                        x:Uid="MDL2"
-                       Text="&#xE1A7;" 
-                       Margin="0,0,20,0" />
-            <Button x:Name="LoginAsAdminButton"
-                    x:Uid="LoginAsAdmin"
+                       Text="&#xE1A6;"
+                       Foreground="White"
+                       Margin="0,0,12,0" />
+            <Button x:Name="LoginAsVisitorButton"
+                    x:Uid="LoginAsVisitor"
                     Height="Auto" Width="Auto"
                     Background="Transparent"
-                    FontSize="24"
-                    Click="LoginAsAdminButton_Click"/>
+                    Foreground="White"
+                    FontSize="24" />
+            <Button x:Name="LoginAsVisitorEnterButton"
+                    x:Uid="MDL2"
+                    Margin="14,0,0,0"
+                    FontSize="20sp"
+                    Foreground="White"
+                    Content="&#xE0AB;" 
+                    Click="LoginAsVisitorEnterButton_Click"/>
+
         </StackPanel>
-        
+
         <TextBlock x:Uid="Copyright" 
                    RelativePanel.AlignBottomWithPanel="True"
                    Margin="10"/>
