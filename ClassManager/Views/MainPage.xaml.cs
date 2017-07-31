@@ -25,24 +25,14 @@ namespace ClassManager
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private APIService api = new APIService();
-        private List<Person> persons;
-        private List<Activity> activities;
-
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        private async void Button1_Click(object sender, RoutedEventArgs e)
+        private void Menu_ItemClick(object sender, ItemClickEventArgs e)
         {
-            activities = await api.GetActivityList();
-            Activity newone = new Activity(activities[0]);
-            newone.Participation = 5;
-            bool status = await api.UpdateActivity(activities[0].Id, newone);
-            await api.GetActivityList();
-            if (status == true)
-                img.Source = new BitmapImage { UriSource = new Uri(activities[0].ImagesUrl) };
+
         }
     }
 }

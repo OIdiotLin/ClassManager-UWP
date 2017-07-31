@@ -8,17 +8,70 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
-        <Button x:Name="button1" Content="Test API" 
-                Height="50" Width="200"
-                Click="Button1_Click"/>
-        <TextBlock x:Name="textbox1" RelativePanel.Below="button1" 
-                   Height="Auto" Width="600"
-                   TextWrapping="Wrap"/>
-        <controls:ImageEx x:Name="img"
-                          RelativePanel.Below="textbox1"
-                          Stretch="Uniform"
-                          PlaceholderSource="/Assets/logo/LargeTile.scale-100.png"
-                          PlaceholderStretch="None" />
-    </RelativePanel>
+    <Page.Resources>
+        <!-- 汉堡菜单 -->
+        <DataTemplate x:Key="HamburgerMenuItem"
+                      x:DataType="controls:HamburgerMenuGlyphItem">
+            <Grid Height="55"
+                  Margin="16,0,0,0"
+                  VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           FontFamily="Segoe MDL2 Assets"
+                           Text="{x:Bind Glyph}"
+                           Foreground="White" />
+                <TextBlock Grid.Column="1"
+                           FontSize="18"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Text="{x:Bind Label}"
+                           Margin="20,0,0,0"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <controls:HamburgerMenu x:Name="Menu"
+                                Foreground="White"
+                                PaneBackground="CadetBlue"
+                                ItemTemplate="{StaticResource HamburgerMenuItem}"
+                                OptionsItemTemplate="{StaticResource HamburgerMenuItem}"
+                                ItemClick="Menu_ItemClick"
+                                OptionsItemClick="Menu_ItemClick"
+                                CompactPaneLength="48"
+                                HamburgerHeight="48"
+                                OpenPaneLength="200"
+                                HamburgerVisibility="Visible"
+                                DisplayMode="CompactInline"
+                                IsPaneOpen="False">
+            <controls:HamburgerMenu.ItemsSource>
+                <controls:HamburgerMenuItemCollection>
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Person"
+                                                     Glyph="&#xE716;"/>
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Activity"
+                                                     Glyph="&#xE7C1;"/>
+                </controls:HamburgerMenuItemCollection>
+            </controls:HamburgerMenu.ItemsSource>
+            
+            <controls:HamburgerMenu.OptionsItemsSource>
+                <controls:HamburgerMenuItemCollection>
+                    <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Account"
+                                                     Glyph="&#xE748;" />
+                    <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Setting"
+                                                     Glyph="&#xE713;" />
+                </controls:HamburgerMenuItemCollection>
+            </controls:HamburgerMenu.OptionsItemsSource>
+
+            <!-- Main Frame -->
+            <Frame x:Name="MainFrame" Background="Yellow">
+
+            </Frame>
+            
+        </controls:HamburgerMenu>
+    </Grid>
 </Page>

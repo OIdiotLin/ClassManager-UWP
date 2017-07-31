@@ -41,7 +41,7 @@ namespace ClassManager.Networks
         /// <param name="remoteFilename">filename of Qiniu target file</param>
         public void UploadFile(string localFilename, string remoteFilename)
         {
-            string uploadToken = Sensitive.token_key;
+            string uploadToken = App.token;
         }
     }
 }

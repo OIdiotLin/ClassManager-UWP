@@ -96,6 +96,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EmptyTitleControl.xaml.cs">
+      <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Networks\APIBaseService.cs" />
@@ -104,7 +107,13 @@
     <Compile Include="Networks\BaseService.cs" />
     <Compile Include="Networks\APIKey.cs" />
     <Compile Include="Networks\QiniuManager.cs" />
-    <Compile Include="Sensitive.cs" />
+    <Compile Include="Utils\Crypto.cs" />
+    <Compile Include="Utils\Rand.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -114,6 +123,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Assets\zh-CN\Resources.resw" />
     <None Include="ClassManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +131,7 @@
     <Content Include="Assets\logo\LargeTile.scale-150.png" />
     <Content Include="Assets\logo\LargeTile.scale-200.png" />
     <Content Include="Assets\logo\LargeTile.scale-400.png" />
+    <Content Include="Assets\logo\logo.png" />
     <Content Include="Assets\logo\SmallTile.scale-100.png" />
     <Content Include="Assets\logo\SmallTile.scale-150.png" />
     <Content Include="Assets\logo\SmallTile.scale-200.png" />
@@ -149,6 +160,7 @@
     <Content Include="Assets\logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Pictures\Gates.jpg" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +168,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\EmptyTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,7 +186,7 @@
       <Version>5.2.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>1.5.0</Version>
+      <Version>1.5.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
@@ -175,9 +195,7 @@
       <Version>7.2.15</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
