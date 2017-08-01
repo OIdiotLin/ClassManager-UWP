@@ -36,7 +36,8 @@ namespace ClassManager.Views
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedFrom(e);
+            base.OnNavigatedTo(e);
+
             App.token = string.Empty;
         }
 
