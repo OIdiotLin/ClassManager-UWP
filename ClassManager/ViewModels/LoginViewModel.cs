@@ -30,7 +30,7 @@ namespace ClassManager.ViewModels
         /// 以管理员身份登录
         /// </summary>
         /// <param name="password">密码</param>
-        public async void Login(string password)
+        public async Task Login(string password)
         {
             IsLoginSuccess = await api.Login(password, Rand.RandomString());
         }

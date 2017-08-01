@@ -30,6 +30,16 @@ namespace ClassManager.Views
         /// </summary>
         private LoginViewModel vm;
 
+        /// <summary>
+        /// 清除 token
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            App.token = string.Empty;
+        }
+
         public LoginPage()
         {
             this.InitializeComponent();
@@ -60,9 +70,9 @@ namespace ClassManager.Views
             await LoginAsVisitorPanel.Fade(value: 0, duration: 0).StartAsync();
             await LoginAsAdminPanel.Fade(value: 0, duration: 0).StartAsync();
 
-            var animLogo = Logo.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(1500);
-            var animAdminPanel = LoginAsAdminPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(2500);
-            var animVisitorPanel = LoginAsVisitorPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(3000);
+            var animLogo = Logo.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(1000);
+            var animAdminPanel = LoginAsAdminPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(2000);
+            var animVisitorPanel = LoginAsVisitorPanel.Offset(offsetY: 20).Fade(value: 1).SetDurationForAll(3000).SetDelayForAll(2500);
 
             animLogo.Start();
             animVisitorPanel.Start();
@@ -88,10 +98,10 @@ namespace ClassManager.Views
         /// <summary>
         /// 登录
         /// </summary>
-        private void Login()
+        private async void Login()
         {
             LoginAsAdminProgressRing.IsActive = true;
-            vm.Login(PasswordTextBox.Password);
+            await vm.Login(PasswordTextBox.Password);
             if (vm.IsLoginSuccess)
             {
                 NavigateToMainPage();
