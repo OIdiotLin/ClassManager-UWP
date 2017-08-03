@@ -19,7 +19,7 @@ namespace ClassManager.Models
         public string StudentNumber { get; set; }       // 学号
         public string Name { get; set; }                // 姓名
         public string Pinyin { get; set; }              // 拼音
-        public string Gender { get; set; }              // 性别（F/M）
+        public string Gender { get; set; }              // 性别
         public string NativeProvince { get; set; }      // 籍贯
         public string Dormitory { get; set; }           // 寝室号
         public string Birthday { get; set; }            // 生日（公历）
@@ -46,7 +46,7 @@ namespace ClassManager.Models
                     { APIKey.Person.Name, this.Name },
                     { APIKey.Person.StudentNumber,this.StudentNumber },
                     { APIKey.Person.Pinyin, this.Pinyin },
-                    { APIKey.Person.Gender, this.Gender },
+                    { APIKey.Person.Gender, this.Gender == "男" ? "M" : "F"},
                     { APIKey.Person.NativeProvince, this.NativeProvince },
                     { APIKey.Person.Dormitory, this.Dormitory },
                     { APIKey.Person.PhoneNumber, this.PhoneNumber },
@@ -69,7 +69,7 @@ namespace ClassManager.Models
             StudentNumber = obj[APIKey.Person.StudentNumber].GetString();
             Name = obj[APIKey.Person.Name].GetString();
             Pinyin = obj[APIKey.Person.Pinyin].GetString();
-            Gender = obj[APIKey.Person.Gender].GetString();
+            Gender = obj[APIKey.Person.Gender].GetString() == "M" ? "男" : "女";
             NativeProvince = obj[APIKey.Person.NativeProvince].GetString();
             Birthday = obj[APIKey.Person.Birthday].GetString();
             Dormitory = obj[APIKey.Person.Dormitory].GetString();
