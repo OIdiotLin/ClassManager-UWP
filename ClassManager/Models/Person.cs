@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,15 @@ namespace ClassManager.Models
         public string PhoneNumber { get; set; }         // 手机号
         public string Position { get; set; }            // 职务
         public int Participation { get; set; }          // 活动参与分
+
+        /// <summary>
+        /// 姓氏首字
+        /// </summary>
+        public string LastName {
+            get {
+                return Pinyin[0].ToString();
+            }
+        }
 
         public JObject ToJObject()
         {
@@ -64,6 +74,24 @@ namespace ClassManager.Models
             Birthday = obj[APIKey.Person.Birthday].GetString();
             Dormitory = obj[APIKey.Person.Dormitory].GetString();
             Participation = (int)obj[APIKey.Person.Participation].GetNumber();
+            PhoneNumber = obj[APIKey.Person.PhoneNumber].GetString();
+            Position = obj[APIKey.Person.Position].GetString();
         }
+    }
+
+    /// <summary>
+    /// 学生分组
+    /// </summary>
+    public class PersonGroup
+    {
+        public PersonGroup(string name)
+        {
+            this.LastName = name;
+            this.Items = new ObservableCollection<Person>();
+        }
+
+        public string LastName { get; private set; }
+        public ObservableCollection<Person> Items { get; private set; }
+        
     }
 }
