@@ -19,8 +19,7 @@
             <Grid BorderBrush="Black"
                   BorderThickness="1"
                   Background="White">
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
-                           Margin="5" />
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
             </Grid>
         </DataTemplate>
 
@@ -41,23 +40,30 @@
         <DataTemplate x:Key="ZoomedOutTemplate" x:DataType="ICollectionViewGroup">
             <TextBlock Text="{x:Bind Group.(data:PersonGroup.LastName), Mode=OneWay}" 
                        Style="{StaticResource SubtitleTextBlockStyle}"
+                       Foreground="{ThemeResource SystemAccentColor}"
                        Height="25" Width="25"
                        Margin="5"
                        TextAlignment="Center"/>
         </DataTemplate>
     </Page.Resources>
-    
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
+        <ProgressRing x:Name="LoadingDataProgressRing"
+                      Grid.Column="0" Grid.Row="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+        
+        <!-- 菜单 -->
         <SemanticZoom x:Name="PersonSemanticZoom"
                       Grid.Column="0" Grid.Row="0"
                       Background="AliceBlue">
@@ -66,7 +72,9 @@
                                            ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                                            StretchContentForSingleRow="True"
                                            DesiredWidth="80"
+                                           Margin="10,0,0,0"
                                            SelectionMode="Single"
+                                           SelectionChanged="AdaptiveGridView_SelectionChanged"
                                            ItemTemplate="{StaticResource ZoomedInTemplate}">
                     <controls:AdaptiveGridView.GroupStyle>
                         <GroupStyle HeaderTemplate="{StaticResource ZoomedInGroupHeaderTemplate}" />
@@ -78,13 +86,90 @@
                 <controls:AdaptiveGridView ItemsSource="{x:Bind PersonGroups.View.CollectionGroups, Mode=OneWay}"
                                            SelectionMode="Single"
                                            ItemHeight="20"
-                                           DesiredWidth="20"
                                            HorizontalContentAlignment="Center"
                                            VerticalContentAlignment="Center"
-                                           ItemTemplate="{StaticResource ZoomedOutTemplate}"
-                                           OneRowModeEnabled="False">
+                                           ItemTemplate="{StaticResource ZoomedOutTemplate}">
                 </controls:AdaptiveGridView>
             </SemanticZoom.ZoomedOutView>
         </SemanticZoom>
+
+        <!-- 搜索栏 -->
+        <RelativePanel x:Name="SearchRelativePanel"
+                       Grid.Column="0" Grid.Row="1"
+                       Padding="5"
+                       Background="AliceBlue">
+            <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find"
+                            Width="155"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"/>
+        </RelativePanel>
+        
+        <!-- 详细信息 -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Column="1" Grid.Row="0">
+            <Grid x:Name="PersonInfoPanel"
+                    Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                    <RowDefinition Height="72" />
+                </Grid.RowDefinitions>
+                <TextBox x:Uid="PersonInfo_Name"
+                         Grid.Row="0" Grid.Column="0"
+                         Text="{x:Bind vm.personOnDisplay.Name, Mode=TwoWay}" 
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_Pinyin"
+                         Grid.Row="0" Grid.Column="1"
+                         Text="{x:Bind vm.personOnDisplay.Pinyin, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="10,0,0,12" />
+                <TextBox x:Uid="PersonInfo_StudentNumber"
+                         Grid.Row="1" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.StudentNumber, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_Gender"
+                         Grid.Row="2" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.Gender, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_Dormitory"
+                         Grid.Row="3" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.Dormitory, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_NativeProvince"
+                         Grid.Row="4" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.NativeProvince, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_PhoneNumber"
+                         Grid.Row="5" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.PhoneNumber, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_Birthday"
+                         Grid.Row="6" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.Birthday, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12" />
+                <TextBox x:Uid="PersonInfo_Participation"
+                         Grid.Row="7" Grid.ColumnSpan="2"
+                         Text="{x:Bind vm.personOnDisplay.Participation, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,12"  />
+            </Grid>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

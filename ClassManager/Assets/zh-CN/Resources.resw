@@ -159,4 +159,31 @@
   <data name="Password.PlaceholderText" xml:space="preserve">
     <value>请输入密码</value>
   </data>
+  <data name="PersonInfo_Birthday.Header" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="PersonInfo_Dormitory.Header" xml:space="preserve">
+    <value>寝室</value>
+  </data>
+  <data name="PersonInfo_Gender.Header" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="PersonInfo_Name.Header" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="PersonInfo_NativeProvince.Header" xml:space="preserve">
+    <value>籍贯</value>
+  </data>
+  <data name="PersonInfo_Participation.Header" xml:space="preserve">
+    <value>活动参与积分</value>
+  </data>
+  <data name="PersonInfo_PhoneNumber.Header" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="PersonInfo_Pinyin.Header" xml:space="preserve">
+    <value>拼音</value>
+  </data>
+  <data name="PersonInfo_StudentNumber.Header" xml:space="preserve">
+    <value>学号</value>
+  </data>
 </root>

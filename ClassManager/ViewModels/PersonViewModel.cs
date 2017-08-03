@@ -53,6 +53,20 @@ namespace ClassManager.ViewModels
             }
         }
 
+        /// <summary>
+        /// 被选中的学生
+        /// </summary>
+        private Person _person_on_display;
+        public Person personOnDisplay {
+            get {
+                return _person_on_display;
+            }
+            set {
+                this._person_on_display = value;
+                OnPropertyChanged();
+            }
+        }
+
         public async Task Init()
         {
             await RefreshPersons();

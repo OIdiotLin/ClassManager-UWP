@@ -39,9 +39,16 @@ namespace ClassManager.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            LoadingDataProgressRing.IsActive = true;
             await vm.Init();    // 更新 viewmodel
+            LoadingDataProgressRing.IsActive = false;
         }
 
+        private void AdaptiveGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            vm.personOnDisplay = e.AddedItems.FirstOrDefault() as Person;
+        }
     }
     
 }
