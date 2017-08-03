@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -57,6 +58,8 @@ namespace ClassManager
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            SetTitleBar();
+
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
@@ -87,6 +90,28 @@ namespace ClassManager
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
+        }
+
+        void SetTitleBar()
+        {
+            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+
+            var accentBrush = (Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color;
+            view.TitleBar.BackgroundColor = accentBrush;
+            view.TitleBar.ForegroundColor = Colors.White;
+
+            // button
+            view.TitleBar.ButtonBackgroundColor = accentBrush;
+            view.TitleBar.ButtonForegroundColor = Colors.White;
+
+            view.TitleBar.ButtonHoverBackgroundColor = Colors.LightSkyBlue;
+            view.TitleBar.ButtonHoverForegroundColor = Colors.White;
+
+            view.TitleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 0, 0, 120);
+            view.TitleBar.ButtonPressedForegroundColor = Colors.White;
+
+            view.TitleBar.ButtonInactiveBackgroundColor = Colors.DarkGray;
+            view.TitleBar.ButtonInactiveForegroundColor = Colors.Gray;
         }
 
         /// <summary>
