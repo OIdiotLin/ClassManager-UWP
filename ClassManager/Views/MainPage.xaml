@@ -27,11 +27,11 @@
                            Text="{x:Bind Glyph}"
                            Foreground="White" />
                 <TextBlock Grid.Column="1"
-                           FontSize="18"
+                           FontSize="15"
                            Foreground="White"
                            VerticalAlignment="Center"
                            Text="{x:Bind Label}"
-                           Margin="20,0,0,0"/>
+                           Margin="15,0,0,0"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -46,9 +46,9 @@
                                 OptionsItemClick="Menu_ItemClick"
                                 CompactPaneLength="48"
                                 HamburgerHeight="48"
-                                OpenPaneLength="200"
+                                OpenPaneLength="120"
                                 HamburgerVisibility="Visible"
-                                DisplayMode="CompactInline"
+                                DisplayMode="CompactOverlay"
                                 IsPaneOpen="False">
             <controls:HamburgerMenu.ItemsSource>
                 <controls:HamburgerMenuItemCollection>
@@ -62,17 +62,17 @@
             
             <controls:HamburgerMenu.OptionsItemsSource>
                 <controls:HamburgerMenuItemCollection>
-                    <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Account"
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Account"
                                                      Tag="Account"
                                                      Glyph="&#xE748;"
                                                      TargetPageType="views:LoginPage"/>
-                    <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Setting"
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Setting"
                                                      Glyph="&#xE713;" />
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.OptionsItemsSource>
 
             <!-- Main Frame -->
-            <Frame x:Name="MainFrame" Background="Yellow" Content="sefsef"/>
+            <Frame x:Name="MainFrame" SourcePageType="views:PersonPage"/>
 
 
         </controls:HamburgerMenu>
