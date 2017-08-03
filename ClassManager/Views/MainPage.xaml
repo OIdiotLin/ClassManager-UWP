@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:views="using:ClassManager.Views"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -52,7 +53,8 @@
             <controls:HamburgerMenu.ItemsSource>
                 <controls:HamburgerMenuItemCollection>
                     <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Person"
-                                                     Glyph="&#xE716;"/>
+                                                     Glyph="&#xE716;"
+                                                     TargetPageType="views:PersonPage"/>
                     <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Activity"
                                                      Glyph="&#xE7C1;"/>
                 </controls:HamburgerMenuItemCollection>
@@ -61,17 +63,18 @@
             <controls:HamburgerMenu.OptionsItemsSource>
                 <controls:HamburgerMenuItemCollection>
                     <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Account"
-                                                     Glyph="&#xE748;" />
+                                                     Tag="Account"
+                                                     Glyph="&#xE748;"
+                                                     TargetPageType="views:LoginPage"/>
                     <controls:HamburgerMenuGlyphItem Label="HamburgerMenuItem_Setting"
                                                      Glyph="&#xE713;" />
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.OptionsItemsSource>
 
             <!-- Main Frame -->
-            <Frame x:Name="MainFrame" Background="Yellow">
+            <Frame x:Name="MainFrame" Background="Yellow" Content="sefsef"/>
 
-            </Frame>
-            
+
         </controls:HamburgerMenu>
     </Grid>
 </Page>

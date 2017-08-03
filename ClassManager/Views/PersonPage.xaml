@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="ClassManager.Views.PersonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:viewmodels="using:ClassManager.ViewModels"
+    xmlns:data="using:ClassManager.Models"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="PersonGroups" Source="{x:Bind vm.Groups, Mode=OneWay}"
+                              IsSourceGrouped="True" 
+                              ItemsPath="Items"/>
+
+        <DataTemplate x:Key="AdaptiveGridViewItemsTemplate" x:DataType="data:Person">
+            <Grid BorderBrush="Black"
+                  BorderThickness="1"
+                  Background="White">
+                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                           Margin="5" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ZoomedInTemplate" x:DataType="data:Person">
+            <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Microsoft YaHei UI"
+                       Margin="15"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ZoomedInGroupHeaderTemplate" x:DataType="data:PersonGroup">
+            <TextBlock Text="{x:Bind LastName, Mode=OneWay}" 
+                       Foreground="{ThemeResource SystemAccentColor}"
+                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ZoomedOutTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock Text="{x:Bind Group.(data:PersonGroup.LastName), Mode=OneWay}" 
+                       Style="{StaticResource SubtitleTextBlockStyle}"
+                       Height="25" Width="25"
+                       Margin="5"
+                       TextAlignment="Center"/>
+        </DataTemplate>
+    </Page.Resources>
+    
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <SemanticZoom x:Name="PersonSemanticZoom"
+                      Grid.Column="0" Grid.Row="0"
+                      Background="AliceBlue">
+            <SemanticZoom.ZoomedInView>
+                <controls:AdaptiveGridView ItemsSource="{x:Bind PersonGroups.View, Mode=OneWay}"
+                                           ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                           StretchContentForSingleRow="True"
+                                           DesiredWidth="80"
+                                           SelectionMode="Single"
+                                           ItemTemplate="{StaticResource ZoomedInTemplate}">
+                    <controls:AdaptiveGridView.GroupStyle>
+                        <GroupStyle HeaderTemplate="{StaticResource ZoomedInGroupHeaderTemplate}" />
+                    </controls:AdaptiveGridView.GroupStyle>
+                </controls:AdaptiveGridView>
+            </SemanticZoom.ZoomedInView>
+
+            <SemanticZoom.ZoomedOutView>
+                <controls:AdaptiveGridView ItemsSource="{x:Bind PersonGroups.View.CollectionGroups, Mode=OneWay}"
+                                           SelectionMode="Single"
+                                           ItemHeight="20"
+                                           DesiredWidth="20"
+                                           HorizontalContentAlignment="Center"
+                                           VerticalContentAlignment="Center"
+                                           ItemTemplate="{StaticResource ZoomedOutTemplate}"
+                                           OneRowModeEnabled="False">
+                </controls:AdaptiveGridView>
+            </SemanticZoom.ZoomedOutView>
+        </SemanticZoom>
+    </Grid>
+</Page>

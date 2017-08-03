@@ -1,5 +1,8 @@
 ﻿using ClassManager.Models;
 using ClassManager.Networks;
+using ClassManager.ViewModels;
+using ClassManager.Views;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,14 +28,35 @@ namespace ClassManager
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainViewModel vm;
+
         public MainPage()
         {
             this.InitializeComponent();
+            vm = new MainViewModel();
         }
 
+        /// <summary>
+        /// 单击菜单项切换界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_ItemClick(object sender, ItemClickEventArgs e)
         {
+            var item = e.ClickedItem as HamburgerMenuGlyphItem;
 
+            // 如果是切换用户，则跳回 LoginPage
+            if ((string)item.Tag == "Account")
+            {
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(LoginPage));
+            }
+            else
+            {
+                MainFrame.Navigate(item.TargetPageType);
+            }
         }
+
+        // private void FrameNavigateTo()
     }
 }

@@ -123,11 +123,17 @@
   <data name="Copyright.Text" xml:space="preserve">
     <value>All Rights Reserved © 2017 H.D.Lin</value>
   </data>
+  <data name="HamburgerMenuItem_Account.Label" xml:space="preserve">
+    <value>切换用户</value>
+  </data>
   <data name="HamburgerMenuItem_Activity.Label" xml:space="preserve">
     <value>活动</value>
   </data>
   <data name="HamburgerMenuItem_Person.Label" xml:space="preserve">
     <value>学生</value>
+  </data>
+  <data name="HamburgerMenuItem_Setting.Label" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="LoginAsAdmin.Content" xml:space="preserve">
     <value>管理用户</value>
