@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.System.Threading;
 
 namespace ClassManager.ViewModels
 {
@@ -13,18 +14,7 @@ namespace ClassManager.ViewModels
     {
         APIService api = new APIService();
 
-        public string Total {
-            get {
-                if (Groups != null)
-                { 
-                    return Groups.Count().ToString();
-                }
-                else
-                {
-                    return "None";
-                }
-            }
-        }
+        
         /// <summary>
         /// 学生分组列表
         /// </summary>
@@ -57,7 +47,7 @@ namespace ClassManager.ViewModels
         /// 被选中的学生
         /// </summary>
         private Person _person_on_display;
-        public Person personOnDisplay {
+        public Person PersonOnDisplay {
             get {
                 return _person_on_display;
             }
@@ -99,6 +89,34 @@ namespace ClassManager.ViewModels
                 }
             }
             return new ObservableCollection<PersonGroup>(groups.OrderBy(g => g.LastName));
+        }
+
+        /// <summary>
+        /// 删除正在展示的学生信息，并同步列表
+        /// </summary>
+        /// <returns>删除是否成功</returns>
+        public async Task<bool> DeletePersonOnDisplay()
+        {
+            bool result = await api.DeletePerson(PersonOnDisplay);
+            if (result)
+            {
+                await this.Init();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 提交对正在展示的学生信心的修改
+        /// </summary>
+        /// <param name="target_StudentNubmer">目标原学号</param>
+        /// <returns></returns>
+        public async Task<bool> UpdatePersonOnDisplay(string target_StudentNubmer)
+        {
+            return await api.UpdatePerson(target_StudentNubmer, PersonOnDisplay);
         }
     }
 }
