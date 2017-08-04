@@ -63,6 +63,10 @@ namespace ClassManager.Models
             }
         }
 
+        /// <summary>
+        /// 解析JObject
+        /// </summary>
+        /// <param name="obj"></param>
         public Person(JsonObject obj)
         {
             Id = (int)obj[APIKey.Person.Id].GetNumber();
@@ -76,6 +80,46 @@ namespace ClassManager.Models
             Participation = (int)obj[APIKey.Person.Participation].GetNumber();
             PhoneNumber = obj[APIKey.Person.PhoneNumber].GetString();
             Position = obj[APIKey.Person.Position].GetString();
+        }
+
+        /// <summary>
+        /// 缺省构造函数
+        /// </summary>
+        /// <param name="_Id"></param>
+        /// <param name="_StudentNumber"></param>
+        /// <param name="_Name"></param>
+        /// <param name="_Pinyin"></param>
+        /// <param name="_Gender"></param>
+        /// <param name="_NativeProvince"></param>
+        /// <param name="_Birthday"></param>
+        /// <param name="_Dormitory"></param>
+        /// <param name="_Participation"></param>
+        /// <param name="_PhoneNumber"></param>
+        /// <param name="_Position"></param>
+        public Person(int _Id = -1,
+                      string _StudentNumber = "",
+                      string _Name = "",
+                      string _Pinyin = "",
+                      string _Gender = "男",
+                      string _NativeProvince = "",
+                      string _Birthday = "2000-01-01",
+                      string _Dormitory = "",
+                      int _Participation = 0,
+                      string _PhoneNumber = "",
+                      string _Position = ""
+            )
+        {
+            Id = _Id;
+            StudentNumber = _StudentNumber;
+            Name = _Name;
+            Pinyin = _Pinyin;
+            Gender = _Gender;
+            NativeProvince = _NativeProvince;
+            Birthday = _Birthday;
+            Dormitory = _Dormitory;
+            Participation = _Participation;
+            PhoneNumber = _PhoneNumber;
+            Position = _Position;
         }
     }
 
