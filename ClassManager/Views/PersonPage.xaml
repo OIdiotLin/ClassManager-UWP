@@ -69,9 +69,10 @@
                       Background="AliceBlue">
             <SemanticZoom.ZoomedInView>
                 <controls:AdaptiveGridView ItemsSource="{x:Bind PersonGroups.View, Mode=OneWay}"
+                                           x:Name="AdaptiveGridView"
                                            ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                                            StretchContentForSingleRow="True"
-                                           DesiredWidth="80"
+                                           DesiredWidth="90"
                                            Margin="10,0,0,0"
                                            SelectionMode="Single"
                                            SelectionChanged="AdaptiveGridView_SelectionChanged"

@@ -110,13 +110,22 @@ namespace ClassManager.ViewModels
         }
 
         /// <summary>
-        /// 提交对正在展示的学生信心的修改
+        /// 提交对正在展示的学生信息的修改
         /// </summary>
         /// <param name="target_StudentNubmer">目标原学号</param>
         /// <returns></returns>
         public async Task<bool> UpdatePersonOnDisplay(string target_StudentNubmer)
         {
             return await api.UpdatePerson(target_StudentNubmer, PersonOnDisplay);
+        }
+
+        /// <summary>
+        /// 提交新增学生信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> AddPersonOnDisplay()
+        {
+            return await api.AddPerson(PersonOnDisplay);
         }
     }
 }

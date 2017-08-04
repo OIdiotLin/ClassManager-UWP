@@ -47,6 +47,7 @@ namespace ClassManager.Views
             ToolsPanel.Visibility = App.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
 
             EditButton.Tag = EditButtonState.ReadyForEdit;
+            AddButton.Tag = AddButtonState.ReadyForAdd;
 
             LoadingDataProgressRing.IsActive = true;
             await vm.Init();    // 更新 viewmodel
@@ -100,12 +101,15 @@ namespace ClassManager.Views
                     cancelButton.SetValue(RelativePanel.AlignVerticalCenterWithPanelProperty, true);
                     cancelButton.SetValue(RelativePanel.LeftOfProperty, EditButton.Name);
                     DeleteButton.SetValue(RelativePanel.LeftOfProperty, cancelButton.Name);
+
+                    AddButton.Visibility = Visibility.Collapsed;
+                    AddButton.IsEnabled = false;
                     
                     break;
                 
                 // 保存、提交并退出编辑模式
                 case EditButtonState.ReadyForSave:
-                    ResetToolsButton();
+                    ResetToolsButtonAfterEditing();
                     SubmitEditedInfo();
                     break;
             }
@@ -118,17 +122,20 @@ namespace ClassManager.Views
         /// <param name="e"></param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            ResetToolsButton();
+            ResetToolsButtonAfterEditing();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void ResetToolsButton()
+        private void ResetToolsButtonAfterEditing()
         {
             PersonInfoTextboxesEdit(false);
             DeleteButton.SetValue(RelativePanel.LeftOfProperty, EditButton.Name);
             ToolsPanel.Children.RemoveAt(1);
+
+            AddButton.Visibility = Visibility.Visible;
+            AddButton.IsEnabled = true;
 
             EditButton.Content = "\xE104";
             EditButton.Tag = EditButtonState.ReadyForEdit;
@@ -237,9 +244,97 @@ namespace ClassManager.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        enum AddButtonState { ReadyForAdd, ReadyForSave}
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            switch (button.Tag)
+            {
+                // 进入编辑模式
+                case AddButtonState.ReadyForAdd:
+                    vm.PersonOnDisplay = new Person();
 
+                    button.Content = "\xE081";  // √
+                    button.Tag = AddButtonState.ReadyForSave;
+                    PersonInfoTextboxesEdit(true);
+
+                    // 显示退出编辑模式按钮
+                    Button cancelAddButton = new Button()
+                    {
+                        Name = "CancelAddButton",
+                        FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                        FontSize = 20,
+                        Content = "\xE10A",
+                        Margin = new Thickness(5),
+                        Background = new SolidColorBrush(Colors.Transparent)
+                    };
+                    ToolsPanel.Children.Insert(3, cancelAddButton);
+                    cancelAddButton.Click += CancelAddButton_Click;
+                    cancelAddButton.SetValue(RelativePanel.AlignVerticalCenterWithPanelProperty, true);
+                    cancelAddButton.SetValue(RelativePanel.RightOfProperty, AddButton.Name);
+
+                    DeleteButton.Visibility = Visibility.Collapsed;
+                    DeleteButton.IsEnabled = false;
+                    EditButton.Visibility = Visibility.Collapsed;
+                    EditButton.IsEnabled = false;
+
+                    break;
+
+                // 保存、提交并退出编辑模式
+                case AddButtonState.ReadyForSave:
+                    ResetToolsButtonAfterAdding();
+                    SubmitAddedInfo();
+                    break;
+            }
+        }
+        
+        /// <summary>
+        /// 提交新建信息
+        /// </summary>
+        private async void SubmitAddedInfo()
+        {
+            if (await vm.AddPersonOnDisplay())
+            {
+                await new ContentDialog()
+                {
+                    Title = ResourceLoader.GetString("AddPersonSuccessDialog_Title"),
+                    PrimaryButtonText = ResourceLoader.GetString("AddPersonSuccessDialog_PrimaryButtonText")
+                }.ShowAsync();
+                await vm.Init();
+            }
+            else
+            {
+                await new ContentDialog()
+                {
+                    Content = ResourceLoader.GetString("AddPersonFailDialog_Content"),
+                    Title = ResourceLoader.GetString("AddPersonFailDialog_Title"),
+                    PrimaryButtonText = ResourceLoader.GetString("AddPersonFailDialog_PrimaryButtonText")
+                }.ShowAsync();
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetToolsButtonAfterAdding()
+        {
+            PersonInfoTextboxesEdit(false);
+            ToolsPanel.Children.RemoveAt(3);
+
+            DeleteButton.Visibility = Visibility.Visible;
+            DeleteButton.IsEnabled = true;
+            EditButton.Visibility = Visibility.Visible;
+            EditButton.IsEnabled = true;
+
+            AddButton.Content = "\xE109";
+            AddButton.Tag = AddButtonState.ReadyForAdd;
+        }
+
+        private void CancelAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetToolsButtonAfterAdding();
+            vm.PersonOnDisplay = AdaptiveGridView.SelectedItem as Person;
         }
 
         /// <summary>
