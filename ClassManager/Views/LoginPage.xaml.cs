@@ -1,4 +1,5 @@
-﻿using ClassManager.ViewModels;
+﻿using ClassManager.Utils;
+using ClassManager.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
@@ -123,9 +124,9 @@ namespace ClassManager.Views
         {
             var dialog = new ContentDialog()
             {
-                Content = App.reswLoader.GetString("LoginFailDialog_Content"),
-                Title = App.reswLoader.GetString("LoginFailDialog_Title"),
-                PrimaryButtonText = App.reswLoader.GetString("LoginFailDialog_ButtonText")
+                Content = ResourceLoader.GetString("LoginFailDialog_Content"),
+                Title = ResourceLoader.GetString("LoginFailDialog_Title"),
+                PrimaryButtonText = ResourceLoader.GetString("LoginFailDialog_ButtonText")
             };
             await dialog.ShowAsync();
         }
