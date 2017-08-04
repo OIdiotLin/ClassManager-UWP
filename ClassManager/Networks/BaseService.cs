@@ -101,7 +101,12 @@ namespace ClassManager.Networks
 
                 request.Headers.Add("token", token);
 
-                HttpClient client = new HttpClient();
+                var filter = new HttpBaseProtocolFilter();
+
+                filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.NoCache;
+                filter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
+
+                var client = new HttpClient(filter);
 
                 HttpResponseMessage response = await client.SendRequestAsync(request);
                 response.EnsureSuccessStatusCode();
