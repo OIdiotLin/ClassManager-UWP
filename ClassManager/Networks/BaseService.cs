@@ -9,6 +9,7 @@ using Windows.Web.Http;
 
 using System.Security.Cryptography;
 using ClassManager.Utils;
+using Windows.Web.Http.Filters;
 
 namespace ClassManager.Networks
 {
@@ -21,12 +22,29 @@ namespace ClassManager.Networks
         /// 发送 GET 请求，并以 String 形式获取返回数据
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="cache">是否使用缓存</param>
         /// <returns>响应数据</returns>
-        public async static Task<string> SendGetRequest(string url)
+        public async static Task<string> SendGetRequest(string url, bool cache=false)
         {
             try
             {
-                HttpClient client = new HttpClient();
+                HttpClient client;
+
+                // 是否需要缓存
+                if (cache == false)
+                {
+                    var filter = new HttpBaseProtocolFilter();
+
+                    filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.NoCache;
+                    filter.CacheControl.WriteBehavior = HttpCacheWriteBehavior.NoCache;
+
+                    client = new HttpClient(filter);
+                }
+                else
+                {
+                    client = new HttpClient();
+                }
+
                 Uri uri = new Uri(url);
 
                 HttpResponseMessage response = await client.GetAsync(uri);

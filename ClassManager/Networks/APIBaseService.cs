@@ -18,11 +18,11 @@ namespace ClassManager.Networks
         /// </summary>
         /// <param name="url">目标 url</param>
         /// <returns>解析后的 JsonObject</returns>
-        protected async Task<JsonObject> GetJsonByGet(string url)
+        protected async Task<JsonObject> GetJsonByGet(string url, bool cache = false)
         {
             try
             {
-                string json = await BaseService.SendGetRequest(url);
+                string json = await BaseService.SendGetRequest(url, cache);
                 return json != null ? JsonObject.Parse(json) : null;
             }
             catch
