@@ -109,6 +109,7 @@
     <Compile Include="Networks\QiniuManager.cs" />
     <Compile Include="Utils\Crypto.cs" />
     <Compile Include="Utils\Rand.cs" />
+    <Compile Include="Utils\ResourceLoader.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

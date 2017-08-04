@@ -27,7 +27,7 @@ namespace ClassManager
     {
 
         public static string token = string.Empty;
-        public bool IsAdmin {
+        public static bool IsAdmin {
             get {
                 return token != string.Empty;
             }

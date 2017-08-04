@@ -130,8 +130,10 @@ namespace ClassManager.Networks
             try
             {
                 string url = APIUrl.Person.AddPerson;
-                string body = person.ToJObject().ToString();
-                JsonObject json = await GetJsonByPost(url, body);
+                JObject obj = new JObject();
+                obj.Add(APIKey.Person.Root, person.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
 
                 if (json != null)
                 {
@@ -165,8 +167,10 @@ namespace ClassManager.Networks
             try
             {
                 string url = APIUrl.Person.DeletePerson;
-                string body = person.ToJObject().ToString();
-                JsonObject json = await GetJsonByPost(url, body);
+                JObject obj = new JObject();
+                obj.Add(APIKey.Person.Root, person.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
 
                 if (json != null)
                 {
@@ -303,8 +307,11 @@ namespace ClassManager.Networks
             try
             {
                 string url = APIUrl.Activity.AddActivity;
-                string body = activity.ToJObject().ToString();
-                JsonObject json = await GetJsonByPost(url, body);
+
+                JObject obj = new JObject();
+                obj.Add(APIKey.Activity.Root, activity.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
 
                 if (json != null)
                 {
@@ -338,8 +345,10 @@ namespace ClassManager.Networks
             try
             {
                 string url = APIUrl.Activity.DeleteActivity;
-                string body = activity.ToJObject().ToString();
-                JsonObject json = await GetJsonByPost(url, body);
+                JObject obj = new JObject();
+                obj.Add(APIKey.Activity.Root, activity.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
 
                 if (json != null)
                 {

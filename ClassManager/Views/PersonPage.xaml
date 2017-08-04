@@ -125,51 +125,100 @@
                 </Grid.RowDefinitions>
                 <TextBox x:Uid="PersonInfo_Name"
                          Grid.Row="0" Grid.Column="0"
-                         Text="{x:Bind vm.personOnDisplay.Name, Mode=TwoWay}" 
+                         Text="{x:Bind vm.PersonOnDisplay.Name, Mode=TwoWay}" 
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus"/>
                 <TextBox x:Uid="PersonInfo_Pinyin"
                          Grid.Row="0" Grid.Column="1"
-                         Text="{x:Bind vm.personOnDisplay.Pinyin, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.Pinyin, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="10,0,0,12" />
+                         Margin="10,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_StudentNumber"
                          Grid.Row="1" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.StudentNumber, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.StudentNumber, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_Gender"
                          Grid.Row="2" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.Gender, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.Gender, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_Dormitory"
                          Grid.Row="3" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.Dormitory, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.Dormitory, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_NativeProvince"
                          Grid.Row="4" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.NativeProvince, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.NativeProvince, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_PhoneNumber"
                          Grid.Row="5" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.PhoneNumber, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.PhoneNumber, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_Birthday"
                          Grid.Row="6" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.Birthday, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.Birthday, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12" />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
                 <TextBox x:Uid="PersonInfo_Participation"
                          Grid.Row="7" Grid.ColumnSpan="2"
-                         Text="{x:Bind vm.personOnDisplay.Participation, Mode=TwoWay}"
+                         Text="{x:Bind vm.PersonOnDisplay.Participation, Mode=TwoWay}"
                          IsReadOnly="True"
-                         Margin="0,0,0,12"  />
+                         Margin="0,0,0,12"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus" />
             </Grid>
         </ScrollViewer>
         
+        <!-- 工具 -->
+        <RelativePanel x:Name="ToolsPanel"
+                       Grid.Column="1" Grid.Row="1"
+                       Background="AliceBlue"
+                       Visibility="Collapsed">
+            <Button x:Name="EditButton"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Margin="5"
+                    FontFamily="Segoe MDL2 Assets" FontSize="20"
+                    Background="Transparent"
+                    Content="&#xE70F;"
+                    Click="EditButton_Click" />
+            <Button x:Name="DeleteButton"
+                    RelativePanel.LeftOf="EditButton"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Margin="5"
+                    FontFamily="Segoe MDL2 Assets" FontSize="20"
+                    Foreground="Red" Background="Transparent"
+                    Content="&#xE107;"
+                    Click="DeleteButton_Click" />
+            <Button x:Name="AddButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Margin="5"
+                    FontFamily="Segoe MDL2 Assets" FontSize="20"
+                    Background="Transparent"
+                    Content="&#xE710;"
+                    Click="AddButton_Click" />
+
+        </RelativePanel>
     </Grid>
 </Page>

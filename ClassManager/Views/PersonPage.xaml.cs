@@ -1,12 +1,15 @@
 ﻿using ClassManager.Models;
+using ClassManager.Utils;
 using ClassManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,14 +43,225 @@ namespace ClassManager.Views
         {
             base.OnNavigatedTo(e);
 
+            // admin则展示工具栏
+            ToolsPanel.Visibility = App.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+
+            EditButton.Tag = EditButtonState.ReadyForEdit;
+
             LoadingDataProgressRing.IsActive = true;
             await vm.Init();    // 更新 viewmodel
             LoadingDataProgressRing.IsActive = false;
+
         }
 
+        /// <summary>
+        /// 当菜单中的item被选中时，切换右侧GridUnit的详细信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AdaptiveGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            vm.personOnDisplay = e.AddedItems.FirstOrDefault() as Person;
+            vm.PersonOnDisplay = e.AddedItems.FirstOrDefault() as Person;
+        }
+
+        /// <summary>
+        /// 修改信息按钮被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        enum EditButtonState { ReadyForSave, ReadyForEdit }
+        private string target_StudentNumber;
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            //((Button)sender).Tag = EditButtonState.ReadyForEdit
+            var button = sender as Button;
+            switch (button.Tag)
+            {
+                // 进入编辑模式
+                case EditButtonState.ReadyForEdit:
+                    target_StudentNumber = vm.PersonOnDisplay.StudentNumber;    // 保存原学号副本
+
+                    button.Content = "\xE081";  // √
+                    button.Tag = EditButtonState.ReadyForSave;
+                    PersonInfoTextboxesEdit(true);
+
+                    // 显示退出编辑模式按钮
+                    Button cancelButton = new Button()
+                    {
+                        Name = "CancelButton",
+                        FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                        FontSize = 20,
+                        Content = "\xE10A",
+                        Margin = new Thickness(5),
+                        Background = new SolidColorBrush(Colors.Transparent)
+                    };
+                    ToolsPanel.Children.Insert(1, cancelButton);
+                    cancelButton.Click += CancelButton_Click;
+                    cancelButton.SetValue(RelativePanel.AlignVerticalCenterWithPanelProperty, true);
+                    cancelButton.SetValue(RelativePanel.LeftOfProperty, EditButton.Name);
+                    DeleteButton.SetValue(RelativePanel.LeftOfProperty, cancelButton.Name);
+                    
+                    break;
+                
+                // 保存、提交并退出编辑模式
+                case EditButtonState.ReadyForSave:
+                    ResetToolsButton();
+                    SubmitEditedInfo();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 退出编辑模式按钮被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetToolsButton();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetToolsButton()
+        {
+            PersonInfoTextboxesEdit(false);
+            DeleteButton.SetValue(RelativePanel.LeftOfProperty, EditButton.Name);
+            ToolsPanel.Children.RemoveAt(1);
+
+            EditButton.Content = "\xE104";
+            EditButton.Tag = EditButtonState.ReadyForEdit;
+        }
+
+        /// <summary>
+        /// 修改表单的可编辑性
+        /// </summary>
+        /// <param name="editable">可修改</param>
+        private void PersonInfoTextboxesEdit(bool editable = true)
+        {
+            foreach(var item in PersonInfoPanel.Children)
+            {
+                ((TextBox)item).IsReadOnly = !editable;
+            }
+            (PersonInfoPanel.Children[0] as TextBox).Focus(FocusState.Pointer);
+        }
+
+        /// <summary>
+        /// 提交信息更改
+        /// </summary>
+        private async void SubmitEditedInfo()
+        {
+            if (await vm.UpdatePersonOnDisplay(target_StudentNumber))
+            {
+                await new ContentDialog()
+                {
+                    Title = ResourceLoader.GetString("UpdatePersonSuccessDialog_Title"),
+                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonSuccessDialog_PrimaryButtonText")
+                }.ShowAsync();
+
+            }
+            else
+            {
+                await new ContentDialog()
+                {
+                    Content = ResourceLoader.GetString("UpdatePersonFailDialog_Content"),
+                    Title = ResourceLoader.GetString("UpdatePersonFailDialog_Title"),
+                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonFailDialog_PrimaryButtonText")
+                }.ShowAsync();
+            }
+        }
+
+        /// <summary>
+        /// 删除按钮被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var p = vm.PersonOnDisplay;
+
+            var contentPanel = new StackPanel();
+            var nameTextBlock = new TextBlock()
+            {
+                Text = string.Format(ResourceLoader.GetString("DeletePersonDialog_Content_Name"), p.Name)
+            };
+            var studentNumberTextBlock = new TextBlock()
+            {
+                Text = string.Format(ResourceLoader.GetString("DeletePersonDialog_Content_StudentNumber"), p.StudentNumber)
+            };
+            contentPanel.Children.Insert(0, nameTextBlock);
+            contentPanel.Children.Insert(1, studentNumberTextBlock);
+            contentPanel.Orientation = Orientation.Vertical;
+
+            ContentDialog dialog = new ContentDialog()
+            {
+                Content = contentPanel,
+                Title = ResourceLoader.GetString("DeletePersonDialog_Title"),
+                PrimaryButtonText = ResourceLoader.GetString("DeletePersonDialog_PrimaryButtonText"),
+                SecondaryButtonText = ResourceLoader.GetString("DeletePersonDialog_SecondaryButtonText")
+            };
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            switch (result)
+            {
+                case ContentDialogResult.Primary:
+                    if(await vm.DeletePersonOnDisplay())
+                    {
+                        await new ContentDialog()
+                        {
+                            Title = ResourceLoader.GetString("DeletePersonSuccessDialog_Title"),
+                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonSuccessDialog_PrimaryButtonText")
+                        }.ShowAsync();
+
+                    }
+                    else
+                    {
+                        await new ContentDialog()
+                        {
+                            Content = ResourceLoader.GetString("DeletePersonFailDialog_Content"),
+                            Title = ResourceLoader.GetString("DeletePersonFailDialog_Title"),
+                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonFailDialog_PrimaryButtonText")
+                        }.ShowAsync();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 添加新学生按钮被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 文本框得到焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            tb.Background = new SolidColorBrush(Colors.AliceBlue);
+        }
+
+        /// <summary>
+        /// 文本框丢失焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            tb.Background = new SolidColorBrush(Colors.Transparent);
         }
     }
     
