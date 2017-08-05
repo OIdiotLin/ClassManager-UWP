@@ -127,5 +127,35 @@ namespace ClassManager.ViewModels
         {
             return await api.AddPerson(PersonOnDisplay);
         }
+
+        /// <summary>
+        /// 根据<paramref name="searchText"/>过滤<see cref="Groups"/>
+        /// </summary>
+        /// <param name="searchText">查询关键字</param>
+        public void GroupsFilter(string searchText)
+        {
+            PersonOnDisplay = Persons.FirstOrDefault();
+            Groups.Clear();
+            foreach(var person in Persons)
+            {
+                if (person.Name.Contains(searchText) ||
+                    person.StudentNumber.Contains(searchText) ||
+                    person.Dormitory.Contains(searchText) || 
+                    person.NativeProvince.Equals(searchText) )
+                {
+                    PersonGroup group = Groups.Where(g => g.LastName == person.LastName).FirstOrDefault();
+                    if (group == null)
+                    {
+                        var newGroup = new PersonGroup(person.LastName);
+                        newGroup.Items.Add(person);
+                        Groups.Add(newGroup);
+                    }
+                    else
+                    {
+                        group.Items.Add(person);
+                    }
+                }
+            }
+        }
     }
 }

@@ -167,7 +167,7 @@ namespace ClassManager.Views
                     Title = ResourceLoader.GetString("UpdatePersonSuccessDialog_Title"),
                     PrimaryButtonText = ResourceLoader.GetString("UpdatePersonSuccessDialog_PrimaryButtonText")
                 }.ShowAsync();
-
+                await vm.Init();
             }
             else
             {
@@ -334,27 +334,15 @@ namespace ClassManager.Views
             ResetToolsButtonAfterAdding();
             vm.PersonOnDisplay = AdaptiveGridView.SelectedItem as Person;
         }
-
+        
         /// <summary>
-        /// 文本框得到焦点
+        /// 搜索框文本变化
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        /// <param name="args"></param>
+        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            var tb = sender as TextBox;
-            tb.Background = new SolidColorBrush(Colors.AliceBlue);
-        }
-
-        /// <summary>
-        /// 文本框丢失焦点
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var tb = sender as TextBox;
-            tb.Background = new SolidColorBrush(Colors.Transparent);
+            vm.GroupsFilter(sender.Text);
         }
     }
     
