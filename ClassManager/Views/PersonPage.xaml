@@ -27,24 +27,47 @@
             <TextBlock Text="{x:Bind Name, Mode=OneWay}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
+                       Foreground="White"
                        FontFamily="Microsoft YaHei UI"
                        Margin="15"/>
         </DataTemplate>
 
         <DataTemplate x:Key="ZoomedInGroupHeaderTemplate" x:DataType="data:PersonGroup">
             <TextBlock Text="{x:Bind LastName, Mode=OneWay}" 
-                       Foreground="{ThemeResource SystemAccentColor}"
+                       Foreground="GhostWhite"
                        Style="{StaticResource SubtitleTextBlockStyle}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="ZoomedOutTemplate" x:DataType="ICollectionViewGroup">
             <TextBlock Text="{x:Bind Group.(data:PersonGroup.LastName), Mode=OneWay}" 
                        Style="{StaticResource SubtitleTextBlockStyle}"
-                       Foreground="{ThemeResource SystemAccentColor}"
+                       Foreground="WhiteSmoke"
                        Height="25" Width="25"
                        Margin="5"
                        TextAlignment="Center"/>
         </DataTemplate>
+
+        <Style x:Key="InfoTextBoxStyle" TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{ThemeResource SystemControlForegroundListMediumBrush}" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Foreground="AliceBlue" Text="{Binding}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SymbolButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
     </Page.Resources>
 
 
@@ -58,6 +81,12 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
+        <Image x:Name="BackgroundImg"
+               Grid.Column="0" Grid.Row="0"
+               Grid.ColumnSpan="2" Grid.RowSpan="2"
+               Stretch="UniformToFill"
+               Source="/Assets/Pictures/NightShot.jpg"/>
+
         <ProgressRing x:Name="LoadingDataProgressRing"
                       Grid.Column="0" Grid.Row="0"
                       HorizontalAlignment="Center"
@@ -66,11 +95,12 @@
         <!-- 菜单 -->
         <SemanticZoom x:Name="PersonSemanticZoom"
                       Grid.Column="0" Grid.Row="0"
-                      Background="AliceBlue">
+                      Background="{ThemeResource SystemControlForegroundListMediumBrush}">
             <SemanticZoom.ZoomedInView>
                 <controls:AdaptiveGridView ItemsSource="{x:Bind PersonGroups.View, Mode=OneWay}"
                                            x:Name="AdaptiveGridView"
                                            ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                            StretchContentForSingleRow="True"
                                            DesiredWidth="90"
                                            Margin="10,0,0,0"
@@ -98,7 +128,7 @@
         <RelativePanel x:Name="SearchRelativePanel"
                        Grid.Column="0" Grid.Row="1"
                        Padding="5"
-                       Background="AliceBlue">
+                       Background="{ThemeResource SystemControlForegroundListMediumBrush}">
             <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find"
                             Width="155"
                             RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -107,7 +137,8 @@
         
         <!-- 详细信息 -->
         <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      Grid.Column="1" Grid.Row="0">
+                      Grid.Column="1" Grid.Row="0"
+                      Background="Transparent">
             <Grid x:Name="PersonInfoPanel"
                     Margin="20">
                 <Grid.ColumnDefinitions>
@@ -127,96 +158,65 @@
                 <TextBox x:Uid="PersonInfo_Name"
                          Grid.Row="0" Grid.Column="0"
                          Text="{x:Bind vm.PersonOnDisplay.Name, Mode=TwoWay}" 
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus"/>
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_Pinyin"
                          Grid.Row="0" Grid.Column="1"
                          Text="{x:Bind vm.PersonOnDisplay.Pinyin, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="10,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"
+                         Margin="10,0,0,12"/>
                 <TextBox x:Uid="PersonInfo_StudentNumber"
                          Grid.Row="1" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.StudentNumber, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_Gender"
                          Grid.Row="2" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Gender, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_Dormitory"
                          Grid.Row="3" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Dormitory, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_NativeProvince"
                          Grid.Row="4" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.NativeProvince, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_PhoneNumber"
                          Grid.Row="5" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.PhoneNumber, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_Birthday"
                          Grid.Row="6" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Birthday, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
                 <TextBox x:Uid="PersonInfo_Participation"
                          Grid.Row="7" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Participation, Mode=TwoWay}"
-                         IsReadOnly="True"
-                         Margin="0,0,0,12"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus" />
+                         Style="{StaticResource InfoTextBoxStyle}"/>
             </Grid>
         </ScrollViewer>
         
         <!-- 工具 -->
         <RelativePanel x:Name="ToolsPanel"
                        Grid.Column="1" Grid.Row="1"
-                       Background="AliceBlue"
+                       Background="Transparent"
                        Visibility="Collapsed">
             <Button x:Name="EditButton"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Margin="5"
-                    FontFamily="Segoe MDL2 Assets" FontSize="20"
-                    Background="Transparent"
+                    Style="{StaticResource SymbolButtonStyle}"
                     Content="&#xE70F;"
                     Click="EditButton_Click" />
             <Button x:Name="DeleteButton"
                     RelativePanel.LeftOf="EditButton"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Margin="5"
-                    FontFamily="Segoe MDL2 Assets" FontSize="20"
-                    Foreground="Red" Background="Transparent"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Foreground="Red"
                     Content="&#xE107;"
                     Click="DeleteButton_Click" />
             <Button x:Name="AddButton"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Margin="5"
-                    FontFamily="Segoe MDL2 Assets" FontSize="20"
-                    Background="Transparent"
+                    Style="{StaticResource SymbolButtonStyle}"
                     Content="&#xE710;"
                     Click="AddButton_Click" />
 

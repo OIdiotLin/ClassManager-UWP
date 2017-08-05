@@ -1,6 +1,7 @@
 ﻿using ClassManager.Models;
 using ClassManager.Utils;
 using ClassManager.ViewModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,9 @@ namespace ClassManager.Views
         {
             this.InitializeComponent();
             vm = new PersonViewModel();
+
+            BackgroundImg.Blur(value: 15, duration: 0).Start();
+
         }
 
         /// <summary>
@@ -90,11 +94,8 @@ namespace ClassManager.Views
                     Button cancelButton = new Button()
                     {
                         Name = "CancelButton",
-                        FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                        FontSize = 20,
                         Content = "\xE10A",
-                        Margin = new Thickness(5),
-                        Background = new SolidColorBrush(Colors.Transparent)
+                        Style = (Style)this.Resources["SymbolButtonStyle"]
                     };
                     ToolsPanel.Children.Insert(1, cancelButton);
                     cancelButton.Click += CancelButton_Click;
@@ -262,11 +263,8 @@ namespace ClassManager.Views
                     Button cancelAddButton = new Button()
                     {
                         Name = "CancelAddButton",
-                        FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                        FontSize = 20,
                         Content = "\xE10A",
-                        Margin = new Thickness(5),
-                        Background = new SolidColorBrush(Colors.Transparent)
+                        Style = (Style)this.Resources["SymbolButtonStyle"]
                     };
                     ToolsPanel.Children.Insert(3, cancelAddButton);
                     cancelAddButton.Click += CancelAddButton_Click;
