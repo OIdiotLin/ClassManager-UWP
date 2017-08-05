@@ -135,5 +135,22 @@ namespace ClassManager.Views
         {
             NavigateToMainPage();
         }
+
+        /// <summary>
+        /// 捕获输入密码时的键盘
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PasswordTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case VirtualKey.Enter:
+                    Login();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

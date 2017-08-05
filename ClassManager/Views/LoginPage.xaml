@@ -68,7 +68,8 @@
                              x:Uid="Password"
                              BorderThickness="1"
                              VerticalContentAlignment="Center"
-                             Height="20" Width="130" />
+                             Height="20" Width="130"
+                             KeyDown="PasswordTextBox_KeyDown"/>
                 <Button x:Name="LoginAsAdminEnterButton"
                         x:Uid="MDL2"
                         Foreground="White"
