@@ -56,7 +56,8 @@
                                                      Glyph="&#xE716;"
                                                      TargetPageType="views:PersonPage"/>
                     <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Activity"
-                                                     Glyph="&#xE7C1;"/>
+                                                     Glyph="&#xE7C1;"
+                                                     TargetPageType="views:ActivityPage"/>
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>
             
