@@ -57,7 +57,7 @@ namespace ClassManager.Networks
 
         public static class Qiniu
         {
-            public static string ThumbnailSuffix = "imageView2/1/w/100/h/100/q/75|imageslim";
+            public static string ThumbnailSuffix = "imageView2/1/w/450/h/300/q/95|imageslim";
         }
     }
 
