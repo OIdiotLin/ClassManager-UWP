@@ -54,6 +54,11 @@ namespace ClassManager.Networks
             public static string Password = "password";
             public static string Token = "check_code";
         }
+
+        public static class Qiniu
+        {
+            public static string ThumbnailSuffix = "imageView2/1/w/100/h/100/q/75|imageslim";
+        }
     }
 
     public static class APIValue
