@@ -102,6 +102,10 @@ namespace ClassManager.Models
             Participation = (int)obj[APIKey.Activity.Participation].GetNumber();
             ImagesUrl = obj[APIKey.Activity.Images].GetString();
         }
+
+        public Activity()
+        {
+        }
     }
 
     
