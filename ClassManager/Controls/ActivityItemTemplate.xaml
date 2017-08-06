@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="ClassManager.Controls.ActivityItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel Orientation="Vertical"
+                Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                Margin="20">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ActivityItemVisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="650" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ActivityItemImage.Width" Value="250" />
+                        <Setter Target="ActivityItemImage.Height" Value="150" />
+                        <Setter Target="ActivityItemName.Width" Value="180" />
+                        <Setter Target="ActivityItemName.Height" Value="60" />
+                        <Setter Target="ActivityItemName.HorizontalAlignment" Value="Left" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ActivityItemImage.Width" Value="Auto" />
+                        <Setter Target="ActivityItemImage.Height" Value="150" />
+                        <Setter Target="ActivityItemName.Width" Value="Auto" />
+                        <Setter Target="ActivityItemName.Height" Value="35" />
+                        <Setter Target="ActivityItemName.HorizontalAlignment" Value="Center" />
+                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <controls:ImageEx x:Name="ActivityItemImage"
+                          Source="{x:Bind Activity.Thumbnail}"
+                          Stretch="UniformToFill" />
+        <TextBlock x:Name="ActivityItemName"
+                   Text="{x:Bind Activity.Name}"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Padding="5"
+                   FontSize="18"
+                   Foreground="White"/>
+    </StackPanel>
+</UserControl>

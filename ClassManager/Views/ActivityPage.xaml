@@ -5,45 +5,44 @@
     xmlns:local="using:ClassManager.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:usercontrols="using:ClassManager.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:ClassManager.Models"
     mc:Ignorable="d">
 
     <Page.Resources>
-        
-        <DataTemplate x:Key="ActivityItemsTemplate" x:DataType="data:Activity">
-            <StackPanel Orientation="Horizontal"
-                        Margin="10"
-                        Background="Yellow">
-                <controls:ImageEx Source="{x:Bind Thumbnail, Mode=OneWay}"
-                                  Height="100" Width="100"
-                                  Stretch="UniformToFill"/>
-                <TextBlock Text="{x:Bind Name, Mode=OneWay}"
-                           TextWrapping="Wrap"
-                           Width="100"/>
-            </StackPanel>
+
+        <DataTemplate x:Key="ActivityItemsTemplate"
+                      x:DataType="data:Activity">
+            <usercontrols:ActivityItemTemplate />
         </DataTemplate>
         
     </Page.Resources>
     
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-
-
-        <controls:AdaptiveGridView x:Name="ActivityAdaptiveGridView"
+        
+        <!--<controls:AdaptiveGridView x:Name="ActivityAdaptiveGridView"
                                    ItemsSource="{x:Bind vm.Activities, Mode=OneWay}"
                                    ItemTemplate="{StaticResource ActivityItemsTemplate}"
+                                   StretchContentForSingleRow="False"
                                    Grid.Column="0" Grid.Row="0"
-                                   DesiredWidth="120" >
+                                   DesiredWidth="200" 
+                                   Margin="30">
             
-        </controls:AdaptiveGridView>
+        </controls:AdaptiveGridView>-->
+        <GridView x:Name="ActivityGridView"
+                  ItemsSource="{x:Bind vm.Activities, Mode=OneWay}"
+                  ItemTemplate="{StaticResource ActivityItemsTemplate}"
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  Margin="8">
+        </GridView>
     </Grid>
 </Page>
