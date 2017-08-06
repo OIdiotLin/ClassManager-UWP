@@ -24,6 +24,34 @@ namespace ClassManager.Models
         public string Participator { get; set; }    // 参与人员（学号以半角逗号分隔）
         public string ImagesUrl { get; set; }       // 相关图片url（以半角逗号分隔）
 
+        /// <summary>
+        /// 将<see cref="ImagesUrl"/>解析后的stringsList
+        /// </summary>
+        public List<string> ImgUrls {
+            get {
+                return ImagesUrl.Split(",".ToArray()).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 缩略图（若<see cref="ImagesUrl"/>非空则返回首张图片，否则返回默认图片）
+        /// </summary>
+        public string Thumbnail {
+            get {
+                return ImagesUrl == "" ? "/Assets/Pictures/SCUT.png" : ImgUrls[0] + "?" + APIKey.Qiniu.ThumbnailSuffix;
+            }
+        }
+
+        /// <summary>
+        /// 将<see cref="Participator"/>解析后的学号stringsList
+        /// </summary>
+        public List<string> Participators {
+            get {
+                return Participator.Split(",".ToArray()).ToList();
+            }
+        }
+
+
         public Activity(Activity source)
         {
             Id = source.Id;

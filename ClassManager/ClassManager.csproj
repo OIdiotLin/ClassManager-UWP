@@ -19,6 +19,10 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>ClassManager_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>452479D0475BAE403C60F5AE91F90483BC1C8466</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Auto</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -110,10 +114,17 @@
     <Compile Include="Utils\Crypto.cs" />
     <Compile Include="Utils\Rand.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
+    <Compile Include="ViewModels\ActivityViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="Views\ActivityDetailsPage.xaml.cs">
+      <DependentUpon>ActivityDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivityPage.xaml.cs">
+      <DependentUpon>ActivityPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -162,11 +173,18 @@
     <Content Include="Assets\logo\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\logo\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\logo\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\logo\StoreLogo.scale-100.png" />
+    <Content Include="Assets\logo\StoreLogo.scale-125.png" />
+    <Content Include="Assets\logo\StoreLogo.scale-150.png" />
+    <Content Include="Assets\logo\StoreLogo.scale-200.png" />
+    <Content Include="Assets\logo\StoreLogo.scale-400.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Pictures\NightShot.jpg" />
     <Content Include="Assets\Pictures\Gates.jpg" />
+    <Content Include="Assets\Pictures\SCUT.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +193,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\EmptyTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivityDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
