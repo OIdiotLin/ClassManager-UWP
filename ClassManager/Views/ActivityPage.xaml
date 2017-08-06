@@ -16,33 +16,55 @@
                       x:DataType="data:Activity">
             <usercontrols:ActivityItemTemplate />
         </DataTemplate>
-        
+
+        <Style x:Key="SymbolButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
     </Page.Resources>
-    
-    <Grid Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+
+    <Grid Background="Transparent" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         
-        <!--<controls:AdaptiveGridView x:Name="ActivityAdaptiveGridView"
-                                   ItemsSource="{x:Bind vm.Activities, Mode=OneWay}"
-                                   ItemTemplate="{StaticResource ActivityItemsTemplate}"
-                                   StretchContentForSingleRow="False"
-                                   Grid.Column="0" Grid.Row="0"
-                                   DesiredWidth="200" 
-                                   Margin="30">
-            
-        </controls:AdaptiveGridView>-->
-        <GridView x:Name="ActivityGridView"
-                  ItemsSource="{x:Bind vm.Activities, Mode=OneWay}"
-                  ItemTemplate="{StaticResource ActivityItemsTemplate}"
-                  IsItemClickEnabled="True"
-                  SelectionMode="None"
-                  Margin="8">
-        </GridView>
+        <Frame x:Name="ActivityMainFrame" Background="Transparent" SourcePageType="local:ActivitySchedulePage"/>
+
+        <RelativePanel x:Name="ToolsPanel"
+                       Grid.Row="1" Grid.Column="0"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       Background="Transparent">
+            <Button x:Name="AddButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Visibility="{x:Bind AddButtonVisibility}"
+                    Content="&#xE109;"/>
+            <Button x:Name="DeleteButton"
+                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Visibility="{x:Bind DeleteButtonVisibility}"
+                    Foreground="Red"
+                    Content="&#xE107;"/>
+            <Button x:Name="UpdateButton"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Visibility="{x:Bind UpdateButtonVisibility}"
+                    Content="&#xE70F;"/>
+
+        </RelativePanel>
+
     </Grid>
+
 </Page>

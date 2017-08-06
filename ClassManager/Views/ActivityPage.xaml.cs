@@ -1,4 +1,5 @@
 ﻿using ClassManager.ViewModels;
+using ClassManager.Models;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
@@ -20,26 +21,57 @@ using Windows.UI.Xaml.Navigation;
 namespace ClassManager.Views
 {
     /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
+    /// <see cref="ActivityPage"/>的主页面，其中的<see cref="ActivityMainFrame"/>是对<see cref="Activity"/>的UI重心
     /// </summary>
     public sealed partial class ActivityPage : Page
     {
-        private ActivityViewModel vm;
-
         public ActivityPage()
         {
             this.InitializeComponent();
-            vm = new ActivityViewModel();
         }
 
         /// <summary>
-        /// 导航至<see cref="ActivityPage"/>时所触发的函数
+        /// 由<see cref="ActivityMainFrame"/>的内容物决定<see cref="AddButton"/>的<see cref="Visibility"/>：
+        /// 当内容为<see cref="ActivitySchedulePage"/>时，<see cref="AddButton"/>为可见，
+        /// 当内容为<see cref="ActivityDetailsPage"/>时，<see cref="AddButton"/>为不可见。
         /// </summary>
-        /// <param name="e"></param>
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            await vm.GetActivities();
+        private Visibility AddButtonVisibility {
+            get {
+                return ActivityMainFrame.SourcePageType == typeof(ActivitySchedulePage) && App.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
+
+        /// <summary>
+        /// 由<see cref="ActivityMainFrame"/>的内容物决定<see cref="DeleteButton"/>的<see cref="Visibility"/>：
+        /// 当内容为<see cref="ActivitySchedulePage"/>时，<see cref="DeleteButton"/>为不可见，
+        /// 当内容为<see cref="ActivityDetailsPage"/>时，<see cref="DeleteButton"/>为可见。
+        /// </summary>
+        private Visibility DeleteButtonVisibility {
+            get {
+                return ActivityMainFrame.SourcePageType == typeof(ActivityDetailsPage) && App.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// 由<see cref="ActivityMainFrame"/>的内容物决定<see cref="UpdateButton"/>的<see cref="Visibility"/>：
+        /// 当内容为<see cref="ActivitySchedulePage"/>时，<see cref="UpdateButton"/>为不可见，
+        /// 当内容为<see cref="ActivityDetailsPage"/>时，<see cref="UpdateButton"/>为可见。
+        /// </summary>
+        private Visibility UpdateButtonVisibility {
+            get {
+                return ActivityMainFrame.SourcePageType == typeof(ActivityDetailsPage) && App.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// <see cref="ActivityMainFrame"/>跳转到<paramref name="sourcePageType"/>，并展示<paramref name="sourceActivity"/>
+        /// </summary>
+        /// <param name="sourcePageType">目标页面</param>
+        /// <param name="sourceActivity">传递给目标页面的<see cref="Activity"/></param>
+        public void NavigateFrame(Type sourcePageType, Activity sourceActivity)
+        {
+            this.ActivityMainFrame.Navigate(sourcePageType, sourceActivity);
+        }
+
     }
 }
