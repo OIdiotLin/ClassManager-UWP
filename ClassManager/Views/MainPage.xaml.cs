@@ -2,6 +2,7 @@
 using ClassManager.Networks;
 using ClassManager.ViewModels;
 using ClassManager.Views;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,11 @@ namespace ClassManager
             }
         }
 
-        // private void FrameNavigateTo()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            BackgroundImg.Blur(value: 15, duration: 0).Start();
+        }
     }
 }

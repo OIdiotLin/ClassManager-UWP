@@ -34,9 +34,6 @@ namespace ClassManager.Views
         {
             this.InitializeComponent();
             vm = new PersonViewModel();
-
-            BackgroundImg.Blur(value: 15, duration: 0).Start();
-
         }
 
         /// <summary>

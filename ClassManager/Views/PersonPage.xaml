@@ -71,7 +71,7 @@
     </Page.Resources>
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="5*" />
@@ -101,13 +101,6 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-
-        <Image x:Name="BackgroundImg"
-               Grid.Column="0" Grid.Row="0"
-               Grid.ColumnSpan="2" Grid.RowSpan="2"
-               Stretch="UniformToFill"
-               Source="/Assets/Pictures/NightShot.jpg"/>
 
         <ProgressRing x:Name="LoadingDataProgressRing"
                       Grid.Column="0" Grid.Row="0"

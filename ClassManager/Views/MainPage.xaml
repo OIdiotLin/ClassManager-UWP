@@ -72,9 +72,14 @@
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.OptionsItemsSource>
 
-            <!-- Main Frame -->
-            <Frame x:Name="MainFrame" SourcePageType="views:PersonPage"/>
-
+            
+            <Grid>
+                <Image x:Name="BackgroundImg"
+                       Stretch="UniformToFill"
+                       Source="/Assets/Pictures/NightShot.jpg"/>
+                <!-- Main Frame -->
+                <Frame x:Name="MainFrame" SourcePageType="views:PersonPage" Background="Transparent" />
+            </Grid>
 
         </controls:HamburgerMenu>
     </Grid>
