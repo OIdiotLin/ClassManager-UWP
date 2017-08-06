@@ -173,39 +173,77 @@
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
                 <TextBox x:Uid="PersonInfo_Name"
+                         x:Name="NameTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^\D+$"
                          Grid.Row="0" Grid.Column="0"
                          Text="{x:Bind vm.PersonOnDisplay.Name, Mode=TwoWay}" 
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_Pinyin"
+                         x:Name="PinyinTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^[^\d\s][A-z]+[^\d\s]$"
                          Grid.Row="0" Grid.Column="1"
                          Text="{x:Bind vm.PersonOnDisplay.Pinyin, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"
                          Margin="10,0,0,12"/>
+                
                 <TextBox x:Uid="PersonInfo_StudentNumber"
+                         x:Name="StudentNumberTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^\d{12}$"
                          Grid.Row="1" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.StudentNumber, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_Gender"
+                         x:Name="GenderTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^[男女]$"
                          Grid.Row="2" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Gender, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_Dormitory"
+                         x:Name="DormitoryTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^C\d{1,2}-\d{3}$"
                          Grid.Row="3" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Dormitory, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_NativeProvince"
+                         x:Name="NativeProvinceTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^(北京|河北|内蒙古|吉林|上海|浙江|福建|山东|湖北|广东|海南|四川|云南|陕西|青海|新疆|澳门|天津|山西|辽宁|黑龙江|江苏|安徽|江西|河南|湖南|广西|重庆|贵州|西藏|甘肃|宁夏|香港|台湾)?$"
                          Grid.Row="4" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.NativeProvince, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_PhoneNumber"
+                         InputScope="Number"
+                         x:Name="PhoneNumberTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^(0?(13|14|15|18|17)[0-9]{9})?$"
                          Grid.Row="5" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.PhoneNumber, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_Birthday"
+                         InputScope="Number"
+                         x:Name="BirthdayTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^(\d{4}(\-)(0[0-9]|1[0-2])\1(0[1-9]|[12][0-9]|3[01]))?$"
                          Grid.Row="6" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Birthday, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
+                
                 <TextBox x:Uid="PersonInfo_Participation"
+                         InputScope="Number"
+                         x:Name="ParticipationTextBox"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         controls:TextBoxRegex.Regex="^\d+$"
                          Grid.Row="7" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Participation, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
