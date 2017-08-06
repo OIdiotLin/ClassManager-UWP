@@ -43,25 +43,31 @@
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
                        Background="Transparent">
+            <Button x:Name="GoBackButton"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Content="&#xE0A6;"
+                    Click="GoBackButton_Click"/>
             <Button x:Name="AddButton"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
-                    Visibility="{x:Bind AddButtonVisibility}"
-                    Content="&#xE109;"/>
+                    Content="&#xE109;"
+                    Click="AddButton_Click"/>
             <Button x:Name="DeleteButton"
-                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    RelativePanel.LeftOf="UpdateButton"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
-                    Visibility="{x:Bind DeleteButtonVisibility}"
                     Foreground="Red"
-                    Content="&#xE107;"/>
+                    Content="&#xE107;"
+                    Click="DeleteButton_Click"/>
             <Button x:Name="UpdateButton"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
-                    Visibility="{x:Bind UpdateButtonVisibility}"
-                    Content="&#xE70F;"/>
+                    Content="&#xE70F;"
+                    Click="UpdateButton_Click"/>
 
         </RelativePanel>
 
