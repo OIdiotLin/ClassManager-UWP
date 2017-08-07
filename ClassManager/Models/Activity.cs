@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +28,12 @@ namespace ClassManager.Models
         /// <summary>
         /// 将<see cref="ImagesUrl"/>解析后的stringsList
         /// </summary>
-        public List<string> ImgUrls {
+        public ObservableCollection<string> ImgUrls {
             get {
-                return ImagesUrl.Split(",".ToArray()).ToList();
+                if (ImagesUrl == null)
+                    return null;
+                return new ObservableCollection<string>(ImagesUrl.Split(",".ToArray()));
+                //return ImagesUrl.Split(",".ToArray()).ToList();
             }
         }
 
