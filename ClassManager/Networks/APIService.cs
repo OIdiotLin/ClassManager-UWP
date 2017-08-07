@@ -121,6 +121,58 @@ namespace ClassManager.Networks
         }
 
         /// <summary>
+        /// 根据<paramref name="activity"/>，获取相关的参与者列表
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns><see cref="List{Person}"/></returns>
+        public async Task<List<Person>> GetPersonByActivity(Activity activity)
+        {
+            try
+            {
+                string url = String.Format("{0}?{1}", APIUrl.Person.GetPersonByActivity, activity.Id);
+
+                JsonObject json = await GetJsonByGet(url);
+
+                if (json != null)
+                {
+                    List<Person> list = new List<Person>();
+                    if (json.ContainsKey(APIKey.Results))
+                    {
+                        var results = json[APIKey.Results];
+                        {
+                            if (results != null)
+                            {
+                                JsonArray ja = results.GetArray();
+                                foreach (var item in ja)
+                                {
+                                    var obj = item.GetObject();
+                                    list.Add(new Person(obj));
+                                }
+                                return list;
+                            }
+                            else
+                            {
+                                return null;
+                            } // result == null
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    } // json doesn't contain key - 'result'
+                }
+                else
+                {
+                    return null;
+                } // json == null
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 添加新学生
         /// </summary>
         /// <param name="person"></param>
