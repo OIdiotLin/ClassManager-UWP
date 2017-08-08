@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -92,15 +93,15 @@ namespace ClassManager.Views
             rootFrame.Navigate(typeof(MainPage));
         }
                 
-        private void LoginAsAdminEnterButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginAsAdminEnterButton_Click(object sender, RoutedEventArgs e)
         {
-            Login();
+            await Login();
         }
 
         /// <summary>
         /// 登录
         /// </summary>
-        private async void Login()
+        private async Task Login()
         {
             LoginAsAdminProgressRing.IsActive = true;
             await vm.Login(PasswordTextBox.Password);
@@ -111,7 +112,7 @@ namespace ClassManager.Views
             else
             {
                 LoginAsAdminProgressRing.IsActive = false;
-                DisplayLoginAsAdminFailDialog();
+                await DisplayLoginAsAdminFailDialog();
                 PasswordTextBox.Password = string.Empty;
                 PasswordTextBox.Focus(FocusState.Pointer);
             }
@@ -120,7 +121,7 @@ namespace ClassManager.Views
         /// <summary>
         /// 管理员登录失败时弹出对话框
         /// </summary>
-        private async void DisplayLoginAsAdminFailDialog()
+        private async Task DisplayLoginAsAdminFailDialog()
         {
             var dialog = new ContentDialog()
             {
