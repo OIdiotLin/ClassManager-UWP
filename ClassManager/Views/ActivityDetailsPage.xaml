@@ -4,10 +4,203 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ClassManager.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ClassManager.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+
+        <Style x:Key="ItemsIconStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="Grid.Column" Value="0" />
+        </Style>
+
+        <Style x:Key="ItemsPanelStyle" TargetType="Grid">
+            <Setter Property="Margin" Value="0,0,20,10" />
+        </Style>
+
+        <Style x:Key="ItemsTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Grid.Column" Value="1" />
+        </Style>
+
+    </Page.Resources>
+    
+    <Grid x:Name="MainGrid" Background="Transparent">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ActivityItemDetailsVisualStateGroup">
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ItemsPanel.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="ImagesFlipView.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="680" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ItemsPanel.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="ImagesFlipView.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="Col0" Width="2*" />
+            <ColumnDefinition x:Name="Col1"  Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="Row0" Height="70" />
+            <RowDefinition x:Name="Row1" Height="Auto" />
+            <RowDefinition x:Name="Row2" Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="Title"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="15"
+                   Foreground="White"
+                   Grid.ColumnSpan="2"
+                   Text="{x:Bind vm.ActivityOnDisplay.Name, Mode=OneWay}" />
+
+        <ScrollViewer x:Name="ItemsPanel"
+                      Grid.Row="2"
+                      VerticalScrollBarVisibility="Hidden">
+            <Grid Margin="15,0,0,0" Grid.Row="2"
+                  Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!-- 时间 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                  Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="TimeIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           Text="&#xED5A;" />
+                    <TextBlock x:Name="TimeTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Text="{x:Bind vm.ActivityOnDisplay.Time, Mode=OneWay}"/>
+                </Grid>
+                <!-- 日期 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                      Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="DateIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           Text="&#xE787;" />
+                    <TextBlock x:Name="DateTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Text="{x:Bind vm.ActivityOnDisplay.Date, Mode=OneWay}"/>
+                </Grid>
+                <!-- 地点 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                      Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="PlaceIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           Text="&#xE707;" />
+                    <TextBlock x:Name="PlaceTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Text="{x:Bind vm.ActivityOnDisplay.Place, Mode=OneWay}"/>
+                </Grid>
+                <!-- 内容 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                      Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ContentIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           VerticalAlignment="Top"
+                           Text="&#xE8A5;" />
+                    <TextBlock x:Name="ContentTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Height="Auto" TextWrapping="Wrap"
+                           Text="{x:Bind vm.ActivityOnDisplay.Content, Mode=OneWay}"
+                           Margin="0,5,0,0"/>
+                </Grid>
+                <!-- 参与者 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                      Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ParticipatorIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           VerticalAlignment="Top"
+                           Text="&#xE125;"/>
+                    <TextBlock x:Name="ParticipatorTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Height="Auto" TextWrapping="Wrap"
+                           Text="{x:Bind vm.ParticipatorsToString, Mode=OneWay}"
+                           Margin="0,5,0,0"/>
+                </Grid>
+                <!-- 活动参与分 -->
+                <Grid Style="{StaticResource ItemsPanelStyle}"
+                      Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ParticipationIcon"
+                           Style="{StaticResource ItemsIconStyle}"
+                           Text="&#xE734;" />
+                    <TextBlock x:Name="ParticipationTextBlock"
+                           Style="{StaticResource ItemsTextBlockStyle}"
+                           Text="{x:Bind vm.ActivityOnDisplay.Participation, Mode=OneWay}"/>
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+
+        <FlipView x:Name="ImagesFlipView"
+                  FlowDirection="LeftToRight"
+                  Grid.Row="2" Grid.Column="1"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Background="{ThemeResource SystemControlForegroundListMediumBrush}"
+                  ItemsSource="{x:Bind vm.ActivityOnDisplay.ImgUrls, Mode=OneWay}"
+                  Margin="20,0,20,0"> 
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <controls:ImageEx Source="{Binding}" 
+                                      VerticalAlignment="Center"
+                                      Stretch="Uniform"/>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
 
     </Grid>
 </Page>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClassManager.Models;
+using ClassManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,13 +20,45 @@ using Windows.UI.Xaml.Navigation;
 namespace ClassManager.Views
 {
     /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
+    /// 显示<see cref="Activity"/>详细信息或新建<see cref="Activity"/>的页面
     /// </summary>
     public sealed partial class ActivityDetailsPage : Page
     {
+        private ActivityDetailsViewModel vm;
+
         public ActivityDetailsPage()
         {
             this.InitializeComponent();
+            vm = new ActivityDetailsViewModel();
+        }
+
+        /// <summary>
+        /// 当导航至<see cref="ActivityDetailsPage"/>时，更新<see cref="vm"/>
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            vm.Initialize(e.Parameter as Activity);
+        }
+
+        public void DeleteActivity()
+        {
+        }
+
+        public void UpdateActivity()
+        {
+
+        }
+
+        public void ConfirmAdd()
+        {
+
+        }
+
+        public void ConfirmUpdate()
+        {
+
         }
     }
 }
