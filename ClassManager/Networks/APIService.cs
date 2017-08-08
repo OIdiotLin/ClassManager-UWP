@@ -129,7 +129,7 @@ namespace ClassManager.Networks
         {
             try
             {
-                string url = String.Format("{0}?{1}", APIUrl.Person.GetPersonByActivity, activity.Id);
+                string url = String.Format("{0}?id={1}", APIUrl.Person.GetPersonByActivity, activity.Id);
 
                 JsonObject json = await GetJsonByGet(url);
 
