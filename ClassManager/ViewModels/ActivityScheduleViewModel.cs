@@ -34,11 +34,7 @@ namespace ClassManager.ViewModels
         public async Task GetActivities()
         {
             var list = await api.GetActivityList();
-            Activities = new ObservableCollection<Activity>();
-            foreach(var item in list)
-            {
-                Activities.Add(item);
-            }
+            Activities = new ObservableCollection<Activity>(list.OrderByDescending(a => a.Date));
         }
 
     }
