@@ -1,4 +1,5 @@
 ﻿using ClassManager.Models;
+using ClassManager.Utils;
 using ClassManager.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -42,23 +43,32 @@ namespace ClassManager.Views
             vm.Initialize(e.Parameter as Activity);
         }
 
-        public void DeleteActivity()
+        /// <summary>
+        /// 调用<see cref="ActivityDetailsViewModel.DeleteActivityAsync()"/>删除当前的活动，并处理删除结果
+        /// </summary>
+        public async void DeleteActivity()
         {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = ResourceLoader.GetString("DeleteActivityDialog_Title"),
+                Content = String.Format(ResourceLoader.GetString("DeleteActivityDialog_Content"), vm.ActivityOnDisplay.Name),
+                PrimaryButtonText = ResourceLoader.GetString("DeleteActivityDialog_PrimaryButtonText"),
+                SecondaryButtonText = ResourceLoader.GetString("DeleteActivityDialog_SecondaryButtonText")
+            };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                var deleteResult = await vm.DeleteActivityAsync();
+                await new ContentDialog()
+                {
+                    Title = ResourceLoader.GetString(
+                        deleteResult ? "DeleteActivitySuccessDialog_Title" : "DeleteActivityFailDialog_Title"),
+                    Content = deleteResult ? null : ResourceLoader.GetString("DeleteActivityFailDialog_Content"),
+                    PrimaryButtonText = ResourceLoader.GetString(
+                        deleteResult ? "DeleteActivitySuccessDialog_PrimaryButtonText" : "DeleteActivityFailDialog_PrimaryButtonText"),
+                }.ShowAsync();
+            }
         }
-
-        public void UpdateActivity()
-        {
-
-        }
-
-        public void ConfirmAdd()
-        {
-
-        }
-
-        public void ConfirmUpdate()
-        {
-
-        }
+        
     }
 }
