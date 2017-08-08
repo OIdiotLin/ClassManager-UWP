@@ -100,6 +100,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ActivityItemTemplate.xaml.cs">
+      <DependentUpon>ActivityItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmptyTitleControl.xaml.cs">
       <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
     </Compile>
@@ -114,7 +117,8 @@
     <Compile Include="Utils\Crypto.cs" />
     <Compile Include="Utils\Rand.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
-    <Compile Include="ViewModels\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\ActivityDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ActivityScheduleViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -122,8 +126,14 @@
     <Compile Include="Views\ActivityDetailsPage.xaml.cs">
       <DependentUpon>ActivityDetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ActivityEditingPage.xaml.cs">
+      <DependentUpon>ActivityEditingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ActivityPage.xaml.cs">
       <DependentUpon>ActivityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivitySchedulePage.xaml.cs">
+      <DependentUpon>ActivitySchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -192,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ActivityItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EmptyTitleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,7 +214,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ActivityEditingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ActivityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivitySchedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
