@@ -34,6 +34,15 @@ namespace ClassManager.Views
         }
 
         /// <summary>
+        /// <see cref="vm.ActivityOnDisplay"/>
+        /// </summary>
+        public Activity SourceActivity {
+            get {
+                return vm.ActivityOnDisplay;
+            }
+        }
+
+        /// <summary>
         /// 当导航至<see cref="ActivityDetailsPage"/>时，更新<see cref="vm"/>
         /// </summary>
         /// <param name="e"></param>
