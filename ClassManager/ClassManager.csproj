@@ -118,6 +118,7 @@
     <Compile Include="Utils\Rand.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
     <Compile Include="ViewModels\ActivityDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ActivityEditingViewModel.cs" />
     <Compile Include="ViewModels\ActivityScheduleViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

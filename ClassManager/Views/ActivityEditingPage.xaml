@@ -8,9 +8,71 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <Style x:Key="ItemsPanelStyle" TargetType="Grid">
+            <Setter Property="Margin" Value="20" />
+        </Style>
+        
+        <Style x:Key="ItemsTitleTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
+        <Style x:Key="InfoTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{ThemeResource SystemControlForegroundListMediumBrush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
     </Page.Resources>
     
-    <Grid Background="Transparent">
-        
-    </Grid>
+    <ScrollViewer>
+        <Grid Margin="22">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock x:Uid="ActivityInfo_Title"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="TitleTextBox"
+                     x:Uid="ActivityTextBox_Title"
+                     Style="{StaticResource InfoTextBoxStyle}"
+                     Grid.Row="0" Grid.Column="1"
+                     Text="{x:Bind vm.SourceActivity.Name, Mode=TwoWay}" />
+
+            <TextBlock x:Uid="ActivityInfo_Date"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       Grid.Row="1" Grid.Column="0" />
+            <DatePicker x:Name="Date_Picker"
+                        Grid.Row="1" Grid.Column="1" 
+                        Foreground="White"
+                        Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                        Date="{x:Bind vm.Date, Mode=TwoWay}"/>
+            
+            <TextBlock x:Uid="ActivityInfo_Time"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       Grid.Row="2" Grid.Column="0"/>
+            <TimePicker x:Name="Time_Picker" 
+                        Foreground="White"
+                        Grid.Row="2" Grid.Column="1"
+                        Background="{ThemeResource SystemControlForegroundListLowBrush}"/>
+            
+            <TextBlock x:Uid="ActivityInfo_Place"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       Grid.Row="3" Grid.Column="0"/>
+            <TextBox x:Name="PlaceTextBox"
+                     Style="{StaticResource InfoTextBoxStyle}"
+                     Grid.Row="3" Grid.Column="1" />
+        </Grid>
+    </ScrollViewer>
 </Page>

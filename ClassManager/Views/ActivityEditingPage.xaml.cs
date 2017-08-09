@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClassManager.Models;
+using ClassManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,22 @@ namespace ClassManager.Views
     /// </summary>
     public sealed partial class ActivityEditingPage : Page
     {
+        private ActivityEditingViewModel vm;
+
         public ActivityEditingPage()
         {
             this.InitializeComponent();
+            vm = new ActivityEditingViewModel();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            vm.Initialize(e.Parameter as Activity);
         }
     }
 }

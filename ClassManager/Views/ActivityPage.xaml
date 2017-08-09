@@ -46,7 +46,7 @@
                        Background="Transparent">
             <Button x:Name="ConfirmButton" 
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    RelativePanel.RightOf="GoBackButton"
+                    RelativePanel.AlignRightWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
                     Visibility="Collapsed"
                     Content="&#xE081;"

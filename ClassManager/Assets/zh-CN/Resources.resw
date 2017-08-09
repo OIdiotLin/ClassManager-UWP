@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivityInfo_Content.Text" xml:space="preserve">
+    <value>活动内容</value>
+  </data>
+  <data name="ActivityInfo_Date.Text" xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="ActivityInfo_Participation.Text" xml:space="preserve">
+    <value>参与积分</value>
+  </data>
+  <data name="ActivityInfo_Place.Text" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="ActivityInfo_Time.Text" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="ActivityInfo_Title.Text" xml:space="preserve">
+    <value>活动名</value>
+  </data>
+  <data name="ActivityTextBox_Title.PlaceholderText" xml:space="preserve">
+    <value>1~30字</value>
+  </data>
   <data name="AddPersonFailDialog_Content" xml:space="preserve">
     <value>请检查学号是否填写正确或联系开发人员。</value>
   </data>
