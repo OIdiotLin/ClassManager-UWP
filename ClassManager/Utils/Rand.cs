@@ -43,5 +43,23 @@ namespace ClassManager.Utils
             return result;
         }
         
+        /// <summary>
+        /// 从<paramref name="list"/>中随机选取<paramref name="count"/>个项，构成新的<see cref="List"/>
+        /// </summary>
+        /// <param name="list">源list</param>
+        /// <param name="count">待选个数</param>
+        /// <returns></returns>
+        public static IEnumerable<T> RandomItems<T>(IEnumerable<T> list, int count)
+        {
+            if(count > list.Count())
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var rnd = new Random();
+            list = list.OrderBy(x => (rnd.Next())) as IEnumerable<T>;
+
+            return list.Take(count);
+        }
     }
 }
