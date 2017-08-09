@@ -126,6 +126,9 @@
   <data name="ActivityInfo_Participation.Text" xml:space="preserve">
     <value>参与积分</value>
   </data>
+  <data name="ActivityInfo_Participator.Header" xml:space="preserve">
+    <value>参与活动人员</value>
+  </data>
   <data name="ActivityInfo_Place.Text" xml:space="preserve">
     <value>地点</value>
   </data>
@@ -281,6 +284,12 @@
   </data>
   <data name="PersonInfo_StudentNumber.Header" xml:space="preserve">
     <value>学号</value>
+  </data>
+  <data name="SelectAllButton.Content" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="ShuffleButton.Content" xml:space="preserve">
+    <value>随机选取</value>
   </data>
   <data name="UpdatePersonFailDialog_Content" xml:space="preserve">
     <value>请检查学号是否填写正确或联系开发人员。</value>

@@ -5,13 +5,23 @@
     xmlns:local="using:ClassManager.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:data="using:ClassManager.Models"
     mc:Ignorable="d">
 
     <Page.Resources>
         <Style x:Key="ItemsPanelStyle" TargetType="Grid">
             <Setter Property="Margin" Value="20" />
         </Style>
-        
+
+        <DataTemplate x:Key="PersonGridViewItemTemplate" x:DataType="data:Person">
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="White" 
+                       Text="{x:Bind Name, Mode=OneWay}"
+                       Width="70"
+                       Margin="8,0,0,0"/>
+        </DataTemplate>
+
         <Style x:Key="ItemsTitleTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Margin" Value="8" />
@@ -22,8 +32,17 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="{ThemeResource SystemControlForegroundListMediumBrush}" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,0,0" />
         </Style>
-        
+
+        <Style x:Key="SymbolButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
     </Page.Resources>
     
     <ScrollViewer>
@@ -34,11 +53,14 @@
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height="65" />
+                <RowDefinition Height="65" />
+                <RowDefinition Height="65" />
+                <RowDefinition Height="65" />
+                <RowDefinition Height="260" />
+                <RowDefinition Height="65" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
             <TextBlock x:Uid="ActivityInfo_Title"
@@ -57,6 +79,7 @@
                         Grid.Row="1" Grid.Column="1" 
                         Foreground="White"
                         Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                        Margin="10,0,0,0"
                         Date="{x:Bind vm.Date, Mode=TwoWay}"/>
             
             <TextBlock x:Uid="ActivityInfo_Time"
@@ -65,14 +88,84 @@
             <TimePicker x:Name="Time_Picker" 
                         Foreground="White"
                         Grid.Row="2" Grid.Column="1"
-                        Background="{ThemeResource SystemControlForegroundListLowBrush}"/>
+                        Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                        Margin="10,0,0,0"
+                        Time="{x:Bind vm.Time, Mode=TwoWay}"/>
             
             <TextBlock x:Uid="ActivityInfo_Place"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        Grid.Row="3" Grid.Column="0"/>
             <TextBox x:Name="PlaceTextBox"
                      Style="{StaticResource InfoTextBoxStyle}"
-                     Grid.Row="3" Grid.Column="1" />
+                     Grid.Row="3" Grid.Column="1"
+                     Text="{x:Bind vm.SourceActivity.Place, Mode=TwoWay}"/>
+
+            <TextBlock x:Uid="ActivityInfo_Content"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       VerticalAlignment="Top"
+                       Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="ContentTextBox"
+                     Style="{StaticResource InfoTextBoxStyle}"
+                     Height="250"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Grid.Row="4" Grid.Column="1"
+                     Text="{x:Bind vm.SourceActivity.Content, Mode=TwoWay}"/>
+            
+            <TextBlock x:Uid="ActivityInfo_Participation"
+                       Style="{StaticResource ItemsTitleTextBlockStyle}"
+                       VerticalAlignment="Center"
+                       Grid.Row="5" Grid.Column="0"/>
+            <TextBox x:Name="ParticipationTextBox"
+                     Style="{StaticResource InfoTextBoxStyle}"
+                     Grid.Row="5" Grid.Column="1"
+                     InputScope="Number"
+                     controls:TextBoxRegex.Regex="^\d+$"
+                     controls:TextBoxRegex.ValidationMode="Forced"
+                     Text="{x:Bind vm.SourceActivity.Participation, Mode=TwoWay}"/>
+
+            <controls:Expander x:Name="ParticipatorsPanel"
+                               x:Uid="ActivityInfo_Participator"
+                               Grid.Row="0" Grid.Column="2" Grid.RowSpan="6"
+                               Margin="30,14,0,0"
+                               Foreground="White"
+                               Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                               VerticalAlignment="Top"
+                               HorizontalContentAlignment="Stretch">
+                <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                Margin="10"
+                                FlowDirection="RightToLeft">
+                        <ToggleButton x:Name="SelectAllButton"
+                                      x:Uid="SelectAllButton"
+                                      Foreground="White"
+                                      Margin="5,0,5,0"
+                                      Click="SelectAllButton_Click"/>
+                        <Button x:Name="ShuffleButton"
+                                x:Uid="ShuffleButton"
+                                Foreground="White"
+                                Click="ShuffleButton_Click"/>
+                        <TextBox x:Name="ShuffleDemandTextBox"
+                                 InputScope="Number"
+                                 Text="{x:Bind vm.ShuffleDemand, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <GridView x:Name="PersonGridView"
+                              Grid.Row="1" Grid.Column="0"
+                              ItemsSource="{x:Bind vm.Persons, Mode=OneWay}"
+                              ItemTemplate="{StaticResource PersonGridViewItemTemplate}"
+                              SelectionMode="Multiple"
+                              SelectionChanged="PersonGridView_SelectionChanged"/>
+                </Grid>
+            </controls:Expander>
         </Grid>
     </ScrollViewer>
 </Page>

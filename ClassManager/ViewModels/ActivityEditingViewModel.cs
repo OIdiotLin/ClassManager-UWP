@@ -1,5 +1,6 @@
 ﻿using ClassManager.Models;
 using ClassManager.Networks;
+using ClassManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,15 +14,54 @@ namespace ClassManager.ViewModels
     {
         APIService api = new APIService();
 
-        public async void Initialize(Activity activity = null)
+        public async Task Initialize(Activity activity = null)
         {
-            Persons = new ObservableCollection<Person>(await api.GetPersonList());
+            ChosenParticipators = new ObservableCollection<Person>();
+            Persons = new ObservableCollection<Person>((await api.GetPersonList()).OrderBy(x => (x.Pinyin)));
             SourceActivity = activity;
 
             string[] date = SourceActivity.Date.Split('-');
-            Date = new DateTimeOffset(new DateTime(Int16.Parse(date[0]), Int16.Parse(date[1]), Int16.Parse(date[2])));
+            string[] time = SourceActivity.Time.Split(':');
 
+            DateTime datetime = new DateTime(Int16.Parse(date[0]), Int16.Parse(date[1]), Int16.Parse(date[2]),
+                                             Int16.Parse(time[0]), Int16.Parse(time[1]), 0);
 
+            Time = new TimeSpan(datetime.Hour, datetime.Minute, 0);
+            Date = new DateTimeOffset(datetime);
+            
+        }
+
+        /// <summary>
+        /// 更新<see cref="ChosenParticipators"/>
+        /// </summary>
+        /// <param name="addedList">新选择的人员</param>
+        /// <param name="removedList">取消选择的人员</param>
+        public void RefreshChosenParticipators(IList<object> addedList, IList<object> removedList)
+        {
+            if (addedList != null)
+            {
+                foreach (var person in addedList)
+                {
+                    ChosenParticipators.Add(person as Person);
+                }
+            }
+            if (removedList != null)
+            {
+                foreach (var person in removedList)
+                {
+                    ChosenParticipators.Remove(person as Person);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 随机选择<see cref="ShuffleDemand"/>个人员，对<see cref="Person.Participation"/>较小的略有偏好。
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Person> RandomSelectItems()
+        {
+            // TODO 还是决定在backend上写个api吧，用推荐算法。
+            return new ObservableCollection<Person>(Rand.RandomItems(Persons.ToList(), ShuffleDemand));
         }
 
         private Activity _source_activity;
@@ -75,25 +115,42 @@ namespace ClassManager.ViewModels
                 return _date;
             }
             set {
-                if(SourceActivity != null)
+                if (SourceActivity != null)
                     SourceActivity.Date = String.Format("{0}-{1}-{2}", value.Year, value.Month, value.Day);
                 this._date = value;
                 OnPropertyChanged();
             }
         }
 
-        private DateTimeOffset _time;
+        private TimeSpan _time;
         /// <summary>
         /// 当前活动的时间
         /// </summary>
-        public DateTimeOffset Time {
+        public TimeSpan Time {
             get {
                 return _time;
             }
             set {
-                if (SourceActivity != null)
-                    SourceActivity.Date = String.Format("{0}:{1}", value.Hour, value.Minute);
-                this._date = value;
+                if (value != _time)
+                {
+                    if (SourceActivity != null)
+                        SourceActivity.Time = String.Format("{0}:{1}", value.Hours, value.Minutes);
+                    this._time = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _shuffle_demand = 1;
+        /// <summary>
+        /// 当前活动所需人数，用于进行随机选取操作
+        /// </summary>
+        public int ShuffleDemand {
+            get {
+                return _shuffle_demand;
+            }
+            set {
+                this._shuffle_demand = value;
                 OnPropertyChanged();
             }
         }
