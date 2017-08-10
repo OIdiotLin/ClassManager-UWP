@@ -20,7 +20,7 @@ namespace ClassManager.Models
         /// <summary>
         /// 上传状态枚举类型
         /// </summary>
-        public enum UPLOADSTATE
+        public enum UploadState
         {
             ReadyForUpload,
             Uploading,
@@ -31,6 +31,12 @@ namespace ClassManager.Models
         /// <summary>
         /// 上传状态
         /// </summary>
-        public UPLOADSTATE UploadState { get; set; }
+        public UploadState State { get; set; }
+
+        public UploadingImageFile(StorageFile file = null)
+        {
+            File = file;
+            State = UploadState.ReadyForUpload;
+        }
     }
 }
