@@ -109,6 +109,14 @@ namespace ClassManager.Models
 
         public Activity()
         {
+            Name = "";
+            Date = "2000-01-01";
+            Time = "00:00";
+            Place = "";
+            Participator = "";
+            Content = "";
+            ImagesUrl = "";
+            Participation = 0;
         }
     }
 
