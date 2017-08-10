@@ -99,6 +99,8 @@ namespace ClassManager
             var accentBrush = (Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color;
             view.TitleBar.BackgroundColor = accentBrush;
             view.TitleBar.ForegroundColor = Colors.White;
+            view.TitleBar.InactiveBackgroundColor = accentBrush;
+            view.TitleBar.InactiveForegroundColor = Colors.DimGray;
 
             // button
             view.TitleBar.ButtonBackgroundColor = accentBrush;
