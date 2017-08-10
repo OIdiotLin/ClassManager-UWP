@@ -56,11 +56,54 @@ namespace ClassManager.ViewModels
 
         /// <summary>
         /// 随机选择<see cref="ShuffleDemand"/>个人员，对<see cref="Person.Participation"/>较小的略有偏好。
+        /// 1.将待选人员列表按参与度升序排列，总数为L
+        /// 2.从最中间的位置k开始向两侧随机查询
+        /// ，进入左侧的概率为(Sum[k+1,L-1]^3)/(Sum[0,k]^3+Sum[k+1,L]^3)
+        /// ，进入右侧的概率为(Sum[0,k]^3)/(Sum[0,k]^3+Sum[k+1,L]^3)
         /// </summary>
         /// <returns></returns>
         public ObservableCollection<Person> RandomSelectItems()
         {
-            // TODO 还是决定在backend上写个api吧，用推荐算法。
+            //Random rnd = new Random();
+            //int[] prefixSum = new int[Persons.Count + 1];
+            //List<Person> ascendingPersonList = Persons.OrderBy(p => p.Participation).ToList();
+            //var pickedPersons = new ObservableCollection<Person>();
+
+            //if (ShuffleDemand > Persons.Count)
+            //    ShuffleDemand = Persons.Count;
+
+            //for (int pickedCount = 0; pickedCount < ShuffleDemand; pickedCount++)
+            //{
+            //    /// 前缀和处理
+            //    /// prefixSum[i]表示ascendingPersonList[0]到ascendingPersonList[i-1]的累加和
+            //    prefixSum[0] = 0;
+            //    for (int i = 1; i <= ascendingPersonList.Count; i++)
+            //    {
+            //        prefixSum[i] = prefixSum[i - 1] + ascendingPersonList[i - 1].Participation;
+            //    }
+
+            //    int l = 1, r = ascendingPersonList.Count;
+            //    while (l != r)
+            //    {
+            //        int m = (l + r) >> 1;
+            //        var poweredLeft = Math.Pow(prefixSum[m] - prefixSum[l], 3);
+            //        var poweredRight = Math.Pow(prefixSum[r] - prefixSum[m + 1], 3);
+            //        var probLeft = poweredRight / (poweredRight + poweredLeft);
+
+            //        if (rnd.NextDouble() <= probLeft)
+            //        {
+            //            r = m;
+            //        }
+            //        else
+            //        {
+            //            l = m+1;
+            //        }
+            //    }
+
+            //    pickedPersons.Add(ascendingPersonList[l - 1]);
+            //}
+
+            //return pickedPersons;
             return new ObservableCollection<Person>(Rand.RandomItems(Persons.ToList(), ShuffleDemand));
         }
 

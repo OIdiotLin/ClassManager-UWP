@@ -53,7 +53,7 @@ namespace ClassManager.Utils
         {
             if(count > list.Count())
             {
-                throw new ArgumentOutOfRangeException();
+                count = list.Count();
             }
 
             var rnd = new Random();
