@@ -25,15 +25,20 @@ namespace ClassManager.Controls
             }
             set {
                 this.DataContext = value;
-                IconRefresh();
             }
         }
 
+        
         /// <summary>
         /// 根据上传状态更新Icons
         /// </summary>
         private void IconRefresh()
         {
+            if (UploadingImageFile == null)
+            {
+                return;
+            }
+
             switch (UploadingImageFile.State)
             {
                 case Models.UploadingImageFile.UploadState.ReadyForUpload:  // 准备上传
@@ -66,6 +71,8 @@ namespace ClassManager.Controls
             this.InitializeComponent();
 
             this.DataContextChanged += (s, e) => Bindings.Update();
+
+            this.DataContextChanged += (s, e) => IconRefresh();
         }
     }
 }
