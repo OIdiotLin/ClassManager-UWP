@@ -123,6 +123,10 @@
   <data name="ActivityInfo_Date.Text" xml:space="preserve">
     <value>开始日期</value>
   </data>
+  <data name="ActivityInfo_Images.Header" xml:space="preserve">
+    <value>上传相关图片</value>
+    <comment>ImagesUploadPanel</comment>
+  </data>
   <data name="ActivityInfo_Participation.Text" xml:space="preserve">
     <value>参与积分</value>
   </data>
