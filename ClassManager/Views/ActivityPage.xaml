@@ -49,7 +49,7 @@
                     RelativePanel.AlignRightWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
                     Visibility="Collapsed"
-                    Content="&#xE081;"
+                    Content="&#xE898;"
                     Click="ConfirmButton_Click"/>
             <Button x:Name="GoBackButton"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
