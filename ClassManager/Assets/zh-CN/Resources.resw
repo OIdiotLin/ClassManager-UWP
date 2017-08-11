@@ -163,6 +163,9 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Class Manager - Client</value>
   </data>
+  <data name="ChooseUploadImageFile_Hint" xml:space="preserve">
+    <value>*第一张图片将设置为封面</value>
+  </data>
   <data name="Copyright.Text" xml:space="preserve">
     <value>All Rights Reserved © 2017 H.D.Lin</value>
   </data>

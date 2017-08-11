@@ -1,4 +1,5 @@
 ﻿using ClassManager.Models;
+using ClassManager.Utils;
 using ClassManager.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ namespace ClassManager.Views
                 if (vm.SourceActivity.Participators.Contains((item as Person).StudentNumber))
                     PersonGridView.SelectedItems.Add(item);
             }
+
+            if(vm.SourceActivity.ImagesUrl == "")
+            {
+                ChooseUploadImageFileHintTextBlock.Text = ResourceLoader.GetString("ChooseUploadImageFile_Hint");
+            }
         }
 
         /// <summary>
@@ -87,6 +93,33 @@ namespace ClassManager.Views
             {
                 PersonGridView.SelectedItems.Clear();
             }
+        }
+
+        /// <summary>
+        /// <see cref="ChooseImagesButton"/>被点击，
+        /// 调用<see cref="Windows.Storage.Pickers.FileOpenPicker"/>选择要上传的文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void ChooseImagesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker()
+            {
+                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+            };
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".gif");
+
+            vm.AddFiles(await picker.PickMultipleFilesAsync());
+        }
+
+
+        private void ImagesListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            vm.RemoveFile(e.ClickedItem as UploadingImageFile);
         }
     }
 }

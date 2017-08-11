@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace ClassManager.ViewModels
 {
@@ -18,6 +19,7 @@ namespace ClassManager.ViewModels
         {
             ChosenParticipators = new ObservableCollection<Person>();
             Persons = new ObservableCollection<Person>((await api.GetPersonList()).OrderBy(x => (x.Pinyin)));
+            UploadingImageFiles = new ObservableCollection<UploadingImageFile>();
             SourceActivity = activity;
 
             string[] date = SourceActivity.Date.Split('-');
@@ -107,6 +109,35 @@ namespace ClassManager.ViewModels
             return new ObservableCollection<Person>(Rand.RandomItems(Persons.ToList(), ShuffleDemand));
         }
 
+        /// <summary>
+        /// 将<paramref name="uploadingImageFile"/>从<see cref="UploadingImageFiles"/>中去除
+        /// </summary>
+        /// <param name="uploadingImageFile"></param>
+        public void RemoveFile(UploadingImageFile uploadingImageFile)
+        {
+            if(uploadingImageFile == null)
+            {
+                return;
+            }
+            UploadingImageFiles.Remove(uploadingImageFile);
+        }
+
+        /// <summary>
+        /// 将选择的文件添加到<see cref="UploadingImageFiles"/>
+        /// </summary>
+        /// <param name="readOnlyList"></param>
+        public void AddFiles(IReadOnlyList<StorageFile> readOnlyList)
+        {
+            if (readOnlyList == null)
+            {
+                return;
+            }
+            foreach (var file in readOnlyList)
+            {
+                UploadingImageFiles.Add(new UploadingImageFile(file));
+            }
+        }
+
         private Activity _source_activity;
         /// <summary>
         /// 该页面的源<see cref="Activity"/>
@@ -194,6 +225,20 @@ namespace ClassManager.ViewModels
             }
             set {
                 this._shuffle_demand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<UploadingImageFile> _uploading_image_files;
+        /// <summary>
+        /// 待上传的相关图片文件
+        /// </summary>
+        public ObservableCollection<UploadingImageFile> UploadingImageFiles {
+            get {
+                return _uploading_image_files;
+            }
+            set {
+                this._uploading_image_files = value;
                 OnPropertyChanged();
             }
         }

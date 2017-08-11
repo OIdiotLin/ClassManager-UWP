@@ -5,7 +5,8 @@
     xmlns:local="using:ClassManager.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:ClassManager.Controls"
     xmlns:data="using:ClassManager.Models"
     mc:Ignorable="d">
 
@@ -18,10 +19,14 @@
             <TextBlock VerticalAlignment="Center"
                        Foreground="White" 
                        Text="{x:Bind Name, Mode=OneWay}"
-                       Width="70"
-                       Margin="8,0,0,0"/>
+                       Width="75"
+                       Margin="10,0,0,0"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="ImageFileListItemTemplate" x:DataType="data:UploadingImageFile">
+            <controls:ImageFileItemTemplate />
+        </DataTemplate>
+        
         <Style x:Key="ItemsTitleTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Margin" Value="8" />
@@ -44,67 +49,98 @@
         </Style>
 
     </Page.Resources>
-    
+
     <ScrollViewer>
-        <Grid Margin="22">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ActivityEditingPageVisualStateGroup">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="980" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ExpandInfoPanel.(Grid.Column)" Value="1" />
+                        <Setter Target="ExpandInfoPanel.(Grid.Row)" Value="0" />
+                        <Setter Target="SecondCol.Width" Value="3*" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ExpandInfoPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="ExpandInfoPanel.(Grid.Row)" Value="1" />
+                        <Setter Target="SecondCol.Width" Value="Auto" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="MainPanel"
+              Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition x:Name="FirstCol" Width="2*" MinWidth="400" />
+                <ColumnDefinition x:Name="SecondCol" Width="3*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="65" />
-                <RowDefinition Height="65" />
-                <RowDefinition Height="65" />
-                <RowDefinition Height="65" />
-                <RowDefinition Height="260" />
-                <RowDefinition Height="65" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            
-            <TextBlock x:Uid="ActivityInfo_Title"
+
+            <Grid x:Name="BasicInfoPanel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="260" />
+                    <RowDefinition Height="65" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Uid="ActivityInfo_Title"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="TitleTextBox"
+                <TextBox x:Name="TitleTextBox"
                      x:Uid="ActivityTextBox_Title"
                      Style="{StaticResource InfoTextBoxStyle}"
                      Grid.Row="0" Grid.Column="1"
                      Text="{x:Bind vm.SourceActivity.Name, Mode=TwoWay}" />
 
-            <TextBlock x:Uid="ActivityInfo_Date"
+                <TextBlock x:Uid="ActivityInfo_Date"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        Grid.Row="1" Grid.Column="0" />
-            <DatePicker x:Name="Date_Picker"
+                <DatePicker x:Name="Date_Picker"
                         Grid.Row="1" Grid.Column="1" 
                         Foreground="White"
                         Background="{ThemeResource SystemControlForegroundListLowBrush}"
                         Margin="10,0,0,0"
                         Date="{x:Bind vm.Date, Mode=TwoWay}"/>
-            
-            <TextBlock x:Uid="ActivityInfo_Time"
+
+                <TextBlock x:Uid="ActivityInfo_Time"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        Grid.Row="2" Grid.Column="0"/>
-            <TimePicker x:Name="Time_Picker" 
+                <TimePicker x:Name="Time_Picker" 
                         Foreground="White"
                         Grid.Row="2" Grid.Column="1"
                         Background="{ThemeResource SystemControlForegroundListLowBrush}"
                         Margin="10,0,0,0"
                         Time="{x:Bind vm.Time, Mode=TwoWay}"/>
-            
-            <TextBlock x:Uid="ActivityInfo_Place"
+
+                <TextBlock x:Uid="ActivityInfo_Place"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        Grid.Row="3" Grid.Column="0"/>
-            <TextBox x:Name="PlaceTextBox"
+                <TextBox x:Name="PlaceTextBox"
                      Style="{StaticResource InfoTextBoxStyle}"
                      Grid.Row="3" Grid.Column="1"
                      Text="{x:Bind vm.SourceActivity.Place, Mode=TwoWay}"/>
 
-            <TextBlock x:Uid="ActivityInfo_Content"
+                <TextBlock x:Uid="ActivityInfo_Content"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        VerticalAlignment="Top"
                        Grid.Row="4" Grid.Column="0"/>
-            <TextBox x:Name="ContentTextBox"
+                <TextBox x:Name="ContentTextBox"
                      Style="{StaticResource InfoTextBoxStyle}"
                      Height="250"
                      TextWrapping="Wrap"
@@ -112,60 +148,117 @@
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      Grid.Row="4" Grid.Column="1"
                      Text="{x:Bind vm.SourceActivity.Content, Mode=TwoWay}"/>
-            
-            <TextBlock x:Uid="ActivityInfo_Participation"
+
+                <TextBlock x:Uid="ActivityInfo_Participation"
                        Style="{StaticResource ItemsTitleTextBlockStyle}"
                        VerticalAlignment="Center"
                        Grid.Row="5" Grid.Column="0"/>
-            <TextBox x:Name="ParticipationTextBox"
+                <TextBox x:Name="ParticipationTextBox"
                      Style="{StaticResource InfoTextBoxStyle}"
                      Grid.Row="5" Grid.Column="1"
                      InputScope="Number"
-                     controls:TextBoxRegex.Regex="^\d+$"
-                     controls:TextBoxRegex.ValidationMode="Forced"
+                     toolkit:TextBoxRegex.Regex="^\d+$"
+                     toolkit:TextBoxRegex.ValidationMode="Forced"
                      Text="{x:Bind vm.SourceActivity.Participation, Mode=TwoWay}"/>
+            </Grid>
 
-            <controls:Expander x:Name="ParticipatorsPanel"
-                               x:Uid="ActivityInfo_Participator"
-                               Grid.Row="0" Grid.Column="2" Grid.RowSpan="6"
-                               Margin="30,14,0,0"
-                               Foreground="White"
-                               Background="{ThemeResource SystemControlForegroundListLowBrush}"
-                               VerticalAlignment="Top"
-                               HorizontalContentAlignment="Stretch">
-                <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="0"
-                                Orientation="Horizontal"
-                                Margin="10"
-                                FlowDirection="RightToLeft">
-                        <ToggleButton x:Name="SelectAllButton"
+            <RelativePanel x:Name="ExpandInfoPanel"
+                           Grid.Column="1" Grid.Row="0"
+                           Margin="30,17,0,0">
+                <toolkit:Expander x:Name="ParticipatorsPanel"
+                                  x:Uid="ActivityInfo_Participator"
+                                  RelativePanel.AlignTopWithPanel="True"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignRightWithPanel="True"
+                                  Foreground="White"
+                                  Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                                  VerticalAlignment="Top"
+                                  HorizontalContentAlignment="Stretch">
+                    <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                          Padding="10"
+                          BorderBrush="{ThemeResource AccentButtonBorderBrush}"
+                          BorderThickness="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <GridView x:Name="PersonGridView"
+                                  Grid.Row="0" Grid.Column="0"
+                                  ItemsSource="{x:Bind vm.Persons, Mode=OneWay}"
+                                  ItemTemplate="{StaticResource PersonGridViewItemTemplate}"
+                                  SelectionMode="Multiple"
+                                  SelectionChanged="PersonGridView_SelectionChanged"/>
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft">
+                            <ToggleButton x:Name="SelectAllButton"
                                       x:Uid="SelectAllButton"
                                       Foreground="White"
-                                      Margin="5,0,5,0"
+                                      Margin="0,0,5,0"
                                       Click="SelectAllButton_Click"/>
-                        <Button x:Name="ShuffleButton"
+                            <Button x:Name="ShuffleButton"
                                 x:Uid="ShuffleButton"
                                 Foreground="White"
                                 Click="ShuffleButton_Click"/>
-                        <TextBox x:Name="ShuffleDemandTextBox"
+                            <TextBox x:Name="ShuffleDemandTextBox"
                                  InputScope="Number"
                                  Text="{x:Bind vm.ShuffleDemand, Mode=TwoWay}"/>
-                    </StackPanel>
-                    <GridView x:Name="PersonGridView"
-                              Grid.Row="1" Grid.Column="0"
-                              ItemsSource="{x:Bind vm.Persons, Mode=OneWay}"
-                              ItemTemplate="{StaticResource PersonGridViewItemTemplate}"
-                              SelectionMode="Multiple"
-                              SelectionChanged="PersonGridView_SelectionChanged"/>
-                </Grid>
-            </controls:Expander>
+                        </StackPanel>
+                    </Grid>
+                </toolkit:Expander>
+
+                <toolkit:Expander x:Name="ImagesUploadPanel"
+                                  x:Uid="ActivityInfo_Images"
+                                  RelativePanel.Below="ParticipatorsPanel"
+                                  RelativePanel.AlignLeftWithPanel="True"
+                                  RelativePanel.AlignRightWithPanel="True"
+                                  Margin="0,15,0,0"
+                                  Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                                  VerticalAlignment="Top"
+                                  HorizontalContentAlignment="Stretch">
+                    <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                          BorderBrush="{ThemeResource AccentButtonBorderBrush}"
+                          BorderThickness="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListView x:Name="ImagesListView"
+                                  Grid.Row="0" Grid.Column="0"
+                                  MinHeight="200"
+                                  Background="#50FFFFFF"
+                                  ItemsSource="{x:Bind vm.UploadingImageFiles, Mode=OneWay}"
+                                  ItemTemplate="{StaticResource ImageFileListItemTemplate}"
+                                  SelectionMode="None"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="ImagesListView_ItemClick"
+                                  HorizontalContentAlignment="Stretch" />
+
+
+                        <StackPanel x:Name="ImageButtonPanel"
+                                    Orientation="Horizontal"
+                                    Grid.Row="1"
+                                    FlowDirection="RightToLeft">
+                            <Button x:Name="ChooseImagesButton"
+                                    Style="{StaticResource SymbolButtonStyle}"
+                                    Content="&#xE8E5;"
+                                    Click="ChooseImagesButton_Click" />
+                            <TextBlock x:Name="ChooseUploadImageFileHintTextBlock"
+                                       Foreground="Gray"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"/>
+                        </StackPanel>
+
+                    </Grid>
+                </toolkit:Expander>
+            </RelativePanel>
         </Grid>
     </ScrollViewer>
 </Page>
