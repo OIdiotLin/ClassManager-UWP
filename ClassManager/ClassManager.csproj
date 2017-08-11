@@ -106,8 +106,12 @@
     <Compile Include="Controls\EmptyTitleControl.xaml.cs">
       <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageFileItemTemplate.xaml.cs">
+      <DependentUpon>ImageFileItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\UploadingImageFile.cs" />
     <Compile Include="Networks\APIBaseService.cs" />
     <Compile Include="Networks\APIService.cs" />
     <Compile Include="Networks\APIUrl.cs" />
@@ -208,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\EmptyTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageFileItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ClassManager.Utils;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -144,18 +145,34 @@ namespace ClassManager.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            switch((sender as Button).Tag as string)
+            var tag = (sender as Button).Tag as string;
+            if ((sender as Button).Tag as string =="Add" ||(sender as Button).Tag as string == "Update")
             {
-                case "Add":
-                    //(this.ActivityMainFrame.Content as ActivityDetailsPage).ConfirmAdd();
-                    break;
-                case "Update":
-                    //(this.ActivityMainFrame.Content as ActivityDetailsPage).ConfirmUpdate();
-                    break;
-                default:
-                    break;
+                var result = await (this.ActivityMainFrame.Content as ActivityEditingPage).Confirm(tag);
+                if (result)
+                {
+                    await new ContentDialog()
+                    {
+                        Title = ResourceLoader.GetString(
+                            tag == "Add" ? "AddActivitySuccessDialog_Title" : "UpdateActivitySuccessDialog_Title"),
+                        PrimaryButtonText = ResourceLoader.GetString(
+                            tag == "Add" ? "AddActivitySuccessDialog_PrimaryButtonText" : "UpdateActivitySuccessDialog_PrimaryButtonText")
+                    }.ShowAsync();
+                }
+                else
+                {
+                    await new ContentDialog()
+                    {
+                        Title = ResourceLoader.GetString(
+                            tag == "Add" ? "AddActivitySuccessDialog_Title" : "UpdateActivitySuccessDialog_Title"),
+                        Content = ResourceLoader.GetString(
+                            tag == "Add" ? "AddActivitySuccessDialog_Content" : "UpdateActivitySuccessDialog_Content"),
+                        PrimaryButtonText = ResourceLoader.GetString(
+                            tag == "Add" ? "AddActivityFailDialog_PrimaryButtonText" : "UpdateActivityFailDialog_PrimaryButtonText")
+                    }.ShowAsync();
+                }
             }
         }
     }

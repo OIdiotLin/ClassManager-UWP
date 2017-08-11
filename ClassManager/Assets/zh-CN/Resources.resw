@@ -160,6 +160,36 @@
   <data name="AddPersonSuccessDialog_Title" xml:space="preserve">
     <value>添加成功</value>
   </data>
+  <data name="AddActivityFailDialog_Content" xml:space="preserve">
+    <value>请检查信息是否填写正确或联系开发人员。</value>
+  </data>
+  <data name="AddActivityFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddActivityFailDialog_Title" xml:space="preserve">
+    <value>添加失败</value>
+  </data>
+  <data name="AddActivitySuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddActivitySuccessDialog_Title" xml:space="preserve">
+    <value>添加成功</value>
+  </data>
+  <data name="UpdateActivityFailDialog_Content" xml:space="preserve">
+    <value>请检查信息是否填写正确或联系开发人员。</value>
+  </data>
+  <data name="UpdateActivityFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="UpdateActivityFailDialog_Title" xml:space="preserve">
+    <value>修改失败</value>
+  </data>
+  <data name="UpdateActivitySuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="UpdateActivitySuccessDialog_Title" xml:space="preserve">
+    <value>修改成功</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Class Manager - Client</value>
   </data>

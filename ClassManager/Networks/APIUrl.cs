@@ -11,52 +11,74 @@ namespace ClassManager.Networks
     /// </summary>
     public static class APIUrl
     {
-        // Prefix - protocol and common path
-        public static string prefix = "http://server.oidiotlin.com/clsmngr/api/";
+        /// Prefix - protocol and common path
+        public static string ServerHost = "http://server.oidiotlin.com/clsmngr/api/";
 
         public static class Person
         {
-            // GET - 获取学生列表
-            public static string GetPersonList = prefix + "get_person_list/";
+            /// <summary>
+            /// GET - 获取学生列表
+            /// </summary>
+            public static string GetPersonList = ServerHost + "get_person_list/";
 
-            // POST - 添加学生
-            public static string AddPerson = prefix + "add_person/";
+            /// <summary>
+            /// POST - 添加学生
+            /// </summary>
+            public static string AddPerson = ServerHost + "add_person/";
 
-            // POST - 删除学生
-            public static string DeletePerson = prefix + "delete_person/";
+            /// <summary>
+            /// POST - 删除学生
+            /// </summary>
+            public static string DeletePerson = ServerHost + "delete_person/";
 
-            // POST - 修改学生信息
-            public static string UpdatePerson = prefix + "update_person/";
+            /// <summary>
+            /// POST - 修改学生信息
+            /// </summary>
+            public static string UpdatePerson = ServerHost + "update_person/";
 
-            // GET - 按活动编号查找学生
-            public static string GetPersonByActivity = prefix + "get_person_by_activity/";
+            /// <summary>
+            /// GET - 按活动编号查找学生
+            /// </summary>
+            public static string GetPersonByActivity = ServerHost + "get_person_by_activity/";
         }
 
         public static class Activity
         {
-            // GET - 获取活动列表
-            public static string GetActivityList = prefix + "get_activity_list/";
+            /// <summary>
+            /// GET - 获取活动列表
+            /// </summary>
+            public static string GetActivityList = ServerHost + "get_activity_list/";
 
-            // POST - 添加活动
-            public static string AddActivity = prefix + "add_activity/";
+            /// <summary>
+            /// POST - 添加活动
+            /// </summary>
+            public static string AddActivity = ServerHost + "add_activity/";
 
-            // POST - 删除活动
-            public static string DeleteActivity = prefix + "delete_activity/";
+            /// <summary>
+            /// POST - 删除活动
+            /// </summary>
+            public static string DeleteActivity = ServerHost + "delete_activity/";
 
-            // POST - 修改活动信息
-            public static string UpdateActivity = prefix + "update_activity/";
+            /// <summary>
+            /// POST - 修改活动信息
+            /// </summary>
+            public static string UpdateActivity = ServerHost + "update_activity/";
         }
 
         public static class Qiniu
         {
-            // GET - 获取七牛云上传凭证
-            public static string GetUploadToken = prefix + "get_upload_token/";
+            /// <summary>
+            /// GET - 获取七牛云上传凭证
+            /// </summary>
+            public static string GetUploadToken = ServerHost + "get_upload_token/";
+
+            public static string StorageHost = "http://oolxxgdth.bkt.clouddn.com/";
         }
 
         public static class Permission
         {
-            // GET - 登录认证
-            public static string Login = prefix + "login/";
+            /// GET - 登录认证
+            public static string Login = ServerHost + "login/";
         }
 
     }

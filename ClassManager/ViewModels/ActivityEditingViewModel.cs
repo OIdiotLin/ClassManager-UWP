@@ -123,6 +123,49 @@ namespace ClassManager.ViewModels
         }
 
         /// <summary>
+        /// 确认上传：
+        /// 1.收集数据
+        /// 2.上传相关图片到七牛云
+        /// 3.上传基础信息到服务器
+        /// </summary>
+        /// <param name="op"></param>
+        /// <returns></returns>
+        public async Task<bool> UploadActivityInfo(string op)
+        {
+            // TODO Qiniu UPDATING
+            InfoCollect();
+            switch (op)
+            {
+                case "Add":
+                    return await api.AddActivity(SourceActivity);
+                case "Update":
+                    return await api.UpdateActivity(SourceActivity.Id, SourceActivity);
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// 从<see cref="ChosenParticipators"/>和<see cref="UploadingImageFiles"/>中收集数据，
+        /// 序列化并更新给<see cref="SourceActivity"/>
+        /// </summary>
+        private void InfoCollect()
+        {
+            SourceActivity.Participator = String.Join(",", from p in ChosenParticipators select p.StudentNumber);
+            var addedUrlsString = String.Join(",{0}", from f in UploadingImageFiles
+                                                      where f.State == UploadingImageFile.UploadState.ReadyForUpload
+                                                      select f.QiniuFileUrl);
+            if(addedUrlsString != "")
+            {
+                if (SourceActivity.ImagesUrl != "")
+                {
+                    SourceActivity.ImagesUrl += ",";
+                }
+            }
+            SourceActivity.ImagesUrl += addedUrlsString;
+        }
+
+        /// <summary>
         /// 将选择的文件添加到<see cref="UploadingImageFiles"/>
         /// </summary>
         /// <param name="readOnlyList"></param>
@@ -134,7 +177,7 @@ namespace ClassManager.ViewModels
             }
             foreach (var file in readOnlyList)
             {
-                UploadingImageFiles.Add(new UploadingImageFile(file));
+                UploadingImageFiles.Add(new UploadingImageFile(file, SourceActivity.Id));
             }
         }
 

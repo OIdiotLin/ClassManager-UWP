@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -116,10 +117,24 @@ namespace ClassManager.Views
             vm.AddFiles(await picker.PickMultipleFilesAsync());
         }
 
-
+        /// <summary>
+        /// <see cref="ImagesListView"/>中的项被点击，去除该项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ImagesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             vm.RemoveFile(e.ClickedItem as UploadingImageFile);
+        }
+        
+        /// <summary>
+        /// 确认上传
+        /// </summary>
+        /// <param name="op">操作类型："Add"或"Update"</param>
+        /// <returns></returns>
+        public async Task<bool> Confirm(string op)
+        {
+            return await vm.UploadActivityInfo(op);
         }
     }
 }

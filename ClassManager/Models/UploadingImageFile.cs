@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassManager.Networks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +34,19 @@ namespace ClassManager.Models
         /// </summary>
         public UploadState State { get; set; }
 
-        public UploadingImageFile(StorageFile file = null)
+        public UploadingImageFile(StorageFile file = null, int activityId = 0)
         {
             File = file;
             State = UploadState.ReadyForUpload;
+            if (file != null)
+            {
+                QiniuFileUrl = String.Format("{0}{1}-{2}", APIUrl.Qiniu.StorageHost, activityId, file.Name);
+            }
         }
+
+        /// <summary>
+        /// 在Qiniu上的文件名，添加了活动的id作为前缀
+        /// </summary>
+        public string QiniuFileUrl { get; set; }
     }
 }
