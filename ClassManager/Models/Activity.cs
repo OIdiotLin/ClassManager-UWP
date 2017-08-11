@@ -37,6 +37,14 @@ namespace ClassManager.Models
             }
         }
 
+        public ObservableCollection<string> SlimImgUrls {
+            get {
+                if (ImgUrls == null)
+                    return null;
+                return new ObservableCollection<string>(from p in ImgUrls select p + "?imageslim");
+            }
+        }
+
         /// <summary>
         /// 缩略图（若<see cref="ImagesUrl"/>非空则返回首张图片，否则返回默认图片）
         /// </summary>
