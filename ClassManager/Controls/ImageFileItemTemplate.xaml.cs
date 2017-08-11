@@ -56,7 +56,7 @@ namespace ClassManager.Controls
                     UploadSuccessIcon.Visibility = Visibility.Visible;
                     UploadingProgressRing.IsActive = false;
                     break;
-                case Models.UploadingImageFile.UploadState.UploadFails:     // 上传失败
+                case Models.UploadingImageFile.UploadState.UploadFail:     // 上传失败
                     UploadFailIcon.Visibility = Visibility.Visible;
                     UploadSuccessIcon.Visibility = Visibility.Collapsed;
                     UploadingProgressRing.IsActive = false;
