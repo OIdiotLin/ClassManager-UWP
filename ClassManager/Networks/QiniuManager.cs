@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Qiniu.Util;
+using Qiniu.Http;
+using Qiniu.IO;
+using Windows.Storage;
 
 namespace ClassManager.Networks
 {
@@ -13,7 +16,17 @@ namespace ClassManager.Networks
         private static QiniuManager instance = null;
         private static object padLock = new Object();
 
+        private static APIService api;
+        private static UploadManager um;
+
         private QiniuManager() { }
+
+        public static void Initialize()
+        {
+            api = new APIService();
+            Qiniu.Common.Config.SetZone(Qiniu.Common.ZoneID.CN_South, false);
+            um = new UploadManager();
+        }
 
         /// <summary>
         /// Use singleton method for Qiniu
@@ -35,13 +48,17 @@ namespace ClassManager.Networks
         }
 
         /// <summary>
-        /// Upload a local file to Qiniu Storage
+        /// 上传文件到七牛云
         /// </summary>
-        /// <param name="localFilename">filename of local source file</param>
-        /// <param name="remoteFilename">filename of Qiniu target file</param>
-        public void UploadFile(string localFilename, string remoteFilename)
+        /// <param name="file">本地文件</param>
+        /// <param name="qiniuFilename">上传后的key</param>
+        /// <returns>上传结果</returns>
+        public async Task<bool> UploadFileAsync(StorageFile file, string qiniuFilename)
         {
-            string uploadToken = App.token;
+            var token = await api.GetUploadToken(qiniuFilename);
+            HttpResult result = await um.UploadFileAsync(file, qiniuFilename, token);
+            return result.Code == 200;
         }
+        
     }
 }

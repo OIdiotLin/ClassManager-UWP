@@ -132,7 +132,23 @@ namespace ClassManager.ViewModels
         /// <returns></returns>
         public async Task<bool> UploadActivityInfo(string op)
         {
-            // TODO Qiniu UPDATING
+            var qiniu = QiniuManager.Instance;
+            foreach(var item in UploadingImageFiles)
+            {
+                if(item.State == UploadingImageFile.UploadState.ReadyForUpload)
+                {
+                    item.State = UploadingImageFile.UploadState.Uploading;
+                    if(await qiniu.UploadFileAsync(item.File, item.QiniuFilename))
+                    {
+                        item.State = UploadingImageFile.UploadState.UploadSuccess;
+                    }
+                    else
+                    {
+                        item.State = UploadingImageFile.UploadState.UploadFail;
+                    }
+                }
+            }
+
             InfoCollect();
             switch (op)
             {
@@ -152,9 +168,9 @@ namespace ClassManager.ViewModels
         private void InfoCollect()
         {
             SourceActivity.Participator = String.Join(",", from p in ChosenParticipators select p.StudentNumber);
-            var addedUrlsString = String.Join(",{0}", from f in UploadingImageFiles
-                                                      where f.State == UploadingImageFile.UploadState.ReadyForUpload
-                                                      select f.QiniuFileUrl);
+            var addedUrlsString = String.Join(",", from f in UploadingImageFiles
+                                                   where f.State == UploadingImageFile.UploadState.UploadSuccess
+                                                   select f.QiniuFileUrl);
             if(addedUrlsString != "")
             {
                 if (SourceActivity.ImagesUrl != "")

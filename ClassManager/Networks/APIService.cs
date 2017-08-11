@@ -466,5 +466,53 @@ namespace ClassManager.Networks
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取Qiniu上传凭证
+        /// </summary>
+        /// <param name="qiniuFileName">上传到qiniu后的文件名</param>
+        /// <returns>上传凭证token </returns>
+        public async Task<string> GetUploadToken(string qiniuFileName)
+        {
+            try
+            {
+                string url = APIUrl.Qiniu.GetUploadToken;
+
+                JObject req = new JObject
+                {
+                    { APIKey.Qiniu.Filename, qiniuFileName }
+                };
+                string body = req.ToString();
+
+                JsonObject json = await GetJsonByPost(url, body);
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Status))
+                    {
+                        if(json[APIKey.Status].GetString() == APIValue.Success)
+                        {
+                            return json[APIKey.Qiniu.UploadToken].GetString();
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -58,6 +58,8 @@ namespace ClassManager.Networks
         public static class Qiniu
         {
             public static string ThumbnailSuffix = "imageView2/1/w/450/h/300/q/95|imageslim";
+            public static string Filename = "filename";
+            public static string UploadToken = "upload_token";
         }
     }
 

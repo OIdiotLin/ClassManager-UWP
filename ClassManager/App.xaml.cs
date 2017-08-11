@@ -1,4 +1,5 @@
-﻿using ClassManager.Views;
+﻿using ClassManager.Networks;
+using ClassManager.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +60,9 @@ namespace ClassManager
             Frame rootFrame = Window.Current.Content as Frame;
 
             SetTitleBar();
+
+            // 七牛初始化
+            QiniuManager.Initialize();
 
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
