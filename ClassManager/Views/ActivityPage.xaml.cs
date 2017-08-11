@@ -115,9 +115,13 @@ namespace ClassManager.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            (this.ActivityMainFrame.Content as ActivityDetailsPage).DeleteActivity();
+            if(await(this.ActivityMainFrame.Content as ActivityDetailsPage).DeleteActivity())
+            {
+                ActivityMainFrame.Navigate(typeof(ActivitySchedulePage));
+                FramePageType = typeof(ActivitySchedulePage);
+            }
         }
 
         /// <summary>
@@ -160,15 +164,18 @@ namespace ClassManager.Views
                         PrimaryButtonText = ResourceLoader.GetString(
                             tag == "Add" ? "AddActivitySuccessDialog_PrimaryButtonText" : "UpdateActivitySuccessDialog_PrimaryButtonText")
                     }.ShowAsync();
+
+                    ActivityMainFrame.Navigate(typeof(ActivitySchedulePage));   // 如果成功则导航至 SchedulePage
+                    FramePageType = typeof(ActivitySchedulePage);
                 }
                 else
                 {
                     await new ContentDialog()
                     {
                         Title = ResourceLoader.GetString(
-                            tag == "Add" ? "AddActivitySuccessDialog_Title" : "UpdateActivitySuccessDialog_Title"),
+                            tag == "Add" ? "AddActivityFailDialog_Title" : "UpdateActivityFailDialog_Title"),
                         Content = ResourceLoader.GetString(
-                            tag == "Add" ? "AddActivitySuccessDialog_Content" : "UpdateActivitySuccessDialog_Content"),
+                            tag == "Add" ? "AddActivityFailDialog_Content" : "UpdateActivityFailDialog_Content"),
                         PrimaryButtonText = ResourceLoader.GetString(
                             tag == "Add" ? "AddActivityFailDialog_PrimaryButtonText" : "UpdateActivityFailDialog_PrimaryButtonText")
                     }.ShowAsync();

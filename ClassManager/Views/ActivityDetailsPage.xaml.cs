@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -55,7 +56,7 @@ namespace ClassManager.Views
         /// <summary>
         /// 调用<see cref="ActivityDetailsViewModel.DeleteActivityAsync()"/>删除当前的活动，并处理删除结果
         /// </summary>
-        public async void DeleteActivity()
+        public async Task<bool> DeleteActivity()
         {
             ContentDialog dialog = new ContentDialog()
             {
@@ -76,7 +77,9 @@ namespace ClassManager.Views
                     PrimaryButtonText = ResourceLoader.GetString(
                         deleteResult ? "DeleteActivitySuccessDialog_PrimaryButtonText" : "DeleteActivityFailDialog_PrimaryButtonText"),
                 }.ShowAsync();
+                return true;
             }
+            return false;
         }
         
     }
