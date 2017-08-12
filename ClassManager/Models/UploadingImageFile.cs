@@ -34,24 +34,24 @@ namespace ClassManager.Models
         /// </summary>
         public UploadState State { get; set; }
 
-        public UploadingImageFile(StorageFile file = null, int activityId = 0)
+        public UploadingImageFile(StorageFile file = null, string activityTitle = "")
         {
             File = file;
             State = UploadState.ReadyForUpload;
             if (file != null)
             {
-                QiniuFileUrl = String.Format("{0}{1}-{2}", APIUrl.Qiniu.StorageHost, activityId, file.Name);
-                QiniuFilename = String.Format("{0}-{1}", activityId, file.Name);
+                QiniuFilename = String.Format("{0}-{1}", activityTitle, Utils.Crypto.MD5(activityTitle + file.Name));
+                QiniuFileUrl = APIUrl.Qiniu.StorageHost + QiniuFilename;
             }
         }
 
         /// <summary>
-        /// 在Qiniu上的Url, 添加了活动的id作为前缀
+        /// 在Qiniu上的Url
         /// </summary>
         public string QiniuFileUrl { get; set; }
         
         /// <summary>
-        /// 在Qiniu上的文件名, 添加了活动的id作为前缀
+        /// 在Qiniu上的文件名
         /// </summary>
         public string QiniuFilename { get; set; }
     }
