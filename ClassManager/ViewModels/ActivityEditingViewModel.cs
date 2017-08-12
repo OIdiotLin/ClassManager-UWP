@@ -193,7 +193,7 @@ namespace ClassManager.ViewModels
             }
             foreach (var file in readOnlyList)
             {
-                UploadingImageFiles.Add(new UploadingImageFile(file, SourceActivity.Id));
+                UploadingImageFiles.Add(new UploadingImageFile(file, SourceActivity.Name));
             }
         }
 
