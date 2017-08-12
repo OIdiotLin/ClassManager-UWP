@@ -154,7 +154,9 @@ namespace ClassManager.Views
             var tag = (sender as Button).Tag as string;
             if ((sender as Button).Tag as string =="Add" ||(sender as Button).Tag as string == "Update")
             {
+                UploadingProgressRingPanel.Visibility = Visibility.Visible;
                 var result = await (this.ActivityMainFrame.Content as ActivityEditingPage).Confirm(tag);
+                UploadingProgressRingPanel.Visibility = Visibility.Collapsed;
                 if (result)
                 {
                     await new ContentDialog()
