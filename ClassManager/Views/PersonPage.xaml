@@ -234,7 +234,7 @@
                          InputScope="Number"
                          x:Name="BirthdayTextBox"
                          controls:TextBoxRegex.ValidationMode="Forced"
-                         controls:TextBoxRegex.Regex="^(\d{4}(\-)(0[0-9]|1[0-2])\1(0[1-9]|[12][0-9]|3[01]))?$"
+                         controls:TextBoxRegex.Regex="^\d{4}(\-)\d{1,2}\1\d{1,2}$"
                          Grid.Row="6" Grid.ColumnSpan="2"
                          Text="{x:Bind vm.PersonOnDisplay.Birthday, Mode=TwoWay}"
                          Style="{StaticResource InfoTextBoxStyle}"/>
