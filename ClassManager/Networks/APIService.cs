@@ -514,5 +514,43 @@ namespace ClassManager.Networks
                 return null;
             }
         }
+
+        /// <summary>
+        /// 提交反馈信息
+        /// </summary>
+        /// <param name="feedback"></param>
+        /// <returns>提交结果</returns>
+        public async Task<bool> AddFeedback(Feedback feedback)
+        {
+            try
+            {
+                string url = APIUrl.Feedback.AddFeedback;
+
+                JObject obj = new JObject();
+                obj.Add(APIKey.Feedback.Root, feedback.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Status))
+                    {
+                        return json[APIKey.Status].GetString() == APIValue.Success;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

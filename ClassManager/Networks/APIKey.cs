@@ -48,6 +48,16 @@ namespace ClassManager.Networks
             public static string Images = "images";
         }
 
+        public static class Feedback
+        {
+            public static string Root = "feedback";
+            public static string Id = "id";
+            public static string Summary = "summary";
+            public static string Details = "details";
+            public static string Category = "category";
+            public static string Contact = "contact";
+        }
+
         public static class Permission
         {
             public static string RandCode = "rand_code";
