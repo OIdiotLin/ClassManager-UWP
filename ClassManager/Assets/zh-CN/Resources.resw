@@ -175,6 +175,24 @@
   <data name="AddActivitySuccessDialog_Title" xml:space="preserve">
     <value>添加成功</value>
   </data>
+  <data name="AddFeedbackFailDialog_Content" xml:space="preserve">
+    <value>请检查信息是否填写正确或直接联系开发人员。</value>
+  </data>
+  <data name="AddFeedbackFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddFeedbackFailDialog_Title" xml:space="preserve">
+    <value>反馈失败</value>
+  </data>
+  <data name="AddFeedbackSuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddFeedbackSuccessDialog_Title" xml:space="preserve">
+    <value>反馈成功</value>
+  </data>
+  <data name="AddFeedbackSuccessDialog_Content" xml:space="preserve">
+    <value>感谢您的反馈，我们会认真分析并处理。</value>
+  </data>
   <data name="UpdateActivityFailDialog_Content" xml:space="preserve">
     <value>请检查信息是否填写正确或联系开发人员。</value>
   </data>
@@ -268,8 +286,8 @@
   <data name="HamburgerMenuItem_Person.Label" xml:space="preserve">
     <value>学生</value>
   </data>
-  <data name="HamburgerMenuItem_Setting.Label" xml:space="preserve">
-    <value>设置</value>
+  <data name="HamburgerMenuItem_Finance.Label" xml:space="preserve">
+    <value>班费</value>
   </data>
   <data name="LoginAsAdmin.Content" xml:space="preserve">
     <value>管理用户</value>
@@ -342,5 +360,44 @@
   </data>
   <data name="UpdatePersonSuccessDialog_Title" xml:space="preserve">
     <value>修改成功</value>
+  </data>
+  <data name="HamburgerMenuItem_Feedback.Label" xml:space="preserve">
+    <value>反馈</value>
+  </data>
+  <data name="AddFeedback_Category_Hint.Text" xml:space="preserve">
+    <value>是哪种类型的反馈？</value>
+  </data>
+  <data name="AddFeedback_Category_RadioButton_Advice.Content" xml:space="preserve">
+    <value>建议（功能/UI）</value>
+  </data>
+  <data name="AddFeedback_Category_RadioButton_Bug.Content" xml:space="preserve">
+    <value>问题（bug）</value>
+  </data>
+  <data name="AddFeedback_Details_Hint.Text" xml:space="preserve">
+    <value>为我们提供更多详细信息（可选）</value>
+  </data>
+  <data name="AddFeedback_Hint1.Text" xml:space="preserve">
+    <value>*标题需简洁且具有描述性。</value>
+  </data>
+  <data name="AddFeedback_Hint2.Text" xml:space="preserve">
+    <value>*每个反馈仅包含一条意见。</value>
+  </data>
+  <data name="AddFeedback_Hint3.Text" xml:space="preserve">
+    <value>*如果提交bug，请在详细信息中包含系统版本号。</value>
+  </data>
+  <data name="AddFeedback_SummaryAndDetails_Hint.Text" xml:space="preserve">
+    <value>将其告诉我们</value>
+  </data>
+  <data name="AddFeedback_Summary_Hint.Text" xml:space="preserve">
+    <value>总结你的问题</value>
+  </data>
+  <data name="AddFeedback_Title.Text" xml:space="preserve">
+    <value>新建反馈</value>
+  </data>
+  <data name="AddFeedback_Button_Submit.Content" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="AddFeedback_Email_Hint.Text" xml:space="preserve">
+    <value>请告诉我们您的联系方式（E-mail）</value>
   </data>
 </root>

@@ -46,7 +46,7 @@
                                 OptionsItemClick="Menu_ItemClick"
                                 CompactPaneLength="48"
                                 HamburgerHeight="48"
-                                OpenPaneLength="120"
+                                OpenPaneLength="130"
                                 HamburgerVisibility="Visible"
                                 DisplayMode="CompactOverlay"
                                 IsPaneOpen="False">
@@ -67,8 +67,10 @@
                                                      Tag="Account"
                                                      Glyph="&#xE748;"
                                                      TargetPageType="views:LoginPage"/>
-                    <!--<controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Setting"
-                                                     Glyph="&#xE713;" />-->
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Feedback"
+                                                     Tag="Feedback"
+                                                     Glyph="&#xED15;"
+                                                     TargetPageType="views:FeedbackPage"/>
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.OptionsItemsSource>
 

@@ -52,7 +52,7 @@ namespace ClassManager.Models
                     { APIKey.Feedback.Id, this.Id },
                     { APIKey.Feedback.Summary, this.Summary },
                     { APIKey.Feedback.Details, this.Details },
-                    { APIKey.Feedback.Category, this.Category[0] },
+                    { APIKey.Feedback.Category, this.Category.Substring(0, 1) },
                     { APIKey.Feedback.Contact, this.Contact }
                 };
 

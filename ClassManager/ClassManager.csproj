@@ -110,6 +110,7 @@
       <DependentUpon>ImageFileItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\UploadingImageFile.cs" />
     <Compile Include="Networks\APIBaseService.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="ViewModels\ActivityEditingViewModel.cs" />
     <Compile Include="ViewModels\ActivityScheduleViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\FeedbackViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
@@ -139,6 +141,9 @@
     </Compile>
     <Compile Include="Views\ActivitySchedulePage.xaml.cs">
       <DependentUpon>ActivitySchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackPage.xaml.cs">
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -232,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ActivitySchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

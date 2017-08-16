@@ -1,0 +1,166 @@
+﻿<Page
+    x:Class="ClassManager.Views.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:usercontrols="using:ClassManager.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ClassManager.Models"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <Style x:Key="CategoryRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="0,0,20,0" />
+        </Style>
+
+        <Style x:Key="SymbolButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Background" Value="{ThemeResource SystemControlForegroundListLowBrush}" />
+            <Setter Property="Margin" Value="0,8,0,5" />
+            <Setter Property="MaxWidth" Value="900" />
+        </Style>
+
+        <Style x:Key="TinyTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LightGray" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+        </Style>
+
+    </Page.Resources>
+
+    
+    <ScrollViewer HorizontalAlignment="Stretch">
+        <RelativePanel x:Name="MainPanel"
+                       Padding="20"
+                       HorizontalAlignment="Stretch"
+                       Height="Auto">
+            <TextBlock x:Uid="AddFeedback_Title"
+                       x:Name="TitleTextBlock"
+                       RelativePanel.AlignTopWithPanel="True"
+                       RelativePanel.AlignLeftWithPanel="True"
+                       RelativePanel.AlignRightWithPanel="True"
+                       MaxWidth="800"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Foreground="White"
+                       Margin="0,0,0,30"/>
+            <StackPanel x:Name="CategoryPanel"
+                        Margin="0,50,0,0"
+                        RelativePanel.AlignTopWithPanel="True"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True"
+                        Orientation="Vertical" 
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                        MaxWidth="800">
+                <TextBlock x:Uid="AddFeedback_Category_Hint"
+                       x:Name="CategoryHintTextBlock"
+                       Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <StackPanel Orientation="Horizontal"
+                        Margin="0,10,0,20">
+                    <RadioButton x:Uid="AddFeedback_Category_RadioButton_Advice"
+                             x:Name="CategoryAdviceButton"
+                             Style="{StaticResource CategoryRadioButtonStyle}" />
+                    <RadioButton x:Uid="AddFeedback_Category_RadioButton_Bug"
+                             x:Name="CategoryBugButton"
+                             Style="{StaticResource CategoryRadioButtonStyle}"
+                             IsChecked="True"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel x:Name="MainInfoPanel"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True"
+                        RelativePanel.Below="CategoryPanel"
+                        Orientation="Vertical"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                        MaxWidth="800">
+                <TextBlock x:Uid="AddFeedback_SummaryAndDetails_Hint"
+                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock x:Uid="AddFeedback_Summary_Hint" Margin="0,10,0,0"/>
+                <TextBox Style="{StaticResource TextBoxStyle}"
+                         x:Name="SummaryTextBox"
+                         MaxLength="50"
+                         TextChanging="SummaryTextBox_TextChanging"
+                         Text="{x:Bind vm.SourceFeedback.Summary, Mode=TwoWay}"/>
+                <TextBlock x:Name="SummaryWordCounterTextBlock"
+                           Style="{StaticResource TinyTextBlockStyle}"
+                           Text="0/50"/>
+
+                <TextBlock x:Uid="AddFeedback_Details_Hint"
+                       Margin="0,15,0,0" />
+                <TextBox Style="{StaticResource TextBoxStyle}"
+                         MinHeight="200"
+                         x:Name="DetailsTextBox"
+                         AcceptsReturn="True"
+                         MaxLength="500"
+                         TextChanging="DetailsTextBox_TextChanging"
+                         Text="{x:Bind vm.SourceFeedback.Details, Mode=TwoWay}"/>
+                <TextBlock x:Name="DetailsWordCounterTextBlock"
+                           Style="{StaticResource TinyTextBlockStyle}"
+                           Text="0/500"/>
+
+                <TextBlock x:Uid="AddFeedback_Email_Hint"
+                           Margin="0,15,0,0" />
+                <TextBox Style="{StaticResource TextBoxStyle}"
+                         controls:TextBoxRegex.Regex="^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$"
+                         controls:TextBoxRegex.ValidationMode="Forced"
+                         x:Name="ContactTextBox"
+                         Text="{x:Bind vm.SourceFeedback.Contact, Mode=TwoWay}"/>
+
+            </StackPanel>
+
+            <Grid x:Name="BottomPanel"
+                  RelativePanel.AlignHorizontalCenterWithPanel="True"
+                  RelativePanel.Below="MainInfoPanel"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  MaxWidth="800"
+                  Margin="0,15,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18"/>
+                    <RowDefinition Height="18"/>
+                    <RowDefinition Height="18"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TinyTextBlockStyle}"
+                           Grid.Row="0"
+                           x:Name="Hint1"
+                           x:Uid="AddFeedback_Hint1"/>
+                <TextBlock Style="{StaticResource TinyTextBlockStyle}"
+                           Grid.Row="1"
+                           x:Name="Hint2"
+                           x:Uid="AddFeedback_Hint2"/>
+                <TextBlock Style="{StaticResource TinyTextBlockStyle}"
+                           Grid.Row="2"
+                           x:Name="Hint3"
+                           x:Uid="AddFeedback_Hint3"/>
+                <Button x:Uid="AddFeedback_Button_Submit"
+                        x:Name="SubmitButton"
+                        Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"
+                        Background="{ThemeResource SystemControlForegroundAccentBrush}"
+                        Foreground="White"
+                        FontSize="18"
+                        Click="SubmitButton_Click"/>
+            </Grid>
+
+        </RelativePanel>
+    </ScrollViewer>
+
+</Page>
