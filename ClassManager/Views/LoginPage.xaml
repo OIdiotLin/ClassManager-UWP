@@ -99,7 +99,7 @@
                     FontSize="24" />
             <Button x:Name="LoginAsVisitorEnterButton"
                     x:Uid="MDL2"
-                    Margin="14,0,0,0"
+                    Margin="34,0,0,0"
                     FontSize="20sp"
                     Foreground="White"
                     Content="&#xE0AB;" 
