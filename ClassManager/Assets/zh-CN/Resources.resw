@@ -289,10 +289,10 @@
   <data name="HamburgerMenuItem_Finance.Label" xml:space="preserve">
     <value>班费</value>
   </data>
-  <data name="LoginAsAdmin.Content" xml:space="preserve">
+  <data name="LoginAsAdmin.Text" xml:space="preserve">
     <value>管理用户</value>
   </data>
-  <data name="LoginAsVisitor.Content" xml:space="preserve">
+  <data name="LoginAsVisitor.Text" xml:space="preserve">
     <value>普通用户</value>
   </data>
   <data name="LoginFailDialog_ButtonText" xml:space="preserve">

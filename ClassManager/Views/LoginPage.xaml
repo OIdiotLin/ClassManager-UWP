@@ -48,13 +48,11 @@
                            Foreground="White"
                            Text="&#xE1A7;" 
                            Margin="0,0,12,0" />
-                <Button x:Name="LoginAsAdminButton"
+                <TextBlock 
                         x:Uid="LoginAsAdmin"
                         Height="Auto" Width="Auto"
-                        Background="Transparent"
                         Foreground="White"
-                        FontSize="24"
-                        VerticalContentAlignment="Center"/>
+                        FontSize="24"/>
                 <ProgressRing x:Name="LoginAsAdminProgressRing"/>
             </StackPanel>
             <StackPanel x:Name="PasswordPanel" Orientation="Horizontal"
@@ -94,10 +92,9 @@
                        Text="&#xE1A6;"
                        Foreground="White"
                        Margin="0,0,12,0" />
-            <Button x:Name="LoginAsVisitorButton"
+            <TextBlock
                     x:Uid="LoginAsVisitor"
                     Height="Auto" Width="Auto"
-                    Background="Transparent"
                     Foreground="White"
                     FontSize="24" />
             <Button x:Name="LoginAsVisitorEnterButton"
