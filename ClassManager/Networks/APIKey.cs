@@ -48,6 +48,20 @@ namespace ClassManager.Networks
             public static string Images = "images";
         }
 
+        public static class Finance
+        {
+            public static string Root = "finance";
+            public static string Target = "target_id";
+            public static string Id = "id";
+            public static string Date = "date";
+            public static string Income = "income";
+            public static string Expense = "expense";
+            public static string Event = "event";
+            public static string Details = "details";
+
+            public static string Balance = "balance";
+        }
+
         public static class Feedback
         {
             public static string Root = "feedback";

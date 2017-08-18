@@ -76,6 +76,21 @@ namespace ClassManager.Networks
             /// POST - 提交财务活动（收入/支出）
             /// </summary>
             public static string AddFinance = ServerHostApiPrefix + "add_finance/";
+            
+            /// <summary>
+            /// POST - 删除财务活动
+            /// </summary>
+            public static string DeleteFinance = ServerHostApiPrefix + "delete_finance/";
+
+            /// <summary>
+            /// POST - 修改财务活动
+            /// </summary>
+            public static string UpdateFinance = ServerHostApiPrefix + "update_finance/";
+            
+            /// <summary>
+            /// GET - 获取财务活动列表
+            /// </summary>
+            public static string GetFinanceList = ServerHostApiPrefix + "get_finance_list/";
         }
 
         public static class Qiniu

@@ -468,6 +468,209 @@ namespace ClassManager.Networks
         }
 
         /// <summary>
+        /// 获取所有班费收支情况
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Finance>> GetFinanceList()
+        {
+            try
+            {
+                string url = APIUrl.Finance.GetFinanceList;
+
+                JsonObject json = await GetJsonByGet(url);
+
+                if (json != null)
+                {
+                    List<Finance> list = new List<Finance>();
+                    if (json.ContainsKey(APIKey.Results))
+                    {
+                        var results = json[APIKey.Results];
+                        {
+                            if (results != null)
+                            {
+                                JsonArray ja = results.GetArray();
+                                foreach (var item in ja)
+                                {
+                                    var obj = item.GetObject();
+                                    list.Add(new Finance(obj));
+                                }
+                                return list;
+                            }
+                            else
+                            {
+                                return null;
+                            } // result == null
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    } // json doesn't contain key - 'result'
+                }
+                else
+                {
+                    return null;
+                } // json == null
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 添加班费收支
+        /// </summary>
+        /// <param name="finance"></param>
+        /// <returns></returns>
+        public async Task<bool> AddFinance(Finance finance)
+        {
+            try
+            {
+                string url = APIUrl.Finance.AddFinance;
+
+                JObject obj = new JObject();
+                obj.Add(APIKey.Finance.Root, finance.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Status))
+                    {
+                        return json[APIKey.Status].GetString() == APIValue.Success;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        /// <summary>
+        /// 删除班费收支
+        /// </summary>
+        /// <param name="finance"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteFinance(Finance finance)
+        {
+            try
+            {
+                string url = APIUrl.Finance.DeleteFinance;
+                JObject obj = new JObject();
+                obj.Add(APIKey.Finance.Root, finance.ToJObject());
+
+                JsonObject json = await GetJsonByPost(url, obj.ToString());
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Status))
+                    {
+                        return json[APIKey.Status].GetString() == APIValue.Success;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改班费收支
+        /// </summary>
+        /// <param name="id">欲修改的目标id</param>
+        /// <param name="finance">修改后的信息</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateFinance(int id, Finance finance)
+        {
+            try
+            {
+                string url = APIUrl.Finance.UpdateFinance;
+
+                JObject req = new JObject
+                {
+                    { APIKey.Finance.Target, id },
+                    { APIKey.Finance.Root, finance.ToJObject() }
+                };
+                string body = req.ToString();
+
+                JsonObject json = await GetJsonByPost(url, body);
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Status))
+                    {
+                        return json[APIKey.Status].GetString() == APIValue.Success;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取班费余额
+        /// </summary>
+        /// <returns></returns>
+        public async Task<float> GetBalance()
+        {
+            try
+            {
+                string url = APIUrl.Finance.GetBalance;
+
+                JsonObject json = await GetJsonByGet(url);
+
+                if (json != null)
+                {
+                    if (json.ContainsKey(APIKey.Finance.Balance))
+                    {
+                        return (float)json[APIKey.Finance.Balance].GetNumber();
+                    }
+                    else
+                    {
+                        return 0f;
+                    } // json doesn't contain key - 'result'
+                }
+                else
+                {
+                    return 0f;
+                } // json == null
+            }
+            catch
+            {
+                return 0f;
+            }
+        }
+
+        /// <summary>
         /// 获取Qiniu上传凭证
         /// </summary>
         /// <param name="qiniuFileName">上传到qiniu后的文件名</param>
