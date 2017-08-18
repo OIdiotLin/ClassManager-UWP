@@ -46,7 +46,7 @@
                                 OptionsItemClick="Menu_ItemClick"
                                 CompactPaneLength="48"
                                 HamburgerHeight="48"
-                                OpenPaneLength="130"
+                                OpenPaneLength="160"
                                 HamburgerVisibility="Visible"
                                 DisplayMode="CompactOverlay"
                                 IsPaneOpen="False">
@@ -58,6 +58,9 @@
                     <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Activity"
                                                      Glyph="&#xE7C1;"
                                                      TargetPageType="views:ActivityPage"/>
+                    <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Finance"
+                                                     Glyph="&#xEF40;"
+                                                     TargetPageType="views:FinancePage"/>
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>
             

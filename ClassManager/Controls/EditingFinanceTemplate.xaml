@@ -1,0 +1,110 @@
+﻿<UserControl
+    x:Class="ClassManager.Controls.EditingFinanceTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="using:ClassManager.Utils"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HintStyle" TargetType="TextBlock">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="MaxWidth" Value="600" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+
+            <utils:DateConverter x:Key="DateConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Padding="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Uid="AddFinance_Title"
+                   Grid.ColumnSpan="3"
+                   Margin="5"
+                   Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+        <TextBlock x:Uid="AddFinance_Event_Hint"
+                   Grid.Row="1" Grid.Column="0"
+                   Style="{StaticResource HintStyle}"/>
+        <TextBox x:Name="EventTextBox"
+                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                 Text="{x:Bind Finance.Event, Mode=TwoWay}"
+                 Style="{StaticResource TextBoxStyle}"
+                 TextWrapping="Wrap"/>
+
+        <TextBlock x:Uid="AddFinance_Date_Hint"
+                   Grid.Row="2" Grid.Column="0"
+                   Style="{StaticResource HintStyle}" />
+        <DatePicker x:Name="FinanceDatePicker"
+                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                    Margin="0,10,0,0"
+                    Date="{x:Bind Finance.Date, Converter={StaticResource DateConverter}, Mode=TwoWay}"/>
+
+        <TextBlock x:Uid="AddFinance_Income_Hint"
+                   Grid.Row="3" Grid.Column="0"
+                   Style="{StaticResource HintStyle}" />
+        <TextBox x:Name="IncomeTextBox"
+                 Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                 InputScope="Number"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{x:Bind Finance.Income, Mode=TwoWay}" />
+
+        <TextBlock x:Uid="AddFinance_Expense_Hint"
+                   Grid.Row="4" Grid.Column="0"
+                   Style="{StaticResource HintStyle}"/>
+        <TextBox x:Name="ExpenseTextBox"
+                 Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                 InputScope="Number"
+                 Style="{StaticResource TextBoxStyle}"
+                 Text="{x:Bind Finance.Expense, Mode=TwoWay}" />
+
+        <TextBlock x:Uid="AddFinance_Details_Hint"
+                   Grid.Row="5" Grid.Column="0"
+                   Style="{StaticResource HintStyle}"/>
+        <TextBox x:Name="DetailsTextBox"
+                 Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                 Style="{StaticResource TextBoxStyle}"
+                 AcceptsReturn="True"
+                 Text="{x:Bind Finance.Details, Mode=TwoWay}" />
+
+        <Button x:Uid="AddFinance_Submit_Button"
+                x:Name="SubmitButton"
+                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" 
+                Margin="0,15,0,0"
+                HorizontalAlignment="Stretch"
+                Background="{ThemeResource SystemControlForegroundAccentBrush}"
+                FontSize="20"
+                Foreground="White"
+                Click="SubmitButton_Click" />
+
+        <ProgressRing x:Name="SubmitProgressRing"
+                      Margin="15"
+                      Grid.Row="6" Grid.Column="0"/>
+    </Grid>
+</UserControl>

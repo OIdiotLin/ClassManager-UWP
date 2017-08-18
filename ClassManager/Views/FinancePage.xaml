@@ -1,0 +1,92 @@
+﻿<Page
+    x:Class="ClassManager.Views.FinancePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit_controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:data="using:ClassManager.Models"
+    xmlns:usercontrol="using:ClassManager.Controls"
+    xmlns:utils="using:ClassManager.Utils"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="BalanceTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="75" />
+            <Setter Property="FontFamily" Value="Monaco" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#66CC00" />
+            <Setter Property="Margin" Value="0,20,0,10" />
+        </Style>
+        
+        <Style x:Key="SymbolButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <DataTemplate x:Key="FinanceItemTemplate" x:DataType="data:Finance">
+            <usercontrol:FinanceItemTemplate />
+        </DataTemplate>
+
+        <DataTemplate x:Key="EditingFinanceItemTemplate" x:DataType="data:Finance">
+            <usercontrol:EditingFinanceTemplate />
+        </DataTemplate>
+
+        <utils:MoneyConverter x:Key="MoneyConverter" />
+
+    </Page.Resources>
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock x:Name="BalanceTextBlock"
+                   HorizontalAlignment="Center"
+                   Grid.Row="0" Grid.Column="0"
+                   Style="{StaticResource BalanceTextBlockStyle}"
+                   Text="{x:Bind vm.Balance, Converter={StaticResource MoneyConverter}, Mode=OneWay}"/>
+
+        <ListView x:Name="FinanceListView"
+                  Grid.Row="1" Grid.Column="0"
+                  MaxWidth="600"
+                  HorizontalContentAlignment="Stretch"
+                  SelectionMode="None"
+                  ItemsSource="{x:Bind vm.Finances, Mode=OneWay}"
+                  ItemTemplate="{StaticResource FinanceItemTemplate}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="0,5,0,5" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <Button x:Name="AddButton"
+                Grid.Row="1" Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource SymbolButtonStyle}"
+                Visibility="Collapsed"
+                Content="&#xE109;" >
+            <Button.Flyout>
+                <Flyout Placement="Full">
+                    <usercontrol:EditingFinanceTemplate x:Name="AddingFianceControl"
+                                                        DataContext="{x:Bind vm.NewFinance, Mode=OneWay}"
+                                                        Tag="Add"/>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
+            
+    </Grid>
+</Page>

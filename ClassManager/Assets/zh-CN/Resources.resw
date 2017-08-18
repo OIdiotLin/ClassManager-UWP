@@ -160,6 +160,21 @@
   <data name="AddPersonSuccessDialog_Title" xml:space="preserve">
     <value>添加成功</value>
   </data>
+  <data name="AddFinanceFailDialog_Content" xml:space="preserve">
+    <value>请检查信息是否填写正确或联系开发人员。</value>
+  </data>
+  <data name="AddFinanceFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddFinanceFailDialog_Title" xml:space="preserve">
+    <value>添加失败</value>
+  </data>
+  <data name="AddFinanceSuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="AddFinanceSuccessDialog_Title" xml:space="preserve">
+    <value>添加成功</value>
+  </data>
   <data name="AddActivityFailDialog_Content" xml:space="preserve">
     <value>请检查信息是否填写正确或联系开发人员。</value>
   </data>
@@ -208,6 +223,21 @@
   <data name="UpdateActivitySuccessDialog_Title" xml:space="preserve">
     <value>修改成功</value>
   </data>
+  <data name="UpdateFinanceFailDialog_Content" xml:space="preserve">
+    <value>请检查信息是否填写正确或联系开发人员。</value>
+  </data>
+  <data name="UpdateFinanceFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="UpdateFinanceFailDialog_Title" xml:space="preserve">
+    <value>修改失败</value>
+  </data>
+  <data name="UpdateFinanceSuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="UpdateFinanceSuccessDialog_Title" xml:space="preserve">
+    <value>修改成功</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Class Manager - Client</value>
   </data>
@@ -227,6 +257,19 @@
   <data name="DeleteActivityDialog_SecondaryButtonText" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="DeleteFinanceDialog_Title" xml:space="preserve">
+    <value>确认要删除吗？</value>
+  </data>
+  <data name="DeleteFinanceDialog_Content" xml:space="preserve">
+    <value>相关活动：{0}</value>
+    <comment>String.Format</comment>
+  </data>
+  <data name="DeleteFinanceDialog_PrimaryButtonText" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteFinanceDialog_SecondaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="DeleteActivityDialog_Title" xml:space="preserve">
     <value>确认要删除吗？</value>
   </data>
@@ -243,6 +286,21 @@
     <value>确认</value>
   </data>
   <data name="DeleteActivitySuccessDialog_Title" xml:space="preserve">
+    <value>删除成功</value>
+  </data>
+  <data name="DeleteFinanceFailDialog_Content" xml:space="preserve">
+    <value>服务器出错，请重新尝试或联系开发人员。</value>
+  </data>
+  <data name="DeleteFinanceFailDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="DeleteFinanceFailDialog_Title" xml:space="preserve">
+    <value>删除失败</value>
+  </data>
+  <data name="DeletevSuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="DeleteFinanceSuccessDialog_Title" xml:space="preserve">
     <value>删除成功</value>
   </data>
   <data name="DeletePersonDialog_Content_Name" xml:space="preserve">
@@ -284,10 +342,10 @@
     <value>活动</value>
   </data>
   <data name="HamburgerMenuItem_Person.Label" xml:space="preserve">
-    <value>学生</value>
+    <value>学生信息</value>
   </data>
   <data name="HamburgerMenuItem_Finance.Label" xml:space="preserve">
-    <value>班费</value>
+    <value>班费收支</value>
   </data>
   <data name="LoginAsAdmin.Text" xml:space="preserve">
     <value>管理用户</value>
@@ -399,5 +457,38 @@
   </data>
   <data name="AddFeedback_Email_Hint.Text" xml:space="preserve">
     <value>请告诉我们您的联系方式（E-mail）</value>
+  </data>
+  <data name="ExpenseHintTextBlock.Text" xml:space="preserve">
+    <value>支出</value>
+  </data>
+  <data name="IncomeHintTextBlock.Text" xml:space="preserve">
+    <value>收入</value>
+  </data>
+  <data name="AddFinance_Cancel_Button.Content" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AddFinance_Date_Hint.Text" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="AddFinance_Details_Hint.Text" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="AddFinance_Event_Hint.Text" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="AddFinance_Expense_Hint.Text" xml:space="preserve">
+    <value>支出</value>
+  </data>
+  <data name="AddFinance_Income_Hint.Text" xml:space="preserve">
+    <value>收入</value>
+  </data>
+  <data name="AddFinance_Submit_Button.Content" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="AddFinance_Title.Text" xml:space="preserve">
+    <value>新建收支记录</value>
+  </data>
+  <data name="DeleteFinanceSuccessDialog_PrimaryButtonText" xml:space="preserve">
+    <value>确认</value>
   </data>
 </root>

@@ -1,0 +1,116 @@
+﻿<UserControl
+    x:Class="ClassManager.Controls.FinanceItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ClassManager.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:utils="using:ClassManager.Utils"
+    xmlns:usercontrol="using:ClassManager.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="180"
+    d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <utils:MoneyConverter x:Key="MoneyConverter" />
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}"
+          Padding="8"
+          PointerEntered="Grid_PointerEntered"
+          PointerExited="Grid_PointerExited">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+
+        <TextBlock x:Name="EventTextBlock"
+                   Grid.Row="0" Grid.Column="0"
+                   Text="{x:Bind Finance.Event, Mode=OneWay}"
+                   FontSize="22"
+                   Foreground="White"
+                   Tapped="EventTextBlock_Tapped">
+        </TextBlock>
+
+        <StackPanel x:Name="MoneyPanel"
+                    Margin="0,5,0,0"
+                    Grid.Row="1" Grid.Column="0"
+                    Orientation="Horizontal">
+            <TextBlock x:Name="DateTextBlock"
+                       Text="{x:Bind Finance.Date, Mode=OneWay}"
+                       Foreground="LightGray"
+                       FontSize="16"
+                       Margin="0,0,15,0"/>
+            <TextBlock x:Name="IncomeHintTextBlock"
+                       x:Uid="IncomeHintTextBlock"
+                       Foreground="White"
+                       FontSize="16"/>
+            <TextBlock x:Name="IncomeTextBlock"
+                       Text="{x:Bind Finance.Income, Converter={StaticResource MoneyConverter}, Mode=OneWay}"
+                       Foreground="LawnGreen"
+                       Margin="0,0,20,0"
+                       FontSize="18"
+                       FontFamily="Monaco"/>
+            <TextBlock x:Name="ExpenseHintTextBlock"
+                       x:Uid="ExpenseHintTextBlock"
+                       Foreground="White"
+                       FontSize="16"/>
+            <TextBlock x:Name="ExpenseTextBlock"
+                       Text="{x:Bind Finance.Expense, Converter={StaticResource MoneyConverter}, Mode=OneWay}"
+                       Foreground="Red"
+                       FontSize="18"
+                       FontFamily="Monaco"/>
+        </StackPanel>
+        
+        <Button x:Name="EditButton"
+                Grid.Row="1" Grid.Column="1"
+                Style="{StaticResource ButtonStyle}"
+                Content="&#xE70F;"
+                Foreground="White"
+                Visibility="Collapsed">
+            <Button.Flyout>
+                <Flyout Placement="Full">
+                    <usercontrol:EditingFinanceTemplate x:Name="EditingFinanceControl"
+                                                        DataContext="{x:Bind Finance, Mode=OneWay}"
+                                                        Tag="Update" />
+                </Flyout>
+            </Button.Flyout>
+        </Button>
+
+        <Button x:Name="DeleteButton"
+                Grid.Row="0" Grid.Column="1"
+                Style="{StaticResource ButtonStyle}"
+                Content="&#xE107;"
+                Foreground="Red"
+                Visibility="Collapsed"
+                Click="DeleteButton_Click"/>
+
+
+        <TextBlock x:Name="DetailsTextBlock"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2" Grid.Column="0"
+                   Text="{x:Bind Finance.Details, Mode=OneWay}"
+                   Foreground="LightGray"
+                   TextWrapping="Wrap"
+                   Visibility="Collapsed" />
+
+
+    </Grid>
+</UserControl>

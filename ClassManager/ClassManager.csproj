@@ -103,14 +103,21 @@
     <Compile Include="Controls\ActivityItemTemplate.xaml.cs">
       <DependentUpon>ActivityItemTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EditingFinanceTemplate.xaml.cs">
+      <DependentUpon>EditingFinanceTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmptyTitleControl.xaml.cs">
       <DependentUpon>EmptyTitleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FinanceItemTemplate.xaml.cs">
+      <DependentUpon>FinanceItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImageFileItemTemplate.xaml.cs">
       <DependentUpon>ImageFileItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Feedback.cs" />
+    <Compile Include="Models\Finance.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\UploadingImageFile.cs" />
     <Compile Include="Networks\APIBaseService.cs" />
@@ -119,7 +126,9 @@
     <Compile Include="Networks\BaseService.cs" />
     <Compile Include="Networks\APIKey.cs" />
     <Compile Include="Networks\QiniuManager.cs" />
+    <Compile Include="Utils\Converter.cs" />
     <Compile Include="Utils\Crypto.cs" />
+    <Compile Include="Utils\MyVisualTreeHelper.cs" />
     <Compile Include="Utils\Rand.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
     <Compile Include="ViewModels\ActivityDetailsViewModel.cs" />
@@ -127,6 +136,7 @@
     <Compile Include="ViewModels\ActivityScheduleViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FeedbackViewModel.cs" />
+    <Compile Include="ViewModels\FinanceViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
@@ -144,6 +154,9 @@
     </Compile>
     <Compile Include="Views\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FinancePage.xaml.cs">
+      <DependentUpon>FinancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -216,7 +229,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\EditingFinanceTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EmptyTitleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FinanceItemTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FinancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
