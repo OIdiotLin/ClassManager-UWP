@@ -88,7 +88,7 @@
             <Button.Flyout>
                 <Flyout Placement="Full">
                     <usercontrol:EditingFinanceTemplate x:Name="EditingFinanceControl"
-                                                        DataContext="{x:Bind Finance, Mode=OneWay}"
+                                                        DataContext="{x:Bind Finance, Mode=OneTime}"
                                                         Tag="Update" />
                 </Flyout>
             </Button.Flyout>

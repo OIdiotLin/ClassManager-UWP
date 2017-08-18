@@ -28,7 +28,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Padding="6">
+    <Grid Padding="6"
+          MaxWidth="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -41,7 +42,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <TextBlock x:Uid="AddFinance_Title"
@@ -53,7 +53,7 @@
                    Grid.Row="1" Grid.Column="0"
                    Style="{StaticResource HintStyle}"/>
         <TextBox x:Name="EventTextBox"
-                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="1" Grid.Column="1"
                  Text="{x:Bind Finance.Event, Mode=TwoWay}"
                  Style="{StaticResource TextBoxStyle}"
                  TextWrapping="Wrap"/>
@@ -62,7 +62,7 @@
                    Grid.Row="2" Grid.Column="0"
                    Style="{StaticResource HintStyle}" />
         <DatePicker x:Name="FinanceDatePicker"
-                    Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                    Grid.Row="2" Grid.Column="1"
                     Margin="0,10,0,0"
                     Date="{x:Bind Finance.Date, Converter={StaticResource DateConverter}, Mode=TwoWay}"/>
 
@@ -70,7 +70,7 @@
                    Grid.Row="3" Grid.Column="0"
                    Style="{StaticResource HintStyle}" />
         <TextBox x:Name="IncomeTextBox"
-                 Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="3" Grid.Column="1"
                  InputScope="Number"
                  Style="{StaticResource TextBoxStyle}"
                  Text="{x:Bind Finance.Income, Mode=TwoWay}" />
@@ -79,7 +79,7 @@
                    Grid.Row="4" Grid.Column="0"
                    Style="{StaticResource HintStyle}"/>
         <TextBox x:Name="ExpenseTextBox"
-                 Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="4" Grid.Column="1"
                  InputScope="Number"
                  Style="{StaticResource TextBoxStyle}"
                  Text="{x:Bind Finance.Expense, Mode=TwoWay}" />
@@ -88,14 +88,14 @@
                    Grid.Row="5" Grid.Column="0"
                    Style="{StaticResource HintStyle}"/>
         <TextBox x:Name="DetailsTextBox"
-                 Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="5" Grid.Column="1"
                  Style="{StaticResource TextBoxStyle}"
                  AcceptsReturn="True"
                  Text="{x:Bind Finance.Details, Mode=TwoWay}" />
 
         <Button x:Uid="AddFinance_Submit_Button"
                 x:Name="SubmitButton"
-                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" 
+                Grid.Row="6" Grid.Column="1"
                 Margin="0,15,0,0"
                 HorizontalAlignment="Stretch"
                 Background="{ThemeResource SystemControlForegroundAccentBrush}"
