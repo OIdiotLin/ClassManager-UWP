@@ -1,4 +1,5 @@
 ﻿using ClassManager.Networks;
+using ClassManager.Utils;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -118,8 +119,9 @@ namespace ClassManager.Models
         public Activity()
         {
             Name = "";
-            Date = "2000-01-01";
-            Time = "00:00";
+            var currentDate = DateTime.Now.Date;
+            Date = String.Format("{0}-{1}-{2}", currentDate.Year, currentDate.Month, currentDate.Day);
+            Time = String.Format("{0}:{1}", DateTime.Now.Hour, DateTime.Now.Minute);
             Place = "";
             Participator = "";
             Content = "";

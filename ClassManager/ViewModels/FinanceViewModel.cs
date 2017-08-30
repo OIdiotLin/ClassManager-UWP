@@ -64,7 +64,11 @@ namespace ClassManager.ViewModels
             var list = await api.GetFinanceList();
             Finances = new ObservableCollection<Finance>(list.OrderByDescending(f => f.Date));
             Balance = await api.GetBalance();
-            NewFinance = new Finance();
+
+            var currentDate = DateTime.Now.Date;
+            var datestring = String.Format("{0}-{1}-{2}", currentDate.Year, currentDate.Month, currentDate.Day);
+            NewFinance = new Finance(_date: datestring);
         }
+
     }
 }
