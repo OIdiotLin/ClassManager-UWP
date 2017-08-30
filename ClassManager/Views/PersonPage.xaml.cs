@@ -162,7 +162,8 @@ namespace ClassManager.Views
                 await new ContentDialog()
                 {
                     Title = ResourceLoader.GetString("UpdatePersonSuccessDialog_Title"),
-                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonSuccessDialog_PrimaryButtonText")
+                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonSuccessDialog_PrimaryButtonText"),
+                    DefaultButton = ContentDialogButton.Primary
                 }.ShowAsync();
                 await vm.Init();
             }
@@ -172,7 +173,8 @@ namespace ClassManager.Views
                 {
                     Content = ResourceLoader.GetString("UpdatePersonFailDialog_Content"),
                     Title = ResourceLoader.GetString("UpdatePersonFailDialog_Title"),
-                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonFailDialog_PrimaryButtonText")
+                    PrimaryButtonText = ResourceLoader.GetString("UpdatePersonFailDialog_PrimaryButtonText"),
+                    DefaultButton = ContentDialogButton.Primary
                 }.ShowAsync();
             }
         }
@@ -204,7 +206,8 @@ namespace ClassManager.Views
                 Content = contentPanel,
                 Title = ResourceLoader.GetString("DeletePersonDialog_Title"),
                 PrimaryButtonText = ResourceLoader.GetString("DeletePersonDialog_PrimaryButtonText"),
-                SecondaryButtonText = ResourceLoader.GetString("DeletePersonDialog_SecondaryButtonText")
+                SecondaryButtonText = ResourceLoader.GetString("DeletePersonDialog_SecondaryButtonText"),
+                DefaultButton = ContentDialogButton.Primary
             };
 
             ContentDialogResult result = await dialog.ShowAsync();
@@ -217,7 +220,8 @@ namespace ClassManager.Views
                         await new ContentDialog()
                         {
                             Title = ResourceLoader.GetString("DeletePersonSuccessDialog_Title"),
-                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonSuccessDialog_PrimaryButtonText")
+                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonSuccessDialog_PrimaryButtonText"),
+                            DefaultButton = ContentDialogButton.Primary
                         }.ShowAsync();
 
                     }
@@ -227,7 +231,8 @@ namespace ClassManager.Views
                         {
                             Content = ResourceLoader.GetString("DeletePersonFailDialog_Content"),
                             Title = ResourceLoader.GetString("DeletePersonFailDialog_Title"),
-                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonFailDialog_PrimaryButtonText")
+                            PrimaryButtonText = ResourceLoader.GetString("DeletePersonFailDialog_PrimaryButtonText"),
+                            DefaultButton = ContentDialogButton.Primary
                         }.ShowAsync();
                     }
                     break;
