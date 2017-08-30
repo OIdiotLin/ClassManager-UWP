@@ -1,0 +1,6 @@
+MainPackage=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_ARM.appx
+ResourcePack=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_language-zh-hans.appx
+ResourcePack=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_scale-100.appx
+ResourcePack=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_scale-125.appx
+ResourcePack=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_scale-150.appx
+ResourcePack=D:\projects\ClassManager-UWP\ClassManager\bin\ARM\Release\ClassManager_1.3.7.0_scale-400.appx
