@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ClassManager.Utils;
+using Windows.ApplicationModel.Appointments;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -31,6 +32,15 @@ namespace ClassManager.Views
         public ActivityPage()
         {
             this.InitializeComponent();
+
+            ToolTipService.SetToolTip(CreateAppointmentButton,
+                                      ResourceLoader.GetString("CreateAppointmentButton_ToolTip"));
+            ToolTipService.SetPlacement(CreateAppointmentButton, PlacementMode.Top);
+
+            CreateAppointmentButton_Flyout_ConfirmButton.Content =
+                ResourceLoader.GetString("CreateAppointmentButton_Flyout_ConfirmButton");
+            CreateAppointmentButton_Flyout_Body.Text =
+                ResourceLoader.GetString("CreateAppointmentButton_Flyout_Body");
         }
 
         private Type _frame_page_type;
@@ -42,6 +52,7 @@ namespace ClassManager.Views
                 _frame_page_type = value;
 
                 GoBackButton.Visibility = (_frame_page_type == typeof(ActivitySchedulePage) ? Visibility.Collapsed : Visibility.Visible);
+                CreateAppointmentButton.Visibility = (_frame_page_type == typeof(ActivityDetailsPage) ? Visibility.Visible : Visibility.Collapsed);
 
                 if (App.IsAdmin)
                 {
@@ -51,6 +62,7 @@ namespace ClassManager.Views
                         ConfirmButton.Visibility = Visibility.Collapsed;
                         DeleteButton.Visibility = Visibility.Collapsed;
                         UpdateButton.Visibility = Visibility.Collapsed;
+                        Divider.Visibility = Visibility.Collapsed;
                     }
                     else if(_frame_page_type == typeof(ActivityDetailsPage))
                     {
@@ -58,6 +70,7 @@ namespace ClassManager.Views
                         ConfirmButton.Visibility = Visibility.Collapsed;
                         DeleteButton.Visibility = Visibility.Visible;
                         UpdateButton.Visibility = Visibility.Visible;
+                        Divider.Visibility = Visibility.Visible;
                     }
                     else if(_frame_page_type == typeof(ActivityEditingPage))
                     {
@@ -65,6 +78,7 @@ namespace ClassManager.Views
                         ConfirmButton.Visibility = Visibility.Visible;
                         DeleteButton.Visibility = Visibility.Collapsed;
                         UpdateButton.Visibility = Visibility.Collapsed;
+                        Divider.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -183,6 +197,27 @@ namespace ClassManager.Views
                     }.ShowAsync();
                 }
             }
+        }
+        
+        private async void CreateAppointmentButton_Flyout_ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            var activity = (this.ActivityMainFrame.Content as ActivityDetailsPage).SourceActivity;
+            var appointment = new Appointment();
+
+            var dateArr = (from x in activity.Date.Split('-') select Int16.Parse(x)).ToArray();
+            var timeArr = (from x in activity.Time.Split(':') select Int16.Parse(x)).ToArray();
+            var datetime = new DateTime(year: dateArr[0], month: dateArr[1], day: dateArr[2],
+                                        hour: timeArr[0], minute: timeArr[1], second: 0);
+
+            appointment.StartTime = new DateTimeOffset(datetime);
+            appointment.Subject = activity.Name;
+            appointment.Location = activity.Place;
+            appointment.Details = activity.Content;
+            appointment.Duration = TimeSpan.FromHours(1);
+            appointment.Reminder = TimeSpan.FromDays(1);
+            
+            String appointmentId = await AppointmentManager.ShowAddAppointmentAsync(appointment, new Rect(), Windows.UI.Popups.Placement.Default);
+
         }
     }
 }

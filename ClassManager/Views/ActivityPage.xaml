@@ -75,12 +75,42 @@
                     Content="&#xE107;"
                     Click="DeleteButton_Click"/>
             <Button x:Name="UpdateButton"
-                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.LeftOf="Divider"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Style="{StaticResource SymbolButtonStyle}"
                     Visibility="Collapsed"
                     Content="&#xE70F;"
                     Click="UpdateButton_Click"/>
+            <Rectangle x:Name="Divider"
+                       Margin="15,0,10,0"
+                       Width="1"
+                       Height="20"
+                       RelativePanel.LeftOf="CreateAppointmentButton"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Visibility="Collapsed"
+                       Fill="Gray"/>
+            <Button x:Name="CreateAppointmentButton"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Style="{StaticResource SymbolButtonStyle}"
+                    Visibility="Collapsed"
+                    Content="&#xE8D1;">
+                <Button.Flyout>
+                    <Flyout Placement="Top">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontSize="12"
+                                       Foreground="Gray"
+                                       x:Name="CreateAppointmentButton_Flyout_Body" />
+                            <Button x:Name="CreateAppointmentButton_Flyout_ConfirmButton" 
+                                    Margin="0,8,0,0"
+                                    FontSize="14"
+                                    HorizontalAlignment="Right"
+                                    Click="CreateAppointmentButton_Flyout_ConfirmButton_Click"/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+
+            </Button>
 
         </RelativePanel>
 

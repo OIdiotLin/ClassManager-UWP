@@ -491,4 +491,13 @@
   <data name="DeleteFinanceSuccessDialog_PrimaryButtonText" xml:space="preserve">
     <value>确认</value>
   </data>
+  <data name="CreateAppointmentButton_Flyout_Body" xml:space="preserve">
+    <value>*仅支持添加到日历，删除及修改请前往日历app</value>
+  </data>
+  <data name="CreateAppointmentButton_Flyout_ConfirmButton" xml:space="preserve">
+    <value>确认添加</value>
+  </data>
+  <data name="CreateAppointmentButton_ToolTip" xml:space="preserve">
+    <value>添加活动到日历</value>
+  </data>
 </root>
