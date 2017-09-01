@@ -1,10 +1,12 @@
-﻿using ClassManager.Networks;
+﻿using ClassManager.Models;
+using ClassManager.Networks;
 using ClassManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 
 namespace ClassManager.ViewModels
 {
@@ -33,6 +35,36 @@ namespace ClassManager.ViewModels
         public async Task Login(string password)
         {
             IsLoginSuccess = await api.Login(password, Rand.RandomString());
+        }
+
+        public async Task<UpdateInfo> CheckUpdate()
+        {
+            UpdateInfo latest = await api.GetLatestGetLatestReleaseInfo();
+
+            if (latest == null)
+            {
+                return new UpdateInfo();
+            }
+
+            latest.NeedUpdate = true;
+            if (latest.Version.Major < Package.Current.Id.Version.Major)
+            {
+                latest.NeedUpdate = false;
+            }
+            else if (latest.Version.Minor < Package.Current.Id.Version.Minor)
+            {
+                latest.NeedUpdate = false;
+            }
+            else if (latest.Version.Build < Package.Current.Id.Version.Build)
+            {
+                latest.NeedUpdate = false;
+            }
+
+            if (latest.IsPrerelease)
+            {
+                latest.NeedUpdate = false;
+            }
+            return latest;
         }
     }
 }

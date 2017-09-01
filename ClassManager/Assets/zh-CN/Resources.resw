@@ -500,4 +500,10 @@
   <data name="CreateAppointmentButton_ToolTip" xml:space="preserve">
     <value>添加活动到日历</value>
   </data>
+  <data name="NewVersionToast_Button" xml:space="preserve">
+    <value>查看详情</value>
+  </data>
+  <data name="NewVersionToast_Title" xml:space="preserve">
+    <value>新版本更新！</value>
+  </data>
 </root>

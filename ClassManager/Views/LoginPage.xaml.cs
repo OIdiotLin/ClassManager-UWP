@@ -1,6 +1,7 @@
 ﻿using ClassManager.Utils;
 using ClassManager.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Notifications;
+using ClassManager.Models;
+using Windows.ApplicationModel;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -81,7 +85,7 @@ namespace ClassManager.Views
             animVisitorPanel.Start();
             animAdminPanel.Start();
 
-            PasswordTextBox.Focus(FocusState.Pointer);
+            CheckNewVersion();
         }
 
         /// <summary>
@@ -152,6 +156,83 @@ namespace ClassManager.Views
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// 查询更新
+        /// </summary>
+        private async void CheckNewVersion()
+        {
+            var info = await vm.CheckUpdate();
+            if (info.NeedUpdate)
+            {
+                PopUpdateToast(info);
+            }
+        }
+
+        /// <summary>
+        /// 弹出更新Toast
+        /// </summary>
+        private void PopUpdateToast(UpdateInfo info)
+        {
+            ToastContent content = new ToastContent()
+            {
+                Launch = "action=update",
+                Scenario = ToastScenario.Reminder,
+
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = "Assets/logo/logo.png"
+                        },
+                        Children =
+                        {
+
+                            new AdaptiveText()
+                            {
+                                Text = ResourceLoader.GetString("NewVersionToast_Title")
+                            },
+
+                            new AdaptiveText()
+                            {
+                                Text = String.Format("v{0}.{1}.{2} => {3}",
+                                    Package.Current.Id.Version.Major,
+                                    Package.Current.Id.Version.Minor,
+                                    Package.Current.Id.Version.Build,
+                                    info.Version.ToString())
+                            }
+                        }
+                    }
+                },
+
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
+                    {
+                        new ToastButton(ResourceLoader.GetString("NewVersionToast_Button"), info.DetailsUrl)
+                        {
+                            ActivationType = ToastActivationType.Foreground,
+                        }
+                    }
+                }
+            };
+
+            ToastNotification x = new ToastNotification(content.GetXml());
+
+            x.Activated += OpenLatestReleaseWebPageAsync;
+            
+            ToastNotificationManager.CreateToastNotifier()
+                .Show(x);
+        }
+
+        private async void OpenLatestReleaseWebPageAsync(ToastNotification sender, object args)
+        {
+            var uri = new Uri((args as ToastActivatedEventArgs).Arguments.ToString());
+            // Launch the URI
+            var success = await Windows.System.Launcher.LaunchUriAsync(uri);
         }
     }
 }

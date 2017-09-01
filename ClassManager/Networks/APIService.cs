@@ -755,5 +755,30 @@ namespace ClassManager.Networks
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取最新应用版本
+        /// </summary>
+        /// <returns>版本信息</returns>
+        public async Task<UpdateInfo> GetLatestGetLatestReleaseInfo()
+        {
+            try
+            {
+                var github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("ClassManager-UWP"));
+                var latest = await github.Repository.Release.GetLatest("OIdiotLin", "ClassManager-UWP");
+
+                var info = new UpdateInfo()
+                {
+                    Version = new AppVersion(latest.Name),
+                    DetailsUrl = latest.HtmlUrl,
+                    IsPrerelease = latest.Prerelease
+                };
+                return info;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
