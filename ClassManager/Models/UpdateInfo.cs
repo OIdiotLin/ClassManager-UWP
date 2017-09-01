@@ -23,6 +23,33 @@ namespace ClassManager.Models
             Build = Int16.Parse(res[2]);
         }
 
+        public static bool operator <(AppVersion a, AppVersion b)
+        {
+            if (a.Major < b.Major) return true;
+            if (a.Major > b.Major) return false;
+
+            if (a.Minor < b.Minor) return true;
+            if (a.Minor > b.Minor) return false;
+
+            if (a.Build < b.Build) return true;
+            if (a.Build > b.Build) return false;
+            return false;
+        }
+
+        public static bool operator >(AppVersion a, AppVersion b)
+        {
+            if (a.Major < b.Major) return false;
+            if (a.Major > b.Major) return true;
+
+            if (a.Minor < b.Minor) return false;
+            if (a.Minor > b.Minor) return true;
+
+            if (a.Build < b.Build) return false;
+            if (a.Build > b.Build) return true;
+            return false;
+        }
+        
+
         public override string ToString()
         {
             return String.Format("v{0}.{1}.{2}", Major, Minor, Build);

@@ -45,20 +45,12 @@ namespace ClassManager.ViewModels
             {
                 return new UpdateInfo();
             }
-
-            latest.NeedUpdate = true;
-            if (latest.Version.Major < Package.Current.Id.Version.Major)
+            
+            if(latest.Version > new AppVersion(Package.Current.Id.Version))
             {
-                latest.NeedUpdate = false;
+                latest.NeedUpdate = true;
             }
-            else if (latest.Version.Minor < Package.Current.Id.Version.Minor)
-            {
-                latest.NeedUpdate = false;
-            }
-            else if (latest.Version.Build <= Package.Current.Id.Version.Build)
-            {
-                latest.NeedUpdate = false;
-            }
+            
 
             if (latest.IsPrerelease)
             {
