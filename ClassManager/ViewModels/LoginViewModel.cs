@@ -55,7 +55,7 @@ namespace ClassManager.ViewModels
             {
                 latest.NeedUpdate = false;
             }
-            else if (latest.Version.Build < Package.Current.Id.Version.Build)
+            else if (latest.Version.Build <= Package.Current.Id.Version.Build)
             {
                 latest.NeedUpdate = false;
             }
