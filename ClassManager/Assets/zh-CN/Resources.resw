@@ -506,4 +506,7 @@
   <data name="NewVersionToast_Title" xml:space="preserve">
     <value>新版本更新！</value>
   </data>
+  <data name="ActivitySearchBox_PlaceholderText" xml:space="preserve">
+    <value>活动名或地点</value>
+  </data>
 </root>

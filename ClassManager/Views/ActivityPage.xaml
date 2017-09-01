@@ -59,6 +59,13 @@
                     Visibility="Collapsed"
                     Content="&#xE0A6;"
                     Click="GoBackButton_Click"/>
+            <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find"
+                            Margin="0,0,20,0"
+                            Width="230"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            RelativePanel.AlignRightWithPanel="True"
+                            IsSuggestionListOpen="False"
+                            TextChanged="SearchBox_TextChanged" />
             <Button x:Name="AddButton"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"

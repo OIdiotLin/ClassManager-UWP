@@ -37,6 +37,8 @@ namespace ClassManager.Views
                                       ResourceLoader.GetString("CreateAppointmentButton_ToolTip"));
             ToolTipService.SetPlacement(CreateAppointmentButton, PlacementMode.Top);
 
+            SearchBox.PlaceholderText =
+                ResourceLoader.GetString("ActivitySearchBox_PlaceholderText");
             CreateAppointmentButton_Flyout_ConfirmButton.Content =
                 ResourceLoader.GetString("CreateAppointmentButton_Flyout_ConfirmButton");
             CreateAppointmentButton_Flyout_Body.Text =
@@ -50,8 +52,10 @@ namespace ClassManager.Views
             }
             set {
                 _frame_page_type = value;
+                SearchBox.Text = "";
 
                 GoBackButton.Visibility = (_frame_page_type == typeof(ActivitySchedulePage) ? Visibility.Collapsed : Visibility.Visible);
+                SearchBox.Visibility = (_frame_page_type == typeof(ActivitySchedulePage) ? Visibility.Visible : Visibility.Collapsed);
                 CreateAppointmentButton.Visibility = (_frame_page_type == typeof(ActivityDetailsPage) ? Visibility.Visible : Visibility.Collapsed);
 
                 if (App.IsAdmin)
@@ -218,6 +222,12 @@ namespace ClassManager.Views
             
             String appointmentId = await AppointmentManager.ShowAddAppointmentAsync(appointment, new Rect(), Windows.UI.Popups.Placement.Default);
 
+        }
+
+        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            (this.ActivityMainFrame.Content as ActivitySchedulePage)
+                .Search((sender as AutoSuggestBox).Text);
         }
     }
 }

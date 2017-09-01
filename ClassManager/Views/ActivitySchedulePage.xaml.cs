@@ -57,6 +57,15 @@ namespace ClassManager.Views
             var sourceActivity = e.ClickedItem as Activity;
             Root.NavigateFrame(typeof(ActivityDetailsPage), sourceActivity);
         }
+
+        /// <summary>
+        /// 搜索关键字
+        /// </summary>
+        /// <param name="s">关键字（活动名、活动地点）</param>
+        public void Search(string s)
+        {
+            vm.FilterActivated(s);
+        }
     }
 
 }

@@ -27,7 +27,7 @@
 
         <ProgressRing x:Name="LoadingProgressRing" />
         <GridView x:Name="ActivityGridView"
-                  ItemsSource="{x:Bind vm.Activities, Mode=OneWay}"
+                  ItemsSource="{x:Bind vm.ActivitiesOnDisplay, Mode=OneWay}"
                   ItemTemplate="{StaticResource ActivityItemsTemplate}"
                   ItemClick="ActivityGridView_ItemClick"
                   IsItemClickEnabled="True"
