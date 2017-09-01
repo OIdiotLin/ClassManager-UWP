@@ -100,7 +100,7 @@ namespace ClassManager
         {
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
 
-            var accentBrush = (Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color;
+            var accentBrush = Colors.DarkCyan;
             view.TitleBar.BackgroundColor = accentBrush;
             view.TitleBar.ForegroundColor = Colors.White;
             view.TitleBar.InactiveBackgroundColor = accentBrush;

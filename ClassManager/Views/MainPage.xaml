@@ -39,7 +39,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
         <controls:HamburgerMenu x:Name="Menu"
                                 Foreground="White"
-                                PaneBackground="{ThemeResource SystemControlForegroundAccentBrush}"
+                                PaneBackground="DarkCyan"
                                 ItemTemplate="{StaticResource HamburgerMenuItem}"
                                 OptionsItemTemplate="{StaticResource HamburgerMenuItem}"
                                 ItemClick="Menu_ItemClick"
