@@ -145,5 +145,22 @@ namespace ClassManager.Controls
                 }
             }
         }
+
+        /// <summary>
+        /// <see cref="DetailsButton"/>被点击，打开详情
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DetailsTextBlock.Visibility == Visibility.Visible)
+            {
+                DetailsTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                DetailsTextBlock.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

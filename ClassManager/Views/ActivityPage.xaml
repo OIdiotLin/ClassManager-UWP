@@ -61,7 +61,7 @@
                     Click="GoBackButton_Click"/>
             <AutoSuggestBox x:Name="SearchBox" QueryIcon="Find"
                             Margin="0,0,20,0"
-                            Width="230"
+                            Width="240"
                             RelativePanel.AlignVerticalCenterWithPanel="True"
                             RelativePanel.AlignRightWithPanel="True"
                             IsSuggestionListOpen="False"

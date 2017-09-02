@@ -78,29 +78,42 @@
                        FontSize="18"
                        FontFamily="Monaco"/>
         </StackPanel>
-        
-        <Button x:Name="EditButton"
-                Grid.Row="1" Grid.Column="1"
-                Style="{StaticResource ButtonStyle}"
-                Content="&#xE70F;"
-                Foreground="White"
-                Visibility="Collapsed">
-            <Button.Flyout>
-                <Flyout Placement="Full">
-                    <usercontrol:EditingFinanceTemplate x:Name="EditingFinanceControl"
-                                                        DataContext="{x:Bind Finance, Mode=OneTime}"
-                                                        Tag="Update" />
-                </Flyout>
-            </Button.Flyout>
-        </Button>
 
-        <Button x:Name="DeleteButton"
-                Grid.Row="0" Grid.Column="1"
-                Style="{StaticResource ButtonStyle}"
-                Content="&#xE107;"
-                Foreground="Red"
-                Visibility="Collapsed"
-                Click="DeleteButton_Click"/>
+        <StackPanel x:Name="ButtonPanel"
+                    Orientation="Vertical"
+                    Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+            <Button x:Name="DetailsButton"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="&#xE712;"
+                    Visibility="Visible"
+                    Foreground="White"
+                    HorizontalAlignment="Right"
+                    Click="DetailsButton_Click" />
+
+            <StackPanel Orientation="Horizontal">
+
+                <Button x:Name="DeleteButton"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="&#xE107;"
+                    Foreground="Red"
+                    Visibility="Collapsed"
+                    Click="DeleteButton_Click"/>
+                
+                <Button x:Name="EditButton"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="&#xE70F;"
+                    Foreground="White"
+                    Visibility="Collapsed">
+                    <Button.Flyout>
+                        <Flyout Placement="Full">
+                            <usercontrol:EditingFinanceTemplate x:Name="EditingFinanceControl"
+                                                            DataContext="{x:Bind Finance, Mode=OneTime}"
+                                                            Tag="Update" />
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+        </StackPanel>
 
 
         <TextBlock x:Name="DetailsTextBlock"
