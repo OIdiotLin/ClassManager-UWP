@@ -167,7 +167,7 @@ namespace ClassManager.Views
             if (info.NeedUpdate)
             {
                 PopUpdateToast(info);
-            }
+                }
         }
 
         /// <summary>
@@ -203,7 +203,13 @@ namespace ClassManager.Views
                                     Package.Current.Id.Version.Minor,
                                     Package.Current.Id.Version.Build,
                                     info.Version.ToString())
+                            },
+
+                            new AdaptiveText()
+                            {
+                                Text = info.Summary
                             }
+                            
                         }
                     }
                 },

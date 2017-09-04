@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
@@ -767,11 +768,28 @@ namespace ClassManager.Networks
                 var github = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("ClassManager-UWP"));
                 var latest = await github.Repository.Release.GetLatest("OIdiotLin", "ClassManager-UWP");
 
+                Regex reg = new Regex(@"\*\w+");
+                //var res = reg.Match(latest.Body).Groups[0].ToString();
+                //var summary = res != "" ? res.Substring(0, res.Length - 5) : "";
+
+                var summary = "";
+                var res = reg.Matches(latest.Body);
+
+                if (res.Count != 0)
+                {
+                    foreach(var item in res)
+                    {
+                        summary += item.ToString() + "\r\n";
+                    }
+                }
+
                 var info = new UpdateInfo()
                 {
                     Version = new AppVersion(latest.Name),
                     DetailsUrl = latest.HtmlUrl,
-                    IsPrerelease = latest.Prerelease
+                    IsPrerelease = latest.Prerelease,
+                    Summary = summary
+
                 };
                 return info;
             }

@@ -77,6 +77,10 @@ namespace ClassManager.Models
         /// </summary>
         public AppVersion Version { get; set; }
         /// <summary>
+        /// 更新详情Summary
+        /// </summary>
+        public string Summary { get; set; }
+        /// <summary>
         /// 版本详情URL
         /// </summary>
         public string DetailsUrl { get; set; }
