@@ -1,1 +1,1 @@
-MainPackage=D:\projects\ClassManager-UWP\ClassManager\bin\x64\Release\ClassManager_1.3.11.0_x64.appx
+MainPackage=D:\projects\ClassManager-UWP\ClassManager\bin\x64\Release\ClassManager_1.3.12.0_x64.appx

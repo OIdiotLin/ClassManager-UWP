@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="c6da931e-380a-4dff-9195-39fbfa7d67c6" Publisher="CN=OIdiotLin" Version="1.3.11.0" />
+  <Identity Name="c6da931e-380a-4dff-9195-39fbfa7d67c6" Publisher="CN=OIdiotLin" Version="1.3.12.0" />
   <mp:PhoneIdentity PhoneProductId="c6da931e-380a-4dff-9195-39fbfa7d67c6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ClassManager</DisplayName>
