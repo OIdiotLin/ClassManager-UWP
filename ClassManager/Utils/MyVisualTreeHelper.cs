@@ -12,6 +12,8 @@ namespace ClassManager.Utils
     {
         public static T SearchVisualTree<T>(DependencyObject tarElem) where T : DependencyObject
         {
+            if (tarElem == null)
+                return null;
             var count = VisualTreeHelper.GetChildrenCount(tarElem);
             if (count == 0)
                 return null;

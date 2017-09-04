@@ -52,7 +52,7 @@ namespace ClassManager.Views
         {
             base.OnNavigatedTo(e);
             await vm.InitializeAsync();
-            AddDelegate();
+            OnRefreshed?.Invoke();
 
             if (App.IsAdmin)
             {
@@ -77,9 +77,10 @@ namespace ClassManager.Views
         {
             for (int i = 0; i < FinanceListView.Items.Count; i++)
             {
-                var container = FinanceListView.ContainerFromIndex(i) as ListViewItem;
+                var container = FinanceListView.ContainerFromIndex(i);
                 FinanceItemTemplate item = MyVisualTreeHelper.SearchVisualTree<FinanceItemTemplate>(container);
-                item.OnSubmitedSuccess += new FinanceItemTemplate.FinanceItemDelegate(Refresh);
+                if(item != null)
+                    item.OnSubmitedSuccess += new FinanceItemTemplate.FinanceItemDelegate(Refresh);
                 
             }
         }
