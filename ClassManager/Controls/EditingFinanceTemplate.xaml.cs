@@ -73,7 +73,7 @@ namespace ClassManager.Controls
                     PrimaryButtonText = ResourceLoader.GetString((string)this.Tag == "Add" ?
                                                                  "AddFinanceSuccessDialog_PrimaryButtonText" :
                                                                  "UpdateFinanceSuccessDialog_PrimaryButtonText"),
-                    DefaultButton = ContentDialogButton.Primary
+                    //DefaultButton = ContentDialogButton.Primary
                 }.ShowAsync();
 
                 OnSubmitedSuccess?.Invoke(true);    // 调用委托，更新页面
@@ -91,7 +91,7 @@ namespace ClassManager.Controls
                     PrimaryButtonText = ResourceLoader.GetString((string)this.Tag == "Add" ?
                                                                  "AddFinanceFailDialog_PrimaryButtonText" :
                                                                  "UpdateFinanceFailDialog_PrimaryButtonText"),
-                    DefaultButton = ContentDialogButton.Primary
+                    //DefaultButton = ContentDialogButton.Primary
                 }.ShowAsync();
             }
         }

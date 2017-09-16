@@ -176,7 +176,7 @@
                                   HorizontalContentAlignment="Stretch">
                     <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}"
                           Padding="10"
-                          BorderBrush="{ThemeResource AccentButtonBorderBrush}"
+                          BorderBrush="DimGray"
                           BorderThickness="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -220,7 +220,7 @@
                                   VerticalAlignment="Top"
                                   HorizontalContentAlignment="Stretch">
                     <Grid Background="{ThemeResource SystemControlForegroundListLowBrush}"
-                          BorderBrush="{ThemeResource AccentButtonBorderBrush}"
+                          BorderBrush="DimGray"
                           BorderThickness="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

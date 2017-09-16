@@ -116,7 +116,7 @@ namespace ClassManager.Controls
                 Content = String.Format(ResourceLoader.GetString("DeleteFinanceDialog_Content"), Finance.Event),
                 PrimaryButtonText = ResourceLoader.GetString("DeleteFinanceDialog_PrimaryButtonText"),
                 SecondaryButtonText = ResourceLoader.GetString("DeleteFinanceDialog_SecondaryButtonText"),
-                DefaultButton = ContentDialogButton.Primary
+                //DefaultButton = ContentDialogButton.Primary
             }.ShowAsync();
 
             if(confirmResult == ContentDialogResult.Primary)
@@ -128,7 +128,7 @@ namespace ClassManager.Controls
                     {
                         Title = ResourceLoader.GetString("DeleteFinanceSuccessDialog_Title"),
                         PrimaryButtonText = ResourceLoader.GetString("DeleteFinanceSuccessDialog_PrimaryButtonText"),
-                        DefaultButton = ContentDialogButton.Primary
+                        //DefaultButton = ContentDialogButton.Primary
                     }.ShowAsync();
 
                     OnSubmitedSuccess?.Invoke(true);    // 调用委托，更新页面
@@ -140,7 +140,7 @@ namespace ClassManager.Controls
                         Title = ResourceLoader.GetString("DeleteFinanceFailDialog_Title"),
                         Content = ResourceLoader.GetString("DeleteFinanceFailDialog_Content"),
                         PrimaryButtonText = ResourceLoader.GetString("DeleteFinanceFailDialog_PrimaryButtonText"),
-                        DefaultButton = ContentDialogButton.Primary
+                        //DefaultButton = ContentDialogButton.Primary
                     }.ShowAsync();
                 }
             }

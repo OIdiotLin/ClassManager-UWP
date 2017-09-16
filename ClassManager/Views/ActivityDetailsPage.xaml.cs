@@ -64,7 +64,7 @@ namespace ClassManager.Views
                 Content = String.Format(ResourceLoader.GetString("DeleteActivityDialog_Content"), vm.ActivityOnDisplay.Name),
                 PrimaryButtonText = ResourceLoader.GetString("DeleteActivityDialog_PrimaryButtonText"),
                 SecondaryButtonText = ResourceLoader.GetString("DeleteActivityDialog_SecondaryButtonText"),
-                DefaultButton = ContentDialogButton.Primary
+                //DefaultButton = ContentDialogButton.Primary
             };
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
@@ -77,7 +77,7 @@ namespace ClassManager.Views
                     Content = deleteResult ? null : ResourceLoader.GetString("DeleteActivityFailDialog_Content"),
                     PrimaryButtonText = ResourceLoader.GetString(
                         deleteResult ? "DeleteActivitySuccessDialog_PrimaryButtonText" : "DeleteActivityFailDialog_PrimaryButtonText"),
-                    DefaultButton = ContentDialogButton.Primary
+                    //DefaultButton = ContentDialogButton.Primary
                 }.ShowAsync();
                 return true;
             }
