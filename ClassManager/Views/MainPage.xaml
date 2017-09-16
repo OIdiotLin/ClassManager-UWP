@@ -59,7 +59,7 @@
                                                      Glyph="&#xE7C1;"
                                                      TargetPageType="views:ActivityPage"/>
                     <controls:HamburgerMenuGlyphItem x:Uid="HamburgerMenuItem_Finance"
-                                                     Glyph="&#xEF40;"
+                                                     Glyph="&#xE719;"
                                                      TargetPageType="views:FinancePage"/>
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>
